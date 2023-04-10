@@ -18,7 +18,6 @@
 <script src="<?= base_url("assets/js/slick/slick.js") ?>"></script>
 <script src="<?= base_url("assets/js/header-slick.js") ?>"></script>
 <script src="<?= base_url("assets/js/chart/apex-chart/apex-chart.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/apex-chart/stock-prices.js") ?>"></script>
 <script src="<?= base_url("assets/js/chart/apex-chart/moment.min.js") ?>"></script>
 <script src="<?= base_url("assets/js/dashboard/dashboard_4.js") ?>"></script>
 <script src="<?= base_url("assets/js/height-equal.js") ?>"></script>
@@ -26,31 +25,11 @@
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="<?= base_url("assets/js/script.js") ?>"></script>
-<script src="<?= base_url("assets/js/theme-customizer/customizer.js") ?>"></script>
+<!-- <script src="<?= base_url("assets/js/theme-customizer/customizer.js") ?>"></script> -->
 <!-- Plugin used-->
 <script src="<?= base_url("assets/js/datatable/datatables/jquery.dataTables.min.js") ?>"></script>
 <script src="<?= base_url("assets/js/datatable/datatables/datatable.custom.js") ?>"></script>
 <script src="<?= base_url("assets/js/dashboard/default.js") ?>"></script>
-
-<script src="<?= base_url("assets/js/chart/echart/esl.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/config.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/facePrint.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/testHelper.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/custom-transition-texture.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/data/symbols.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/custom.js") ?>"></script>
-
-<script src="<?= base_url("assets/js/sidebar-menu.js") ?>"></script>
-<script src="<?= base_url("assets/js/slick/slick.min.js") ?>"></script>
-<script src="<?= base_url("assets/js/slick/slick.js") ?>"></script>
-<script src="<?= base_url("assets/js/header-slick.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/esl.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/config.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/facePrint.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/testHelper.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/pie-chart/custom-transition-texture.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/data/symbols.js") ?>"></script>
-<script src="<?= base_url("assets/js/chart/echart/custom.js") ?>"></script>
 
 <script>
     // basic bar chart
@@ -238,4 +217,82 @@
     );
 
     jar_number.render();
+
+    var data = generateDayWiseTimeSeries(new Date("22 Apr 2017").getTime(), 1000, {
+        min: 30,
+        max: 90
+    });
+
+    var options1 = {
+        chart: {
+            id: "chart2",
+            type: "area",
+            height: 230,
+            foreColor: "#ccc",
+            toolbar: {
+                autoSelected: "pan",
+                show: false
+            }
+        },
+        colors: ["#00BAEC"],
+        stroke: {
+            width: 3
+        },
+        grid: {
+            borderColor: "#555",
+            clipMarkers: false,
+            yaxis: {
+                lines: {
+                    show: false
+                }
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        fill: {
+            gradient: {
+                enabled: true,
+                opacityFrom: 0.55,
+                opacityTo: 0
+            }
+        },
+        markers: {
+            size: 1,
+            colors: ["#000524"],
+            strokeColor: "#00BAEC",
+            strokeWidth: 3
+        },
+        series: [{
+            data: data
+        }],
+        tooltip: {
+            theme: "dark"
+        },
+        xaxis: {
+            type: "datetime"
+        },
+        yaxis: {
+            min: 0,
+            tickAmount: 4
+        }
+    };
+
+    var chart1 = new ApexCharts(document.querySelector("#laser-od-chart"), options1);
+    chart1.render();
+
+    function generateDayWiseTimeSeries(baseval, count, yrange) {
+        var i = 0;
+        var series = [];
+        while (i < count) {
+            var x = baseval;
+            var y =
+                Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+            series.push([x, y]);
+            baseval += 86400000;
+            i++;
+        }
+        return series;
+    }
 </script>
