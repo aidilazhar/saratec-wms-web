@@ -284,7 +284,98 @@
                     <span>New wire - Completed on 24 April 2023</span>
                 </div>
                 <div class="card-body">
-                    <div class="apache-cotainer" id="area-echart"></div>
+                    <div id="laser-od-chart"></div>
+                    <div class="table table-responsive currency-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Date and Time</td>
+                                    <td>Job Date</td>
+                                    <td>Operator</td>
+                                    <td>Drum Number</td>
+                                    <td>Type of Job</td>
+                                    <td>Well Name</td>
+                                    <td>Cut off(ft)</td>
+                                    <td>Max Pull(lbs)</td>
+                                    <td>Number of Jar</td>
+                                    <td>Special Note</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php
+                                for ($i = 0; $i < 5; $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?= $i + 1 ?></td>
+                                        <td><?= date('d M Y, h:i A') ?></td>
+                                        <td><?= date('d M Y') ?></td>
+                                        <td><?= $this->operators[rand(0, count($this->operators) - 1)]['name'] ?></td>
+                                        <td><?= $this->drums[rand(0, count($this->drums) - 1)]['name'] ?></td>
+                                        <td><?= $this->job_types[rand(0, count($this->job_types) - 1)]['name'] ?></td>
+                                        <td>Tua-14L</td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td>-</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Latest Data Entries</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table table-responsive currency-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Date and Time</td>
+                                    <td>Job Date</td>
+                                    <td>Operator</td>
+                                    <td>Drum Number</td>
+                                    <td>Type of Job</td>
+                                    <td>Well Name</td>
+                                    <td>Cut off(ft)</td>
+                                    <td>Max Pull(lbs)</td>
+                                    <td>Number of Jar</td>
+                                    <td>Special Note</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php
+                                for ($i = 0; $i < 10; $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?= $i + 1 ?></td>
+                                        <td><?= date('d M Y, h:i A') ?></td>
+                                        <td><?= date('d M Y') ?></td>
+                                        <td><?= $this->operators[rand(0, count($this->operators) - 1)]['name'] ?></td>
+                                        <td><?= $this->drums[rand(0, count($this->drums) - 1)]['name'] ?></td>
+                                        <td><?= $this->job_types[rand(0, count($this->job_types) - 1)]['name'] ?></td>
+                                        <td>Tua-14L</td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td><?= rand(1, 10) ?></td>
+                                        <td>-</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
