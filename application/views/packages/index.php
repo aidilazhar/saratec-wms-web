@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
-                    <!-- <a href="<?= base_url("packages/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Role</button></a> -->
+                    <a href="<?= base_url("packages/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Package</button></a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
