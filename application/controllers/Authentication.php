@@ -8,13 +8,10 @@ class Authentication extends CI_Controller
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
-        //$this->load->helper('hashids');
-
-        $this->load->model('Authentication_model');
     }
 
     public function login()
     {
-        $this->load->view('Authentication/login.php');
+        $this->load->view('authentication/login.php');
     }
 }
