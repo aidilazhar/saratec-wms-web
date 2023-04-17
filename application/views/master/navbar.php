@@ -124,7 +124,7 @@
                             </svg>
                             <svg class="fill-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-others") ?>"></use>
-                            </svg><span>Settings</span>
+                            </svg><span>Admin</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?= base_url("packages") ?>">Packages</a></li>
