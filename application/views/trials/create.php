@@ -63,10 +63,23 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Wrap Test</label>
-                                    <input value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Wrap Test">
+                                    <select class="form-control">
+                                        <option>N/A</option>
+                                        <option>Pass</option>
+                                        <option>Acceptable Crack</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Pull Test</label>
+                                    <select class="form-control">
+                                        <option>N/A</option>
+                                        <option>0 - 999 lbs</option>
+                                        <option>1,000 - 1,999 lbs</option>
+                                        <option>2,000 - 2,999 lbs</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Max Depth</label>
                                     <input value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Pull Test">
                                 </div>
                                 <div class="mb-3 col-md-6">
