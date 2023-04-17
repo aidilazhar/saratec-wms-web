@@ -236,6 +236,61 @@
         },
         colors: ["#00BAEC"],
         stroke: {
+            width: 0
+        },
+        grid: {
+            borderColor: "#555",
+            clipMarkers: false,
+            yaxis: {
+                lines: {
+                    show: false
+                }
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        fill: {
+            gradient: {
+                enabled: false,
+                opacityFrom: 0,
+                opacityTo: 0
+            }
+        },
+        markers: {
+            size: 1,
+            colors: ["#000524"],
+            strokeColor: "#00BAEC",
+            strokeWidth: 3
+        },
+        series: [{
+            data: data
+        }],
+        tooltip: {
+            theme: "dark"
+        },
+        xaxis: {
+            type: "datetime"
+        },
+        yaxis: {
+            min: 0,
+            tickAmount: 4
+        }
+    };
+
+    var options2 = {
+        chart: {
+            id: "chart2",
+            type: "area",
+            height: 230,
+            foreColor: "#ccc",
+            toolbar: {
+                autoSelected: "pan",
+                show: false
+            }
+        },
+        colors: ["#00BAEC"],
+        stroke: {
             width: 3
         },
         grid: {
@@ -278,8 +333,13 @@
         }
     };
 
-    var chart1 = new ApexCharts(document.querySelector("#laser-od-chart"), options1);
+
+    var chart1 = new ApexCharts(document.querySelector("#on-site-od-chart"), options1);
     chart1.render();
+
+    var chart2 = new ApexCharts(document.querySelector("#laser-od-chart"), options2);
+    chart2.render();
+
 
     function generateDayWiseTimeSeries(baseval, count, yrange) {
         var i = 0;
@@ -295,4 +355,97 @@
         }
         return series;
     }
+
+    // recent chart
+    var recentoptions = {
+        series: [75],
+        chart: {
+            height: 270,
+            type: 'radialBar',
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            radialBar: {
+                startAngle: 0,
+                endAngle: 360,
+                hollow: {
+                    margin: 0,
+                    size: '70%',
+                    background: '#fff',
+                    image: undefined,
+                    imageOffsetX: 0,
+                    imageOffsetY: 0,
+                    position: 'front',
+                    dropShadow: {
+                        enabled: true,
+                        top: 3,
+                        left: 0,
+                        blur: 4,
+                        opacity: 0.24
+                    }
+                },
+                track: {
+                    background: '#fff',
+                    strokeWidth: '67%',
+                    margin: 0, // margin is in pixels
+                    dropShadow: {
+                        enabled: true,
+                        top: -3,
+                        left: 0,
+                        blur: 4,
+                        opacity: 0.35
+                    }
+                },
+
+                dataLabels: {
+                    show: true,
+                    name: {
+                        offsetY: -30,
+                        show: true,
+                        color: '#888',
+                        fontSize: '15px'
+                    },
+                    value: {
+                        formatter: function(val) {
+                            return val + '%';
+                        },
+                        color: '#111',
+                        fontSize: '50px',
+                        show: true,
+                    },
+                }
+            }
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'dark',
+                type: 'horizontal',
+                shadeIntensity: 0.5,
+                gradientToColors: ['#ABE5A1'],
+                inverseColors: true,
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 100]
+            }
+        },
+        stroke: {
+            lineCap: 'round'
+        },
+        labels: ['Wire Balance (ft)'],
+    };
+
+    var recentchart = new ApexCharts(
+        document.querySelector("#radial-1"),
+        recentoptions
+    );
+    recentchart.render();
+
+    var recentchart2 = new ApexCharts(
+        document.querySelector("#radial-2"),
+        recentoptions
+    );
+    recentchart2.render();
 </script>

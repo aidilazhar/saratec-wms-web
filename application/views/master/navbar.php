@@ -27,7 +27,7 @@
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-home") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-home") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-home") ?>"></use>
                             </svg>
                             <span>Dashboard</span>
                         </a>
@@ -39,67 +39,67 @@
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-task") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-task") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-task") ?>"></use>
                             </svg>
                             <span>Wires</span>
                         </a>
                     </li>
-                    <li class="sidebar-list">
+                    <!-- <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("packages") ?>">
                             <svg class="stroke-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-board") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-board") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-board") ?>"></use>
                             </svg>
                             <span>Packages</span>
                         </a>
-                    </li>
-                    <li class="sidebar-list">
+                    </li> -->
+                    <!-- <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("job-types") ?>">
                             <svg class="stroke-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-knowledgebase") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-knowledgebase") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-knowledgebase") ?>"></use>
                             </svg>
                             <span>Job Types</span>
                         </a>
-                    </li>
-                    <li class="sidebar-list">
+                    </li> -->
+                    <!-- <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("drums") ?>">
                             <svg class="stroke-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-support-tickets") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-support-tickets") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-support-tickets") ?>"></use>
                             </svg>
                             <span>Drums</span>
                         </a>
-                    </li>
-                    <li class="sidebar-list">
+                    </li> -->
+                    <!-- <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("clients") ?>">
                             <svg class="stroke-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-social") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-social") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-social") ?>"></use>
                             </svg>
                             <span>Clients</span>
                         </a>
-                    </li>
-                    <li class="sidebar-list">
+                    </li> -->
+                    <!-- <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("users") ?>">
                             <svg class="stroke-icon">
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-user") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-user") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-user") ?>"></use>
                             </svg>
                             <span>Users</span>
                         </a>
@@ -111,10 +111,29 @@
                                 <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-blog") ?>"></use>
                             </svg>
                             <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#file-blog") ?>"></use>
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-blog") ?>"></use>
                             </svg>
                             <span>Roles</span>
                         </a>
+                    </li> -->
+                    <li class="sidebar-list">
+                        <i class="fa fa-thumb-tack"></i>
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <svg class="stroke-icon">
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-others") ?>"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-others") ?>"></use>
+                            </svg><span>Settings</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="<?= base_url("packages") ?>">Packages</a></li>
+                            <li><a href="<?= base_url("job-types") ?>">Job Types</a></li>
+                            <li><a href="<?= base_url("drums") ?>">Drums</a></li>
+                            <li><a href="<?= base_url("clients") ?>">Clients</a></li>
+                            <li><a href="<?= base_url("users") ?>">Users</a></li>
+                            <li><a href="<?= base_url("roles") ?>">Roles</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

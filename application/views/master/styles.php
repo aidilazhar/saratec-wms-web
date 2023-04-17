@@ -22,3 +22,43 @@
 <link id="color" rel="stylesheet" href="<?= base_url("assets/css/color-1.css") ?>" media="screen">
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/responsive.css") ?>">
+<style>
+    .campaign-list {
+        column-count: 4;
+        column-gap: 20px;
+        margin-bottom: 15px;
+    }
+
+    .campaign-list li {
+        position: relative;
+    }
+
+    .campaign-list li+li::before {
+        position: absolute;
+        content: "";
+        width: 1px;
+        height: 20px;
+        background-color: var(--chart-text-color);
+        top: 50%;
+        transform: translateY(-50%);
+        left: -10px;
+        opacity: 0.6;
+    }
+
+    [dir=rtl] .campaign-list li+li::before {
+        left: unset;
+        right: -10px;
+    }
+
+    .campaign-list .campaign-box {
+        background: linear-gradient(180deg, var(--course-light-btn) 0%, rgba(242, 243, 247, 0) 100%);
+        border-radius: 5px;
+        padding: 6px 10px;
+    }
+
+    .campaign-list .campaign-box {
+        background: linear-gradient(180deg, var(--course-light-btn) 0%, rgba(242, 243, 247, 0) 100%);
+        border-radius: 5px;
+        padding: 6px 10px;
+    }
+</style>
