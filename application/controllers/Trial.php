@@ -5,7 +5,7 @@ class Trial extends CI_Controller
 {
     function __construct()
     {
-        $this->title = "Trials ";
+        $this->title = "Wire Usage Record";
         $this->trials = [
             [
                 'id' => 1,
@@ -350,7 +350,7 @@ class Trial extends CI_Controller
         $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
         $page = [
             'title' => $this->title . "(" . $wire['name'] . ")",
-            'subtitle' => "Trials Listing",
+            'subtitle' => "Wire Usage Record Listing",
             'view' => 'trials/index',
             'back' => null,
         ];
@@ -366,7 +366,7 @@ class Trial extends CI_Controller
         $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
         $page = [
             'title' => $this->title . "(" . $wire['name'] . ")",
-            'subtitle' => "Create Wire",
+            'subtitle' => "Create Wire Usage Record",
             'view' => 'trials/create',
             'back' => base_url("wires/" . encode($wire_id) . "/trials"),
         ];
@@ -393,7 +393,7 @@ class Trial extends CI_Controller
         $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
         $page = [
             'title' => $this->title . "(" . $wire['name'] . ")",
-            'subtitle' => "Edit Wire",
+            'subtitle' => "Edit Wire Usage Record",
             'view' => 'trials/edit',
             'back' => base_url("wires/" . encode($wire_id) . "/trials"),
         ];
