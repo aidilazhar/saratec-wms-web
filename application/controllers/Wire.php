@@ -10,6 +10,12 @@ class Wire extends CI_Controller
             [
                 "id" => 1,
                 "name" => "Wire 1",
+                'package_id' => 3,
+                'drum_id' => 2,
+                'size' => 2.5,
+                'brand' => 'SUPA75',
+                'grade' => 'A',
+                'manufacturer' => "ABC Sdn. Bhd.",
                 'trial' => [
                     'date' => date('Y-m-d'),
                     'operator_id' => 2,
@@ -422,6 +428,8 @@ class Wire extends CI_Controller
 
     public function create()
     {
+        $drums = $this->drums;
+        $packages = $this->packages;
         $page = [
             'title' => $this->title,
             'subtitle' => "Create Wire",
@@ -429,7 +437,7 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $this->load->view('master/index', compact('page'));
+        $this->load->view('master/index', compact('page', 'drums', 'packages'));
     }
 
     public function store()
@@ -440,6 +448,8 @@ class Wire extends CI_Controller
     public function edit($user_id)
     {
         $user_id = decode($user_id);
+        $drums = $this->drums;
+        $packages = $this->packages;
         $page = [
             'title' => $this->title,
             'subtitle' => "Edit Wire",
@@ -449,7 +459,7 @@ class Wire extends CI_Controller
 
         $wire = $this->wires[array_search($user_id, array_column($this->wires, 'id'))];
 
-        $this->load->view('master/index', compact('page', 'wire'));
+        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages'));
     }
 
     public function update()
@@ -460,6 +470,8 @@ class Wire extends CI_Controller
     public function show($wire_id)
     {
         $wire_id = decode($wire_id);
+        $drums = $this->drums;
+        $packages = $this->packages;
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire Details",
@@ -469,7 +481,7 @@ class Wire extends CI_Controller
 
         $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
 
-        $this->load->view('master/index', compact('page', 'wire'));
+        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages'));
     }
 
     public function delete()
