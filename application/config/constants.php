@@ -86,3 +86,4 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 defined('SYSTEM_NAME')        or define('SYSTEM_NAME', 'SARATEC'); // no errors
+defined('LOCALHOST_PROJECT_NAME')        or define('LOCALHOST_PROJECT_NAME', 'saratec-wms-web'); // no errors
