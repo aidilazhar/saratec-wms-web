@@ -35,8 +35,8 @@
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
                                                 <li class="view"><a href="<?= base_url('users/' . encode($user['id'])) ?>"><i class="icon-eye"></i></a></li>
-                                                <li class="edit"> <a href="<?= base_url('users/edit/' . encode($user['id'])) ?>"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a href="<?= base_url('users/delete/' . encode($user['id'])) ?>"><i class="icon-trash"></i></a></li>
+                                                <li class="edit"> <a href="<?= base_url('users/edit/' . encode($user['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
+                                                <li class="delete"><a href="<?= base_url('users/delete/' . encode($user['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>

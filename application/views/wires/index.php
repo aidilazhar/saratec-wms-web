@@ -29,8 +29,8 @@
                                                 <li class="dashboard"><a href="<?= base_url('wires/' . encode($wire['id'])) . '/trials' ?>"><i class="icon-agenda"></i></a></li>
                                                 <li class="warning"><a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>"><i class="icon-bar-chart"></i></a></li>
                                                 <li class="view"><a href="<?= base_url('wires/' . encode($wire['id'])) ?>"><i class="icon-eye"></i></a></li>
-                                                <li class="edit"> <a href="<?= base_url('wires/edit/' . encode($wire['id'])) ?>"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a href="<?= base_url('wires/delete/' . encode($wire['id'])) ?>"><i class="icon-trash"></i></a></li>
+                                                <li class="edit"> <a href="<?= base_url('wires/edit/' . encode($wire['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
+                                                <li class="delete"><a href="<?= base_url('wires/delete/' . encode($wire['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>
