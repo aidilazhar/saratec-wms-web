@@ -64,3 +64,4 @@ include('web/clients.php');
 include('web/job-types.php');
 include('web/users.php');
 include('web/roles.php');
+include('web/api.php');
