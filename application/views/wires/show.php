@@ -9,6 +9,14 @@
                         </div>
                         <div class="card-body row">
                             <div class="mb-3 col-md-6">
+                                <label class="col-form-label pt-0" for="exampleInputEmail1">Company</label>
+                                <input disabled value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
+                                <input disabled value="<?= $client['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                            </div>
+                            <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
                                 <input disabled value="<?= $wire['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                             </div>

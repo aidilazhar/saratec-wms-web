@@ -9,6 +9,8 @@ class Wire extends CI_Controller
         $this->wires = [
             [
                 "id" => 1,
+                'company_id' => '2',
+                'client_id' => '5',
                 "name" => "Wire 1",
                 'package_id' => 3,
                 'drum_id' => 2,
@@ -303,18 +305,52 @@ class Wire extends CI_Controller
             ],
         ];
 
-        $this->clients = [
+        $this->companies = [
             [
                 "id" => 1,
                 "name" => "VERTIGO",
+                'clients' => [
+                    [
+                        'id' => 1,
+                        'name' => 'Petronas',
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => 'Oil',
+                    ],
+                    [
+                        'id' => 3,
+                        'name' => 'Gas',
+                    ],
+                ]
             ],
             [
                 "id" => 2,
                 "name" => "EMEPMI",
+                'clients' => [
+                    [
+                        'id' => 4,
+                        'name' => 'Petron',
+                    ],
+                    [
+                        'id' => 5,
+                        'name' => 'Caltex',
+                    ],
+                ]
             ],
             [
                 "id" => 3,
                 "name" => "SHELL",
+                'clients' => [
+                    [
+                        'id' => 4,
+                        'name' => 'FIVE',
+                    ],
+                    [
+                        'id' => 5,
+                        'name' => 'Caltex',
+                    ],
+                ]
             ],
         ];
 
@@ -430,6 +466,8 @@ class Wire extends CI_Controller
     {
         $drums = $this->drums;
         $packages = $this->packages;
+        $companies = $this->companies;
+        $clients = $this->companies[0]['clients'];
         $page = [
             'title' => $this->title,
             'subtitle' => "Create Wire",
@@ -437,7 +475,7 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $this->load->view('master/index', compact('page', 'drums', 'packages'));
+        $this->load->view('master/index', compact('page', 'drums', 'packages', 'companies', 'clients'));
     }
 
     public function store()
@@ -458,8 +496,11 @@ class Wire extends CI_Controller
         ];
 
         $wire = $this->wires[array_search($user_id, array_column($this->wires, 'id'))];
+        $companies = $this->companies;
+        $company = $this->companies[array_search($wire['company_id'], array_column($this->companies, 'id'))];
+        $clients = $company['clients'];
 
-        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages'));
+        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages', 'companies', 'clients'));
     }
 
     public function update()
@@ -479,9 +520,14 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
 
-        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages'));
+        $companies = $this->companies;
+        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+        $company = $this->companies[array_search($wire['company_id'], array_column($this->companies, 'id'))];
+        $clients = $companies[array_search($wire['company_id'], array_column($this->companies, 'id'))]['clients'];
+        $client = $clients[array_search($wire['client_id'], array_column($clients, 'id'))];
+
+        $this->load->view('master/index', compact('page', 'wire', 'drums', 'packages', 'company', 'client'));
     }
 
     public function delete()

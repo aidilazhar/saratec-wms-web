@@ -400,11 +400,12 @@ class Home extends CI_Controller
         $this->title = "Dashboard";
         parent::__construct();
 
-        $this->load->model('Authentication_model');
+        $this->load->helper('hashids');
     }
 
     public function index()
     {
+        $wires = $this->wires;
         $page = [
             'title' => $this->title,
             'subtitle' => null,
@@ -412,7 +413,7 @@ class Home extends CI_Controller
             'back' => null,
         ];
 
-        $this->load->view('master/index', compact('page'));
+        $this->load->view('master/index', compact('page', 'wires'));
     }
 
     public function blank()

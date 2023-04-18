@@ -449,3 +449,29 @@
     );
     recentchart2.render();
 </script>
+<script>
+    $(document).on('change', '.company-input', function() {
+        let data = {
+            company_id: $(this).val(),
+        }
+
+        $.ajax({
+            type: 'post',
+            url: window.location.origin + '/<?= LOCALHOST_PROJECT_NAME ?>' + '/api/get-clients',
+            cache: false,
+            data: data,
+            dataType: 'json',
+            success: function(data) {
+                let options = '';
+                $('.clients-input').html('');
+                for (let i in data) {
+                    let row = data[i];
+                    $('.clients-input').append('<option value="' + row.id + '">' + row.name + '</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                return 'Error';
+            }
+        });
+    });
+</script>

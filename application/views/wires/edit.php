@@ -10,6 +10,36 @@
                             </div>
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Company</label>
+                                    <select class="form-select digits company-input" id="exampleFormControlSelect9">
+                                        <?php
+                                        foreach ($companies as $company) {
+                                            if ($company['id'] == $wire['company_id']) {
+                                        ?>
+                                                <option selected value="<?= $company['id'] ?>"><?= $company['name'] ?></option>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <option value="<?= $company['id'] ?>"><?= $company['name'] ?></option>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
+                                    <select class="form-select clients-input" id="exampleFormControlSelect9">
+                                        <?php
+                                        foreach ($clients as $client) {
+                                        ?>
+                                            <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
                                     <input value="<?= $wire['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                                 </div>
