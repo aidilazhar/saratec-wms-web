@@ -1,0 +1,20 @@
+on:
+   push:
+        branches:
+            - master
+name: # Deploy website on push
+jobs:
+    web-deploy:
+        name: a Deploy
+        runs-on: ubuntu-latest
+        steps:
+        - name: a8 Get latest code
+          uses: actions/checkout@v2
+          
+        - name: B Sync files
+          uses: SamKirkland/FTP-Deploy-Action@4.3.0
+          with:
+                server: ftp.saratec.com.my
+                username: ${{ secrets.FTP_USERNAME }}
+                password: ${{ secrets.FTP_PASSWORD }}
+
