@@ -15,6 +15,6 @@ jobs:
           uses: SamKirkland/FTP-Deploy-Action@4.3.0
           with:
                 server: ftp.saratec.com.my
-                username: ${{ secrets.FTP_USERNAME }}
-                password: ${{ secrets.FTP_PASSWORD }}
+                username: ${{ secrets.FTP_SERVER_USERNAME }}
+                password: ${{ secrets.FTP_SERVER_PASSWORD }}
 
