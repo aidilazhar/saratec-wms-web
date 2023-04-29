@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 
 class Wire extends CI_Controller
 {
@@ -541,12 +543,94 @@ class Wire extends CI_Controller
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire Details",
-            'view' => 'wires/dashboard',
+            'view' => 'wires/dashboards/index',
             'back' => base_url("wires"),
         ];
 
         $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
 
         $this->load->view('master/index', compact('page', 'wire'));
+    }
+
+    public function materialCertifications($wire_id)
+    {
+        $base64 = base64_encode(file_get_contents("https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"));
+        $wire_id = decode($wire_id);
+        $page = [
+            'title' => $this->title,
+            'subtitle' => "Wire's Material Certifications",
+            'view' => 'wires/dashboards/material-certifications',
+            'back' => base_url("wires"),
+        ];
+
+        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+
+        $this->load->view('master/index', compact('page', 'wire', 'base64'));
+    }
+
+    public function otherReports($wire_id)
+    {
+        $reports = [
+            [
+                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +1 days')),
+                'description' => "Sample From 5/12/2022",
+                'category' => 'Lab Test',
+                'issued_by' => "DAS",
+            ],
+            [
+                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +2 days')),
+                'description' => "Wire Twist",
+                'category' => 'Initial Problem Report',
+                'issued_by' => "Deleum",
+            ],
+            [
+                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +3 days')),
+                'description' => "Lose Helix",
+                'category' => 'INVESTIGATION REPORT',
+                'issued_by' => "SARATEC",
+            ],
+        ];
+        $wire_id = decode($wire_id);
+        $page = [
+            'title' => $this->title,
+            'subtitle' => "Wire's Inspection and Other Reports",
+            'view' => 'wires/dashboards/other-reports',
+            'back' => base_url("wires"),
+        ];
+
+        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+
+        $this->load->view('master/index', compact('page', 'wire', 'reports'));
+    }
+
+    public function thirdPartyData($wire_id)
+    {
+        $wire_id = decode($wire_id);
+        $page = [
+            'title' => $this->title,
+            'subtitle' => "Wire's 3rd Party Data",
+            'view' => 'wires/dashboards/third-party-data',
+            'back' => base_url("wires"),
+        ];
+
+        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+
+        $this->load->view('master/index', compact('page', 'wire'));
+    }
+
+    public function techSheet($wire_id)
+    {
+        $base64 = base64_encode(file_get_contents("https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"));
+        $wire_id = decode($wire_id);
+        $page = [
+            'title' => $this->title,
+            'subtitle' => "Wire's Tech Sheets",
+            'view' => 'wires/dashboards/tech-sheets',
+            'back' => base_url("wires"),
+        ];
+
+        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+
+        $this->load->view('master/index', compact('page', 'wire', 'base64'));
     }
 }
