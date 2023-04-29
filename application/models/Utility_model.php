@@ -1,5 +1,5 @@
 <?php
-class Authentication_model extends CI_Model
+class Utility_model extends CI_Model
 {
     public function __construct()
     {
@@ -16,5 +16,10 @@ class Authentication_model extends CI_Model
         ];
 
         return $titles[$page];
+    }
+
+    public function apiReturn($status = 0, $message = "Data failed to fetch", $data = [])
+    {
+        echo json_encode(compact('status', 'message', 'data'));
     }
 }

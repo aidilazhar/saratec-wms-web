@@ -1,5 +1,5 @@
 <?php
-class Authentication_model extends CI_Model
+class User_model extends CI_Model
 {
     public function __construct()
     {
@@ -9,12 +9,11 @@ class Authentication_model extends CI_Model
         $this->load->helper('form');
     }
 
-    public function authenticate($email)
+    public function getUser($user_id)
     {
         $this->db->select('*');
         $this->db->from('users');
-        $this->db->where('email', $email);
-
+        $this->db->where('id', $user_id);
         $result = $this->db->get()->result_array();
 
         if (empty($result)) {
