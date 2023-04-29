@@ -1443,6 +1443,10 @@ svg.f-light {
     color: var(--theme-secondary) !important;
 }
 
+.txt-white {
+    color: #fff !important;
+}
+
 /*======= Font-color css end  ======= */
 /*======= Button-color css starts  ======= */
 @keyframes push {
