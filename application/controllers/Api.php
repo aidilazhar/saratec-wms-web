@@ -444,21 +444,109 @@ class Api extends CI_Controller
         $this->load->helper('hashids');
 
         $this->load->model('Authentication_model');
+        $this->load->model('Setting_model');
+        $this->load->model('Wire_model');
+        $this->load->model('Utility_model');
+        $this->load->model('User_model');
     }
 
     public function getClients()
     {
-        $company_id = $this->input->post('company_id');
-        $companies = $this->companies;
+        try {
+            $company_id = $this->input->post('company_id');
+            $companies = $this->companies;
 
-        foreach ($companies as $company) {
-            if ($company_id == $company['id']) {
-                echo json_encode($company['clients']);
-                return;
+            foreach ($companies as $company) {
+                if ($company_id == $company['id']) {
+                    echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', $company['clients']);
+                    return;
+                }
             }
+        } catch (Exception $e) {
+            echo $this->Utility_model->apiReturn(0, $e->getMessage());
+            return;
+        }
+    }
+
+    public function options()
+    {
+        try {
+            $settings = $this->input->post('options');
+            $settings = explode(', ', $settings);
+
+            $options = [];
+            foreach ($settings as $setting) {
+                $result = $this->Setting_model->options($setting);
+                $options[$setting] = $result;
+            }
+
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', $options);
+            return;
+        } catch (Exception $e) {
+            echo $this->Utility_model->apiReturn(0, $e->getMessage());
+            return;
+        }
+    }
+
+    public function login()
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $user = $this->Authentication_model->authenticate($email);
+
+        if ($user != null) {
+            $matched = password_verify($password, $user['password']);
+        } else {
+            $matched = false;
         }
 
-        echo json_encode([]);
-        return;
+        if (!empty($user) && $matched == true) {
+            $data = [
+                'hash_id' => encode($user['id']),
+            ];
+
+            echo  json_encode([
+                'status' => 1,
+                'message' => 'User login successfully',
+                'data' => $data
+            ]);
+        } else {
+            $data = [
+                'hash_id' => null
+            ];
+
+            echo json_encode([
+                'status' => 0,
+                'message' => 'Login failed',
+                'data' => $data
+            ]);
+        }
+    }
+
+    public function profile($hash_id)
+    {
+        $user_id = decode($hash_id);
+        $user = $this->User_model->getUser($user_id);
+
+        if (!empty($user)) {
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user'));
+        } else {
+            echo $this->Utility_model->apiReturn();
+        }
+    }
+
+    public function supervisors()
+    {
+        $supervisors = $this->Setting_model->supervisors();
+
+        echo $this->Utility_model->apiReturn(1, "Data fetch successfully", compact('supervisors'));
+    }
+
+    public function wireStore()
+    {
+        $data = $this->input->post();
+        $results = $this->Wire_model->store($data);
+
+        echo json_encode($results);
     }
 }
