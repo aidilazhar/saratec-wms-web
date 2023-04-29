@@ -87,3 +87,8 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('SYSTEM_NAME')        or define('SYSTEM_NAME', 'SARATEC'); // no errors
 defined('LOCALHOST_PROJECT_NAME')        or define('LOCALHOST_PROJECT_NAME', 'saratec-wms-web'); // no errors
+defined('ROLE_SUPERADMIN')        or define('ROLE_SUPERADMIN', 1); // no errors
+defined('ROLE_ADMIN')        or define('ROLE_ADMIN', 2); // no errors
+defined('ROLE_CLIENT')        or define('ROLE_CLIENT', 3); // no errors
+defined('ROLE_SUPERVISOR')        or define('ROLE_SUPERVISOR', 4); // no errors
+defined('ROLE_OPERATOR')        or define('ROLE_OPERATOR', 5); // no errors
