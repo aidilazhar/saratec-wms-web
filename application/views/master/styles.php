@@ -62,3 +62,11 @@
         padding: 6px 10px;
     }
 </style>
+<!-- Core Stylesheet -->
+<link rel="stylesheet" href="./pdfannotate.css">
+
+<!-- Custom Styles -->
+<link rel="stylesheet" href="./styles.css">
+
+<!-- Core JavaScript -->
+<script src="./pdfannotate.js"></script>

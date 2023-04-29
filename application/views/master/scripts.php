@@ -337,8 +337,17 @@
     var chart1 = new ApexCharts(document.querySelector("#on-site-od-chart"), options1);
     chart1.render();
 
-    var chart2 = new ApexCharts(document.querySelector("#laser-od-chart"), options2);
+    var chart2 = new ApexCharts(document.querySelector("#tension-chart"), options2);
     chart2.render();
+
+    var chart3 = new ApexCharts(document.querySelector("#depth-chart"), options2);
+    chart3.render();
+
+    var chart4 = new ApexCharts(document.querySelector("#line-speed-chart"), options2);
+    chart4.render();
+
+    var chart5 = new ApexCharts(document.querySelector("#laser-od-chart"), options2);
+    chart5.render();
 
 
     function generateDayWiseTimeSeries(baseval, count, yrange) {
@@ -475,3 +484,26 @@
         });
     });
 </script>
+<!-- jQuery -->
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
+
+<!-- pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js"></script>
+<script src="<?= base_url("assets/js/pdf/easyPDF.js") ?>"></script>
+<?php
+if (isset($base64)) {
+?>
+    <script>
+        myPDF = "<?= $base64 ?>";
+
+        easyPDF(myPDF, "PDF Name")
+    </script>
+<?php
+}
+?>
