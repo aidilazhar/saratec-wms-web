@@ -7,6 +7,10 @@ $route['wires/edit/(:any)'] = 'Wire/edit/$1';
 $route['wires/update/(:any)'] = 'Wire/update/$1';
 $route['wires/delete/(:any)'] = 'Wire/delete/$1';
 $route['wires/dashboard/(:any)'] = 'Wire/dashboard/$1';
+$route['wires/dashboard/material-certifications/(:any)'] = 'Wire/materialCertifications/$1';
+$route['wires/dashboard/other-reports/(:any)'] = 'Wire/otherReports/$1';
+$route['wires/dashboard/third-party-data/(:any)'] = 'Wire/thirdPartyData/$1';
+$route['wires/dashboard/tech-sheets/(:any)'] = 'Wire/techSheet/$1';
 
 $route['wires/(:any)/trials'] = 'Trial/index/$1';
 $route['wires/(:any)/trials/create'] = 'Trial/create/$1';
