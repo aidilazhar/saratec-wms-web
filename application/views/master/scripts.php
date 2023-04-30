@@ -28,10 +28,11 @@
 <!-- <script src="<?= base_url("assets/js/theme-customizer/customizer.js") ?>"></script> -->
 <!-- Plugin used-->
 <script src="<?= base_url("assets/js/datatable/datatables/jquery.dataTables.min.js") ?>"></script>
-<script src="<?= base_url("assets/js/datatable/datatables/datatable.custom.js") ?>"></script>
 <script src="<?= base_url("assets/js/dashboard/default.js") ?>"></script>
 
 <script>
+    $('.data-table').DataTable();
+
     // basic bar chart
     var job_type_options = {
         chart: {

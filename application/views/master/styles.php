@@ -18,10 +18,10 @@
 <!-- Bootstrap css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/vendors/bootstrap.css") ?>">
 <!-- App css-->
-<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/style.css") ?>">
 <link id="color" rel="stylesheet" href="<?= base_url("assets/css/color-1.css") ?>" media="screen">
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/responsive.css") ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/style.css") ?>">
 <style>
     .campaign-list {
         column-count: 4;
@@ -62,11 +62,3 @@
         padding: 6px 10px;
     }
 </style>
-<!-- Core Stylesheet -->
-<link rel="stylesheet" href="./pdfannotate.css">
-
-<!-- Custom Styles -->
-<link rel="stylesheet" href="./styles.css">
-
-<!-- Core JavaScript -->
-<script src="./pdfannotate.js"></script>

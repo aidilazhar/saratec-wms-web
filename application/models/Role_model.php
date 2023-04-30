@@ -1,30 +1,23 @@
 <?php
-class User_model extends CI_Model
+class Role_model extends CI_Model
 {
     public function __construct()
     {
-        $this->table = 'user';
+        $this->table = 'role';
         parent::__construct();
 
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $this->with = [
-            [
-                'name' => 'roles',
-                'column' => 'id'
-            ]
-        ];
+        $this->with = [];
 
-        $this->appends = [
-            'role_name'
-        ];
+        $this->appends = [];
     }
 
     public function list()
     {
         $this->db->select('*');
-        $this->db->from('users');
+        $this->db->from('roles');
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();
 
@@ -36,18 +29,18 @@ class User_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_role_func(array('Role_model', 'append_' . $append), $result);
             }
         }
 
         return $results;
     }
 
-    public function details($user_id)
+    public function details($role_id)
     {
         $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('id', $user_id);
+        $this->db->from('roles');
+        $this->db->where('id', $role_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
@@ -58,7 +51,7 @@ class User_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_role_func(array('Role_model', 'append_' . $append), $result);
             }
         }
 
@@ -72,7 +65,7 @@ class User_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
-        $this->db->insert('users', $data);
+        $this->db->insert('roles', $data);
         return $this->db->insert_id();
     }
 
@@ -80,7 +73,7 @@ class User_model extends CI_Model
     {
         $data['updated_at'] = date('Y-m-d H:i:s');
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('roles', $data);
         return $id;
     }
 
@@ -92,7 +85,7 @@ class User_model extends CI_Model
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('roles', $data);
         return $id;
     }
 

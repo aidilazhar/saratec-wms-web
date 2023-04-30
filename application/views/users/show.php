@@ -7,7 +7,7 @@
                         <div class="card-header">
                             <h5><?= $page['subtitle'] ?></h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body row">
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
                                 <input disabled value="<?= $user['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
@@ -22,7 +22,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Role</label>
-                                <input disabled value="<?= $user['role']['name'] ?>" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input disabled value="<?= $user['roles']['name'] ?>" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Email address</label>

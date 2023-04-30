@@ -35,4 +35,22 @@ class Utility_model extends CI_Model
             }
         }
     }
+
+    public function relation($table_name, $column, $value, $relation = 'one')
+    {
+        $this->db->select('*');
+        $this->db->from($table_name);
+        $this->db->where($column, $value);
+        $result = $this->db->get()->result_array();
+
+        if ($relation == 'one') {
+            if (!empty($result)) {
+                return $result[0];
+            } else {
+                return [];
+            }
+        } else {
+            return $result;
+        }
+    }
 }

@@ -527,7 +527,7 @@ class Api extends CI_Controller
     public function profile($hash_id)
     {
         $user_id = decode($hash_id);
-        $user = $this->User_model->getUser($user_id);
+        $user = $this->User_model->details($user_id);
 
         if (!empty($user)) {
             echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user'));

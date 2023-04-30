@@ -6,80 +6,15 @@ class User extends CI_Controller
     function __construct()
     {
         $this->title = "Users";
-        $this->users = [
-            [
-                "id" => 1,
-                "name" => "Ali",
-                "username" => "ali",
-                "contact" => rand(100000000, 999999999),
-                'role_id' => 2,
-                "role" => [
-                    "id" => 2,
-                    "name" => "Supervisor",
-                ],
-                "status" => "Active",
-                'email' => 'ali@yopmail.com'
-            ],
-            [
-                "id" => 2,
-                "name" => "Barry",
-                "username" => "barry",
-                "contact" => rand(100000000, 999999999),
-                'role_id' => 3,
-                "role" => [
-                    "id" => 3,
-                    "name" => "Operator",
-                ],
-                "status" => "Active",
-                'email' => 'barry@yopmail.com'
-            ],
-            [
-                "id" => 3,
-                "name" => "Charlie",
-                "username" => "charlie",
-                "contact" => rand(100000000, 999999999),
-                'role_id' => 3,
-                "role" => [
-                    "id" => 3,
-                    "name" => "Operator",
-                ],
-                "status" => "Active",
-                'email' => 'charlie@yopmail.com'
-            ],
-            [
-                "id" => 4,
-                "name" => "David",
-                "username" => "david",
-                "contact" => rand(100000000, 999999999),
-                'role_id' => 2,
-                "role" => [
-                    "id" => 2,
-                    "name" => "Supervisor",
-                ],
-                "status" => "Inactive",
-                'email' => 'david@yopmail.com'
-            ],
-            [
-                "id" => 5,
-                "name" => "Eve",
-                "username" => "eve",
-                "contact" => rand(100000000, 999999999),
-                'role_id' => 1,
-                "role" => [
-                    "id" => 1,
-                    "name" => "Admin",
-                ],
-                "status" => "Inactive",
-                'email' => 'eve@yopmail.com'
-            ],
-        ];
 
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->helper('hashids');
 
-        $this->load->model('Authentication_model');
+        $this->load->model('User_model');
+        $this->load->model('Utility_model');
+        $this->load->model('Role_model');
     }
 
     public function index()
@@ -91,7 +26,7 @@ class User extends CI_Controller
             'back' => null,
         ];
 
-        $users = $this->users;
+        $users = $this->User_model->list();
 
         $this->load->view('master/index', compact('page', 'users'));
     }
@@ -105,27 +40,19 @@ class User extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $roles = [
-            [
-                "id" => 1,
-                "name" => "Admin",
-            ],
-            [
-                "id" => 2,
-                "name" => "Supervisor",
-            ],
-            [
-                "id" => 3,
-                "name" => "Operator",
-            ],
-        ];
-
+        $roles = $this->Role_model->list();
 
         $this->load->view('master/index', compact('page', 'roles'));
     }
 
     public function store()
     {
+        $data = $this->input->post();
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $results = $this->User_model->store($data);
+        print_r($results);
+        return;
+
         redirect(base_url("users"));
     }
 
@@ -139,28 +66,27 @@ class User extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $roles = [
-            [
-                "id" => 1,
-                "name" => "Admin",
-            ],
-            [
-                "id" => 2,
-                "name" => "Supervisor",
-            ],
-            [
-                "id" => 3,
-                "name" => "Operator",
-            ],
-        ];
+        $roles = $this->Role_model->list();
 
-        $user = $this->users[array_search($user_id, array_column($this->users, 'id'))];
+        $user = $this->User_model->details($user_id);
 
         $this->load->view('master/index', compact('page', 'user', 'roles'));
     }
 
-    public function update()
+    public function update($user_id)
     {
+        $user_id = decode($user_id);
+        $data = $this->input->post();
+
+        if ($data['password'] == $data['repassword']) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+            unset($data['repassword']);
+        } else {
+            unset($data['password']);
+            unset($data['repassword']);
+        }
+        $results = $this->User_model->update($user_id, $data);
+
         redirect(base_url("users"));
     }
 
@@ -174,28 +100,15 @@ class User extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $roles = [
-            [
-                "id" => 1,
-                "name" => "Admin",
-            ],
-            [
-                "id" => 2,
-                "name" => "Supervisor",
-            ],
-            [
-                "id" => 3,
-                "name" => "Operator",
-            ],
-        ];
+        $user = $this->User_model->details($user_id);
 
-        $user = $this->users[array_search($user_id, array_column($this->users, 'id'))];
-
-        $this->load->view('master/index', compact('page', 'user', 'roles'));
+        $this->load->view('master/index', compact('page', 'user'));
     }
 
-    public function delete()
+    public function delete($user_id)
     {
+        $user_id = decode($user_id);
+        $this->User_model->delete($user_id);
         redirect(base_url("users"));
     }
 }
