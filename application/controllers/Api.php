@@ -448,6 +448,7 @@ class Api extends CI_Controller
         $this->load->model('Wire_model');
         $this->load->model('Utility_model');
         $this->load->model('User_model');
+        $this->load->model('Smart_monitor_model');
     }
 
     public function getClients()
@@ -545,6 +546,36 @@ class Api extends CI_Controller
     public function wireStore()
     {
         $data = $this->input->post();
+
+        $is_smart_monitor = $data['is_smart_monitor'];
+        unset($data['is_smart_monitor']);
+
+        if ($is_smart_monitor == 1) {
+            $path = 'assets/upload/smart-monitor/' . $data['wire_id'];
+
+            $this->Utility_model->mkdir($path);
+            $config['upload_path']          = $path;
+            $config['allowed_types']        = 'csv';
+            $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
+            $config['max_size']             = 10000000;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('smart_monitor_file')) {
+                $error = array('error' => $this->upload->display_errors());
+                echo $this->Utility_model->apiReturn(0, $error);
+                return;
+            } else {
+                $upload_data = array('upload_data' => $this->upload->data());
+                $smart_monitor_data = [
+                    'name' => $upload_data['upload_data']['file_name'],
+                    'url' => $path . '/' . $upload_data['upload_data']['file_name'] . $upload_data['upload_data']['file_ext'],
+                ];
+
+                $results = $this->Smart_monitor_model->store($smart_monitor_data);
+            }
+        }
+
         $results = $this->Wire_model->store($data);
 
         echo json_encode($results);

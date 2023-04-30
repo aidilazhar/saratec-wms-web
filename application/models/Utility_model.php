@@ -22,4 +22,17 @@ class Utility_model extends CI_Model
     {
         echo json_encode(compact('status', 'message', 'data'));
     }
+
+    function mkdir($directory)
+    {
+        $array = explode("/", $directory);
+
+        $path = '';
+        foreach ($array as $arr) {
+            $path .= $arr . '/';
+            if (!is_dir($path)) {
+                mkdir($path);
+            }
+        }
+    }
 }
