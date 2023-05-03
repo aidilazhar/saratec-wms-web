@@ -26,7 +26,7 @@ if (!function_exists('is_logged_in')) {
     {
         $CI = &get_instance();
         $hash_id = $CI->session->userdata('hash_id');
-        $cookies = check_cookies($hash_id);
+        $cookies = true; //check_cookies($hash_id);
         return isset($hash_id) && $cookies;
     }
 }
