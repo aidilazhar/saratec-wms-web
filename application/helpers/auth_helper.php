@@ -43,11 +43,14 @@ if (!function_exists('add_cookies')) {
     function add_cookies($hash_id)
     {
         $CI = &get_instance();
-        $cookie_name = 'saratec_auth_cookies';
-        $cookie_value = $hash_id; // Set the value of the cookie to the user's ID
-        $cookie_expire = 3600; // Set the cookie to expire in 1 hour (3600 seconds)
+        $cookie = array(
+            'name'   => 'saratec_auth_cookies',
+            'value'  => $hash_id,
+            'expire' => '3600',
+            'domain' => $_SERVER['SERVER_NAME'],
+        );
 
-        set_cookie($cookie_name, $cookie_value, $cookie_expire);
+        set_cookie($cookie);
     }
 }
 
