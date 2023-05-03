@@ -5,12 +5,14 @@ class User extends CI_Controller
 {
     function __construct()
     {
+
         $this->title = "Users";
 
         parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('hashids');
+        if (is_logged_in() == false) {
+            logout();
+            redirect(base_url(LOGIN_URL));
+        }
 
         $this->load->model('User_model');
         $this->load->model('Utility_model');

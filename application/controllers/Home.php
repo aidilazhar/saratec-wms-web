@@ -5,6 +5,8 @@ class Home extends CI_Controller
 {
     function __construct()
     {
+        parent::__construct();
+
         $this->wires = [
             [
                 "id" => 1,
@@ -398,9 +400,10 @@ class Home extends CI_Controller
         ];
 
         $this->title = "Dashboard";
-        parent::__construct();
-
-        $this->load->helper('hashids');
+        if (is_logged_in() == false) {
+            logout();
+            redirect(base_url(LOGIN_URL));
+        }
     }
 
     public function index()

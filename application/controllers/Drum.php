@@ -24,10 +24,12 @@ class Drum extends CI_Controller
                 "name" => "04",
             ],
         ];
+
         parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('hashids');
+        if (is_logged_in() == false) {
+            logout();
+            redirect(base_url(LOGIN_URL));
+        }
 
         $this->load->model('Authentication_model');
     }

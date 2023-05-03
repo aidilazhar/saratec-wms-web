@@ -83,7 +83,7 @@ defined('EXIT_USER_INPUT')     or define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       or define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      or define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-
+defined('LOGIN_URL')        or define('LOGIN_URL', 'login'); // no errors
 
 defined('SYSTEM_NAME')        or define('SYSTEM_NAME', 'SARATEC'); // no errors
 defined('LOCALHOST_PROJECT_NAME')        or define('LOCALHOST_PROJECT_NAME', 'saratec-wms-web'); // no errors

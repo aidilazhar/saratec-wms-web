@@ -17,7 +17,7 @@
         </div>
         <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
             <div class="d-flex h-100">
-                <h6 class="mb-0 f-w-400"><span class="font-primary">Hi, John Doe!</span></h6>
+                <h6 class="mb-0 f-w-400"><span class="font-primary">Hi, <?= auth()->name ?>!</span></h6>
             </div>
         </div>
         <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
@@ -167,25 +167,16 @@
                     </div>
                 </li> -->
                 <li class="profile-nav onhover-dropdown pe-0 py-0">
-                    <div class="media profile-media"><img class="b-r-10" src="https://ui-avatars.com/api/?name=John+Doe&size=35&bold=true" alt="">
-                        <div class=" media-body"><span>John Doe</span>
-                            <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
+                    <div class="media profile-media"><img class="b-r-10" src="https://ui-avatars.com/api/?name=<?= auth()->name ?>&size=35&bold=true" alt="">
+                        <div class=" media-body"><span><?= auth()->username ?></span>
+                            <p class="mb-0 font-roboto"><?= auth()->role_name ?> <i class="middle fa fa-angle-down"></i></p>
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="<?= base_url('login') ?>"><i data-feather="log-out"> </i><span>Logout</span></a></li>
+                        <li><a href="<?= base_url('logout') ?>"><i data-feather="log-out"> </i><span>Logout</span></a></li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <script class="result-template" type="text/x-handlebars-template">
-            <div class="ProfileCard u-cf">                        
-            <div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
-            <div class="ProfileCard-details">
-            <div class="ProfileCard-realName">{{name}}</div>
-            </div>
-            </div>
-          </script>
-        <script class="empty-template" type="text/x-handlebars-template"><div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div></script>
     </div>
 </div>

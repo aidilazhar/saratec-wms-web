@@ -43,24 +43,23 @@
                     <div>
                         <div><a class="logo" href="index.html"><img style="max-width: 150px;" class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage"><img style="max-width: 200px;" class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo_dark.png') ?>" alt="looginpage"></a></div>
                         <div class="login-main">
-                            <form class="theme-form">
+                            <form action="<?= base_url('authenticate') ?>" method="POST">
                                 <h4>Sign in to account</h4>
                                 <p>Enter your email & password to login</p>
                                 <div class="form-group">
                                     <label class="col-form-label">Email Address</label>
-                                    <input class="form-control" type="email" required="" placeholder="Test@gmail.com">
+                                    <input name="email" class="form-control" type="email" required="" placeholder="Test@gmail.com">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Password</label>
                                     <div class="form-input position-relative">
-                                        <input class="form-control" type="password" name="login[password]" required="" placeholder="*********">
+                                        <input name="password" class="form-control" type="password" name="login[password]" required="" placeholder="*********">
                                         <div class="show-hide"><span class="show"> </span></div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <a class="link" href="forget-password.html">Forgot password?</a>
                                     <div class="text-end mt-3">
-                                        <a href="<?= base_url('') ?>"><button type="button" class="btn btn-primary btn-block w-100" type="submit">Sign in</button></a>
+                                        <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
                                     </div>
                                 </div>
                             </form>
