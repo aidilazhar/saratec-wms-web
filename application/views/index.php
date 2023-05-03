@@ -8,7 +8,7 @@
                     <div class="card-header" style="padding: 15px;">
                         <div class="header-top">
                             <h5>CWR-1278</h5>
-                            <a href="<?= base_url('wires/' . encode($wire['id']) . '/trials') ?>"><button class="btn btn-success">View Wire</button></a>
+                            <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>"><button class="btn btn-success">View Wire</button></a>
                         </div>
                     </div>
                     <div class="card-body">
