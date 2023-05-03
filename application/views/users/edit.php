@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Role</label>
-                                    <select class="form-select digits" id="exampleFormControlSelect9">
+                                    <select name="role_id" class="form-select digits" id="exampleFormControlSelect9">
                                         <?php
                                         foreach ($roles as $role) {
                                             if ($role['id'] == $user['role_id']) {
