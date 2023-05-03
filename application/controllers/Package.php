@@ -6,36 +6,6 @@ class Package extends CI_Controller
     function __construct()
     {
         $this->title = "Packages";
-        $this->packages = [
-            [
-                "id" => 1,
-                "name" => "WSU 1",
-            ],
-            [
-                "id" => 2,
-                "name" => "WSU 2",
-            ],
-            [
-                "id" => 3,
-                "name" => "WSU 3",
-            ],
-            [
-                "id" => 4,
-                "name" => "WSU 4",
-            ],
-            [
-                "id" => 5,
-                "name" => "WSU 5",
-            ],
-            [
-                "id" => 6,
-                "name" => "WSU 6",
-            ],
-            [
-                "id" => 7,
-                "name" => "WSU 7",
-            ],
-        ];
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
@@ -43,6 +13,7 @@ class Package extends CI_Controller
         }
 
         $this->load->model('Authentication_model');
+        $this->load->model('Package_model');
     }
 
     public function index()
@@ -54,7 +25,7 @@ class Package extends CI_Controller
             'back' => null,
         ];
 
-        $packages = $this->packages;
+        $packages = $this->Package_model->list();
 
         $this->load->view('master/index', compact('page', 'packages'));
     }
@@ -68,17 +39,20 @@ class Package extends CI_Controller
             'back' => base_url("packages"),
         ];
 
-        $this->load->view('master/index', compact('page', 'packages'));
+        $this->load->view('master/index', compact('page'));
     }
 
     public function store()
     {
+        $data = $this->input->post();
+        $results = $this->Package_model->store($data);
+
         redirect(base_url("packages"));
     }
 
-    public function edit($user_id)
+    public function edit($package_id)
     {
-        $user_id = decode($user_id);
+        $package_id = decode($package_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Edit Package",
@@ -86,13 +60,17 @@ class Package extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $package = $this->packages[array_search($user_id, array_column($this->packages, 'id'))];
+        $package = $this->Package_model->details($package_id);
 
         $this->load->view('master/index', compact('page', 'package'));
     }
 
-    public function update()
+    public function update($package_id)
     {
+        $package_id = decode($package_id);
+        $data = $this->input->post();
+        $results = $this->Package_model->update($package_id, $data);
+
         redirect(base_url("packages"));
     }
 
@@ -106,13 +84,15 @@ class Package extends CI_Controller
             'back' => base_url("packages"),
         ];
 
-        $package = $this->packages[array_search($package_id, array_column($this->packages, 'id'))];
+        $package = $this->Package_model->details($package_id);
 
         $this->load->view('master/index', compact('page', 'package'));
     }
 
-    public function delete()
+    public function delete($package_id)
     {
+        $package_id = decode($package_id);
+        $this->Package_model->delete($package_id);
         redirect(base_url("packages"));
     }
 }
