@@ -52,8 +52,6 @@ class User extends CI_Controller
         $data = $this->input->post();
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $results = $this->User_model->store($data);
-        print_r($results);
-        return;
 
         redirect(base_url("users"));
     }
