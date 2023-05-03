@@ -5,82 +5,15 @@ class JobType extends CI_Controller
 {
     function __construct()
     {
-
         $this->title = "Job Types";
-        $this->job_types = [
-            [
-                "id" => 1,
-                "name" => "SpoolingRespooling",
-            ],
-            [
-                "id" => 2,
-                "name" => "TccTagTdGRingTDrift",
-            ],
-            [
-                "id" => 3,
-                "name" => "WireScratcherRun",
-            ],
-            [
-                "id" => 4,
-                "name" => "FlapperProbeCheck",
-            ],
-            [
-                "id" => 5,
-                "name" => "SetRetInsValveString",
-            ],
-            [
-                "id" => 6,
-                "name" => "SetRetTbgStopPackOff",
-            ],
-            [
-                "id" => 7,
-                "name" => "SetRetCatcherSub",
-            ],
-            [
-                "id" => 8,
-                "name" => "SetRetGLVODummy",
-            ],
-            [
-                "id" => 9,
-                "name" => "SetRetPlugProng",
-            ],
-            [
-                "id" => 10,
-                "name" => "OpenCloseSSD",
-            ],
-            [
-                "id" => 11,
-                "name" => "GaugesLoggingGRCCL",
-            ],
-            [
-                "id" => 12,
-                "name" => "PerfTbgPunchCut",
-            ],
-            [
-                "id" => 13,
-                "name" => "BroachRepairTubing",
-            ],
-            [
-                "id" => 14,
-                "name" => "FishingOperation",
-            ],
-            [
-                "id" => 15,
-                "name" => "OtherRelatedJobs",
-            ],
-            [
-                "id" => 16,
-                "name" => "WireRectification",
-            ],
-        ];
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
             redirect(base_url(LOGIN_URL));
         }
 
-
         $this->load->model('Authentication_model');
+        $this->load->model('JobType_model');
     }
 
     public function index()
@@ -92,7 +25,7 @@ class JobType extends CI_Controller
             'back' => null,
         ];
 
-        $job_types = $this->job_types;
+        $job_types = $this->JobType_model->list();
 
         $this->load->view('master/index', compact('page', 'job_types'));
     }
@@ -106,19 +39,20 @@ class JobType extends CI_Controller
             'back' => base_url("job-types"),
         ];
 
-        $job_types = $this->job_types;
-
-        $this->load->view('master/index', compact('page', 'job_types'));
+        $this->load->view('master/index', compact('page'));
     }
 
     public function store()
     {
+        $data = $this->input->post();
+        $results = $this->JobType_model->store($data);
+
         redirect(base_url("job-types"));
     }
 
-    public function edit($user_id)
+    public function edit($job_type_id)
     {
-        $user_id = decode($user_id);
+        $job_type_id = decode($job_type_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Edit Job Type",
@@ -126,19 +60,23 @@ class JobType extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $job_type = $this->job_types[array_search($user_id, array_column($this->job_types, 'id'))];
+        $job_type = $this->JobType_model->details($job_type_id);
 
         $this->load->view('master/index', compact('page', 'job_type'));
     }
 
-    public function update()
+    public function update($job_type_id)
     {
+        $job_type_id = decode($job_type_id);
+        $data = $this->input->post();
+        $results = $this->JobType_model->update($job_type_id, $data);
+
         redirect(base_url("job-types"));
     }
 
-    public function show($package_id)
+    public function show($job_type_id)
     {
-        $package_id = decode($package_id);
+        $job_type_id = decode($job_type_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Job Type Details",
@@ -146,13 +84,15 @@ class JobType extends CI_Controller
             'back' => base_url("job-types"),
         ];
 
-        $job_type = $this->job_types[array_search($package_id, array_column($this->job_types, 'id'))];
+        $job_type = $this->JobType_model->details($job_type_id);
 
         $this->load->view('master/index', compact('page', 'job_type'));
     }
 
-    public function delete()
+    public function delete($job_type_id)
     {
+        $job_type_id = decode($job_type_id);
+        $this->JobType_model->delete($job_type_id);
         redirect(base_url("job-types"));
     }
 }

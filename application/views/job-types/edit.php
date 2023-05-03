@@ -11,7 +11,7 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
-                                    <input value="<?= $job_type['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <input name="name" value="<?= $job_type['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                                 </div>
                             </div>
                             <div class="card-footer text-end">
