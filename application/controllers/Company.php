@@ -6,54 +6,6 @@ class Company extends CI_Controller
     function __construct()
     {
         $this->title = "Company";
-        $this->companies = [
-            [
-                "id" => 1,
-                "name" => "VERTIGO",
-                'clients' => [
-                    [
-                        'id' => 1,
-                        'name' => 'Petronas',
-                    ],
-                    [
-                        'id' => 2,
-                        'name' => 'Oil',
-                    ],
-                    [
-                        'id' => 3,
-                        'name' => 'Gas',
-                    ],
-                ]
-            ],
-            [
-                "id" => 2,
-                "name" => "EMEPMI",
-                'clients' => [
-                    [
-                        'id' => 4,
-                        'name' => 'Petron',
-                    ],
-                    [
-                        'id' => 5,
-                        'name' => 'Caltex',
-                    ],
-                ]
-            ],
-            [
-                "id" => 3,
-                "name" => "SHELL",
-                'clients' => [
-                    [
-                        'id' => 4,
-                        'name' => 'FIVE',
-                    ],
-                    [
-                        'id' => 5,
-                        'name' => 'Caltex',
-                    ],
-                ]
-            ],
-        ];
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
@@ -61,6 +13,8 @@ class Company extends CI_Controller
         }
 
         $this->load->model('Authentication_model');
+        $this->load->model('Utility_model');
+        $this->load->model('Company_model');
     }
 
     public function index()
@@ -72,7 +26,7 @@ class Company extends CI_Controller
             'back' => null,
         ];
 
-        $companies = $this->companies;
+        $companies = $this->Company_model->list();
 
         $this->load->view('master/index', compact('page', 'companies'));
     }
@@ -91,6 +45,8 @@ class Company extends CI_Controller
 
     public function store()
     {
+        $data = $this->input->post();
+        $results = $this->Company_model->store($data);
         redirect(base_url("companies"));
     }
 
@@ -104,13 +60,16 @@ class Company extends CI_Controller
             'back' => base_url("companies"),
         ];
 
-        $company = $this->companies[array_search($company_id, array_column($this->companies, 'id'))];
+        $company = $this->Company_model->details($company_id);
 
         $this->load->view('master/index', compact('page', 'company'));
     }
 
-    public function update()
+    public function update($company_id)
     {
+        $company_id = decode($company_id);
+        $data = $this->input->post();
+        $results = $this->Company_model->update($company_id, $data);
         redirect(base_url("companies"));
     }
 
@@ -124,13 +83,15 @@ class Company extends CI_Controller
             'back' => base_url("companies"),
         ];
 
-        $company = $this->companies[array_search($company_id, array_column($this->companies, 'id'))];
+        $company = $this->Company_model->details($company_id);
 
         $this->load->view('master/index', compact('page', 'company'));
     }
 
-    public function delete()
+    public function delete($company_id)
     {
+        $company_id = decode($company_id);
+        $this->Company_model->delete($company_id);
         redirect(base_url("companies"));
     }
 }

@@ -1,9 +1,9 @@
 <?php
-class User_model extends CI_Model
+class Company_model extends CI_Model
 {
     public function __construct()
     {
-        $this->table = 'user';
+        $this->table = 'company';
         parent::__construct();
 
         $this->load->helper('url');
@@ -11,57 +11,58 @@ class User_model extends CI_Model
 
         $this->with = [
             [
-                'name' => 'roles',
-                'column' => 'id'
+                'name' => 'clients',
+                'column' => 'company_id',
+                'relation' => 'many'
+            ],
+            [
+                'name' => 'users',
+                'column' => 'company_id',
+                'relation' => 'many'
             ]
         ];
 
-        $this->appends = [
-            'role_name'
-        ];
+        $this->appends = [];
     }
 
-    public function list($company_id = null)
+    public function list()
     {
         $this->db->select('*');
-        $this->db->from('users');
+        $this->db->from('companies');
         $this->db->where('is_deleted', 0);
-        if (!is_null($company_id)) {
-            $this->db->where('company_id', $company_id);
-        }
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
             foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
+                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['id'], $with['relation']);
             }
         }
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_package_func(array('Company_model', 'append_' . $append), $result);
             }
         }
 
         return $results;
     }
 
-    public function details($user_id)
+    public function details($package_id)
     {
         $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('id', $user_id);
+        $this->db->from('companies');
+        $this->db->where('id', $package_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
             foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
+                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['id'], $with['relation']);
             }
         }
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_package_func(array('Company_model', 'append_' . $append), $result);
             }
         }
 
@@ -75,7 +76,7 @@ class User_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
-        $this->db->insert('users', $data);
+        $this->db->insert('companies', $data);
         return $this->db->insert_id();
     }
 
@@ -83,7 +84,7 @@ class User_model extends CI_Model
     {
         $data['updated_at'] = date('Y-m-d H:i:s');
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('companies', $data);
         return $id;
     }
 
@@ -95,7 +96,7 @@ class User_model extends CI_Model
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('companies', $data);
         return $id;
     }
 

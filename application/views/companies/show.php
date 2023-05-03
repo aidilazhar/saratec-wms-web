@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
-                                <input disabled value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                <input name="name" disabled value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                             </div>
                         </div>
                         <div class="card-footer text-end">

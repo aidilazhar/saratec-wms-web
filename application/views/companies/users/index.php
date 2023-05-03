@@ -9,14 +9,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="display" id="data-source-1" style="width:100%">
+                        <table class="data-table" id="data-source-1" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Contact</th>
                                     <th>Role</th>
-                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -28,10 +27,7 @@
                                         <td><?= $key + 1 ?></td>
                                         <td><?= $user['name'] ?></td>
                                         <td><?= $user['contact'] ?></td>
-                                        <td><?= $user['role']['name'] ?></td>
-                                        <td>
-                                            <span class="badge rounded-pill badge-success"><?= $user['status'] ?></span>
-                                        </td>
+                                        <td><?= $user['roles']['name'] ?></td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
                                                 <li class="view"><a href="<?= base_url('companies/' . encode($company_id) . '/users/' . encode($user['id'])) ?>"><i class="icon-eye"></i></a></li>

@@ -6,62 +6,14 @@ class Client extends CI_Controller
     function __construct()
     {
         $this->title = "Clients";
-        $this->companies = [
-            [
-                "id" => 1,
-                "name" => "VERTIGO",
-                'clients' => [
-                    [
-                        'id' => 1,
-                        'name' => 'Petronas',
-                    ],
-                    [
-                        'id' => 2,
-                        'name' => 'Oil',
-                    ],
-                    [
-                        'id' => 3,
-                        'name' => 'Gas',
-                    ],
-                ]
-            ],
-            [
-                "id" => 2,
-                "name" => "EMEPMI",
-                'clients' => [
-                    [
-                        'id' => 4,
-                        'name' => 'Petron',
-                    ],
-                    [
-                        'id' => 5,
-                        'name' => 'Caltex',
-                    ],
-                ]
-            ],
-            [
-                "id" => 3,
-                "name" => "SHELL",
-                'clients' => [
-                    [
-                        'id' => 4,
-                        'name' => 'FIVE',
-                    ],
-                    [
-                        'id' => 5,
-                        'name' => 'Caltex',
-                    ],
-                ]
-            ],
-        ];
-
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
             redirect(base_url(LOGIN_URL));
         }
 
-        $this->load->model('Authentication_model');
+        $this->load->model('Client_model');
+        $this->load->model('Utility_model');
     }
 
     public function index($company_id)
@@ -74,9 +26,7 @@ class Client extends CI_Controller
             'back' => base_url("companies"),
         ];
 
-        $company_key = array_search($company_id, array_column($this->companies, 'id'));
-
-        $clients = $this->companies[$company_key]['clients'];
+        $clients = $this->Client_model->list($company_id);
 
         $this->load->view('master/index', compact('page', 'company_id', 'clients'));
     }
@@ -98,9 +48,9 @@ class Client extends CI_Controller
     {
         $company_id = decode($company_id);
 
-        $company_key = array_search($company_id, array_column($this->companies, 'id'));
-
-        $clients = $this->companies[$company_key]['clients'];
+        $data = $this->input->post();
+        $data['company_id'] = $company_id;
+        $results = $this->Client_model->store($data);
 
         redirect(base_url('companies/' . encode($company_id) . '/clients'));
     }
@@ -115,17 +65,17 @@ class Client extends CI_Controller
             'view' => 'companies/clients/edit',
             'back' => base_url("companies/" . encode($company_id) . '/clients'),
         ];
-
-        $company_key = array_search($company_id, array_column($this->companies, 'id'));
-        $clients = $this->companies[$company_key]['clients'];
-
-        $client = $this->companies[$company_key]['clients'][array_search($client_id, array_column($clients, 'id'))];
+        $client = $this->Client_model->details($client_id);
 
         $this->load->view('master/index', compact('page', 'company_id', 'client'));
     }
 
-    public function update($company_id, $user_id)
+    public function update($company_id, $client_id)
     {
+        $company_id = decode($company_id);
+        $client_id = decode($client_id);
+        $data = $this->input->post();
+        $results = $this->Client_model->update($client_id, $data);
         redirect(base_url('companies/' . encode($company_id) . '/clients'));
     }
 
@@ -139,10 +89,7 @@ class Client extends CI_Controller
             'view' => 'companies/clients/show',
             'back' => base_url("companies/" . encode($company_id) . '/clients'),
         ];
-        $company_key = array_search($company_id, array_column($this->companies, 'id'));
-        $clients = $this->companies[$company_key]['clients'];
-
-        $client = $this->companies[$company_key]['clients'][array_search($client_id, array_column($clients, 'id'))];
+        $client = $this->Client_model->details($client_id);
 
         $this->load->view('master/index', compact('page', 'company_id', 'client'));
     }
@@ -151,6 +98,8 @@ class Client extends CI_Controller
     {
         $company_id = decode($company_id);
         $client_id = decode($client_id);
+        $this->Client_model->delete($client_id);
+
         redirect(base_url('companies/' . encode($company_id) . '/clients'));
     }
 }

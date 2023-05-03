@@ -11,12 +11,12 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
-                                    <input value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <input name="name" value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <a href="<?= base_url("companies") ?>"><button class="btn btn-secondary">Cancel</button></a>
-                                <a href="<?= base_url("companies") ?>"><button class="btn btn-primary">Submit</button></a>
+                                <a href="<?= base_url("companies") ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>
+                                <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </form>

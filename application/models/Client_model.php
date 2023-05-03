@@ -1,30 +1,23 @@
 <?php
-class User_model extends CI_Model
+class Client_model extends CI_Model
 {
     public function __construct()
     {
-        $this->table = 'user';
+        $this->table = 'client';
         parent::__construct();
 
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $this->with = [
-            [
-                'name' => 'roles',
-                'column' => 'id'
-            ]
-        ];
+        $this->with = [];
 
-        $this->appends = [
-            'role_name'
-        ];
+        $this->appends = [];
     }
 
     public function list($company_id = null)
     {
         $this->db->select('*');
-        $this->db->from('users');
+        $this->db->from('clients');
         $this->db->where('is_deleted', 0);
         if (!is_null($company_id)) {
             $this->db->where('company_id', $company_id);
@@ -39,18 +32,18 @@ class User_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_package_func(array('Client_model', 'append_' . $append), $result);
             }
         }
 
         return $results;
     }
 
-    public function details($user_id)
+    public function details($package_id)
     {
         $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('id', $user_id);
+        $this->db->from('clients');
+        $this->db->where('id', $package_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
@@ -61,7 +54,7 @@ class User_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->appends as $append) {
-                $results[$key][$append] = call_user_func(array('User_model', 'append_' . $append), $result);
+                $results[$key][$append] = call_package_func(array('Client_model', 'append_' . $append), $result);
             }
         }
 
@@ -75,7 +68,7 @@ class User_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
-        $this->db->insert('users', $data);
+        $this->db->insert('clients', $data);
         return $this->db->insert_id();
     }
 
@@ -83,7 +76,7 @@ class User_model extends CI_Model
     {
         $data['updated_at'] = date('Y-m-d H:i:s');
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('clients', $data);
         return $id;
     }
 
@@ -95,7 +88,7 @@ class User_model extends CI_Model
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('users', $data);
+        $this->db->update('clients', $data);
         return $id;
     }
 

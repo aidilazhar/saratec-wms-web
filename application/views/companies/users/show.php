@@ -22,7 +22,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Role</label>
-                                <input disabled value="<?= $user['role']['name'] ?>" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input disabled value="<?= $user['roles']['name'] ?>" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Email address</label>

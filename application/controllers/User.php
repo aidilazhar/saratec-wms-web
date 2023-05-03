@@ -5,9 +5,7 @@ class User extends CI_Controller
 {
     function __construct()
     {
-
         $this->title = "Users";
-
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
