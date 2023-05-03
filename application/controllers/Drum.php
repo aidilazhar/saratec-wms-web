@@ -6,25 +6,6 @@ class Drum extends CI_Controller
     function __construct()
     {
         $this->title = "Drum";
-        $this->drums = [
-            [
-                "id" => 1,
-                "name" => "01",
-            ],
-            [
-                "id" => 2,
-                "name" => "02",
-            ],
-            [
-                "id" => 3,
-                "name" => "03",
-            ],
-            [
-                "id" => 4,
-                "name" => "04",
-            ],
-        ];
-
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
@@ -32,6 +13,7 @@ class Drum extends CI_Controller
         }
 
         $this->load->model('Authentication_model');
+        $this->load->model('Drum_model');
     }
 
     public function index()
@@ -43,7 +25,7 @@ class Drum extends CI_Controller
             'back' => null,
         ];
 
-        $drums = $this->drums;
+        $drums = $this->Drum_model->list();
 
         $this->load->view('master/index', compact('page', 'drums'));
     }
@@ -57,19 +39,20 @@ class Drum extends CI_Controller
             'back' => base_url("drums"),
         ];
 
-        $drums = $this->drums;
-
-        $this->load->view('master/index', compact('page', 'drums'));
+        $this->load->view('master/index', compact('page'));
     }
 
     public function store()
     {
+        $data = $this->input->post();
+        $results = $this->Drum_model->store($data);
+
         redirect(base_url("drums"));
     }
 
-    public function edit($user_id)
+    public function edit($drum_id)
     {
-        $user_id = decode($user_id);
+        $drum_id = decode($drum_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Edit Drum",
@@ -77,19 +60,22 @@ class Drum extends CI_Controller
             'back' => base_url("users"),
         ];
 
-        $drum = $this->drums[array_search($user_id, array_column($this->drums, 'id'))];
+        $drum = $this->Drum_model->details($drum_id);
 
         $this->load->view('master/index', compact('page', 'drum'));
     }
 
-    public function update()
+    public function update($drum_id)
     {
+        $drum_id = decode($drum_id);
+        $data = $this->input->post();
+        $results = $this->Drum_model->update($drum_id, $data);
         redirect(base_url("drums"));
     }
 
-    public function show($package_id)
+    public function show($drum_id)
     {
-        $package_id = decode($package_id);
+        $drum_id = decode($drum_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Drum Details",
@@ -97,13 +83,15 @@ class Drum extends CI_Controller
             'back' => base_url("drums"),
         ];
 
-        $drum = $this->drums[array_search($package_id, array_column($this->drums, 'id'))];
+        $drum = $this->Drum_model->details($drum_id);
 
         $this->load->view('master/index', compact('page', 'drum'));
     }
 
-    public function delete()
+    public function delete($drum_id)
     {
+        $drum_id = decode($drum_id);
+        $this->Drum_model->delete($drum_id);
         redirect(base_url("drums"));
     }
 }
