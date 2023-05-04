@@ -19,20 +19,18 @@ class Api extends CI_Controller
         $this->load->model('Utility_model');
         $this->load->model('User_model');
         $this->load->model('Smart_monitor_model');
+        $this->load->model('Company_model');
+        $this->load->model('Client_model');
     }
 
     public function getClients()
     {
         try {
             $company_id = $this->input->post('company_id');
-            $companies = $this->companies;
+            $clients = $this->Client_model->list($company_id);
 
-            foreach ($companies as $company) {
-                if ($company_id == $company['id']) {
-                    echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', $company['clients']);
-                    return;
-                }
-            }
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', $clients);
+            return;
         } catch (Exception $e) {
             echo $this->Utility_model->apiReturn(0, $e->getMessage());
             return;
