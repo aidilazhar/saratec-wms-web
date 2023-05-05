@@ -22,39 +22,11 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Package</label>
-                                <select disabled class="form-select digits" id="exampleFormControlSelect9">
-                                    <?php
-                                    foreach ($packages as $package) {
-                                        if ($package['id'] == $wire['package_id']) {
-                                    ?>
-                                            <option selected value="<?= $package['id'] ?>"><?= $package['name'] ?></option>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <option value="<?= $package['id'] ?>"><?= $package['name'] ?></option>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                                <input disabled value="<?= $package['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Drum</label>
-                                <select disabled class="form-select digits" id="exampleFormControlSelect9">
-                                    <?php
-                                    foreach ($drums as $drum) {
-                                        if ($drum['id'] == $wire['drum_id']) {
-                                    ?>
-                                            <option selected value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <option value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                                <input disabled value="<?= $drum['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Size</label>
@@ -71,6 +43,30 @@
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0" for="exampleInputEmail1">Manufacturer</label>
                                 <input disabled value="<?= $wire['manufacturer'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter manufacturer">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="col-form-label pt-0" for="exampleInputEmail1">Material Certifications</label>
+                                <?php
+                                if ($wire['material_certifications'] != null || $wire['material_certifications']  != '') {
+                                ?>
+                                    <a target="_blank" href=" <?= asset_url($wire['material_certifications']) ?>">
+                                        <p class="mb-0"><?= explode("/", $wire['material_certifications'])[count(explode("/", $wire['material_certifications'])) - 1] ?></p>
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="col-form-label pt-0" for="exampleInputEmail1">Tech Sheet</label>
+                                <?php
+                                if ($wire['tech_sheet'] != null || $wire['tech_sheet']  != '') {
+                                ?>
+                                    <a target="_blank" href="<?= asset_url($wire['tech_sheet']) ?>">
+                                        <p class="mb-0"><?= explode("/", $wire['tech_sheet'])[count(explode("/", $wire['tech_sheet'])) - 1] ?></p>
+                                    </a>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

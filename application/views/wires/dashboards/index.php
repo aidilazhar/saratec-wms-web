@@ -28,13 +28,13 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-around">
                         <div>
-                            <h6 class="mb-0">Wire ID: </h6><span class="f-light">CWR-1278</span>
+                            <h6 class="mb-0">Wire ID: </h6><span class="f-light"><?= $wire['name'] ?></span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Brand</h6><span class="f-light">SUPA75</span>
+                            <h6 class="mb-0">Brand</h6><span class="f-light"><?= $wire['brand'] ?></span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Wire OD</h6><span class="f-light">0.108"</span>
+                            <h6 class="mb-0">Wire OD</h6><span class="f-light"> - </span>
                         </div>
                         <div>
                             <h6 class="mb-0">Length</h6><span class="f-light">25145 FT (New)</span>
@@ -58,7 +58,7 @@
                 <div class="card-body">
                     <div class="course-widget">
                         <div class="course-icon warning">
-                            <h4 class="mb-0">5</h4>
+                            <h4 class="mb-0"><?= count($trials) ?></h4>
                         </div>
                         <div>
                             <h6 class="mb-0">Total number run</h6><span class="f-light">Exclude spooling</span>
@@ -308,47 +308,6 @@
                 </div>
                 <div class="card-body">
                     <div id="laser-od-chart"></div>
-                    <div class="table table-responsive currency-table">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Date and Time</td>
-                                    <td>Job Date</td>
-                                    <td>Operator</td>
-                                    <td>Drum Number</td>
-                                    <td>Type of Job</td>
-                                    <td>Well Name</td>
-                                    <td>Cut off(ft)</td>
-                                    <td>Max Pull(lbs)</td>
-                                    <td>Number of Jar</td>
-                                    <td>Special Note</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php
-                                for ($i = 0; $i < 5; $i++) {
-                                ?>
-                                    <tr>
-                                        <td><?= $i + 1 ?></td>
-                                        <td><?= date('d M Y, h:i A') ?></td>
-                                        <td><?= date('d M Y') ?></td>
-                                        <td><?= $this->operators[rand(0, count($this->operators) - 1)]['name'] ?></td>
-                                        <td><?= $this->drums[rand(0, count($this->drums) - 1)]['name'] ?></td>
-                                        <td><?= $this->job_types[rand(0, count($this->job_types) - 1)]['name'] ?></td>
-                                        <td>Tua-14L</td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td>-</td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
@@ -359,7 +318,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive currency-table">
-                        <table class="table">
+                        <table class="data-table" id="data-source-1" style="width:100%">
                             <thead>
                                 <tr>
                                     <td>#</td>
@@ -376,22 +335,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <?php
-                                for ($i = 0; $i < 10; $i++) {
+                                foreach ($trials as $key => $trial) {
                                 ?>
                                     <tr>
-                                        <td><?= $i + 1 ?></td>
+                                        <td><?= $key + 1 ?></td>
                                         <td><?= date('d M Y, h:i A') ?></td>
                                         <td><?= date('d M Y') ?></td>
-                                        <td><?= $this->operators[rand(0, count($this->operators) - 1)]['name'] ?></td>
-                                        <td><?= $this->drums[rand(0, count($this->drums) - 1)]['name'] ?></td>
-                                        <td><?= $this->job_types[rand(0, count($this->job_types) - 1)]['name'] ?></td>
-                                        <td>Tua-14L</td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td><?= rand(1, 10) ?></td>
-                                        <td>-</td>
+                                        <td><?= $trial['operator_name'] ?></td>
+                                        <td><?= $trial['drum_name'] ?></td>
+                                        <td><?= $trial['job_type_name'] ?></td>
+                                        <td><?= $trial['well_name'] ?></td>
+                                        <td><?= $trial['cut_off'] ?></td>
+                                        <td><?= $trial['max_pull'] ?></td>
+                                        <td><?= $trial['jar_number'] ?></td>
+                                        <td><?= $trial['remarks'] ?></td>
                                     </tr>
                                 <?php
                                 }

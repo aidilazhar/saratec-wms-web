@@ -472,10 +472,12 @@
             data: data,
             dataType: 'json',
             success: function(data) {
+                clients = JSON.parse(data.data)
+
                 let options = '';
                 $('.clients-input').html('');
-                for (let i in data) {
-                    let row = data[i];
+                for (let i in clients) {
+                    let row = clients[i];
                     $('.clients-input').append('<option value="' + row.id + '">' + row.name + '</option>');
                 }
             },
