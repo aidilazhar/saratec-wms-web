@@ -281,7 +281,7 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+        $wire = $this->Wire_model->details($wire_id);
 
         $this->load->view('master/index', compact('page', 'wire', 'base64'));
     }
@@ -347,7 +347,7 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+        $wire = $this->Wire_model->details($wire_id);
 
         $this->load->view('master/index', compact('page', 'wire', 'base64'));
     }
