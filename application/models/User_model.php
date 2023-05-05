@@ -21,14 +21,18 @@ class User_model extends CI_Model
         ];
     }
 
-    public function list($company_id = null)
+    public function list($company_id = [], $role_id = [])
     {
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('is_deleted', 0);
-        if (!is_null($company_id)) {
+        if (!empty($company_id)) {
             $this->db->where('company_id', $company_id);
         }
+        if (!empty($role_id)) {
+            $this->db->where_in('role_id', $role_id);
+        }
+
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
