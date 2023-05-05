@@ -192,4 +192,28 @@ class Trial_model extends CI_Model
             ];
         }
     }
+
+    public function last_entry($wire_id)
+    {
+        $select = '';
+        foreach ($this->appends as $append) {
+            $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+        }
+        $this->db->select('trials.*, ' . $select);
+        $this->db->from('trials as trials');
+        $this->db->where('wire_id', $wire_id);
+        foreach ($this->appends as $key => $append) {
+            $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
+        }
+        $this->db->where('trials.is_deleted', 0);
+        $this->db->order_by('trials.id', 'DESC');
+        $this->db->limit(1);
+        $results = $this->db->get()->result_array();
+
+        if (empty($results)) {
+            return [];
+        } else {
+            return $results[0];
+        }
+    }
 }

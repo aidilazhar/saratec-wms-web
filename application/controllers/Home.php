@@ -404,11 +404,19 @@ class Home extends CI_Controller
             logout();
             redirect(base_url(LOGIN_URL));
         }
+
+        $this->load->model('Wire_model');
+        $this->load->model('Trial_model');
     }
 
     public function index()
     {
-        $wires = $this->wires;
+        $wires = $this->Wire_model->list();
+
+        foreach ($wires as $key => $wire) {
+            $wires[$key]['last_entry'] = $this->Trial_model->last_entry($wire['id']);
+        }
+
         $page = [
             'title' => $this->title,
             'subtitle' => null,

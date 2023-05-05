@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <?php
-        foreach ($wires as $wire) {
+        foreach ($wires as $key => $wire) {
         ?>
             <div class="col-xl-6">
                 <div class="card height-equal">
                     <div class="card-header" style="padding: 15px;">
                         <div class="header-top">
-                            <h5>CWR-1278</h5>
+                            <h5><?= $wire['name'] ?></h5>
                             <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>"><button class="btn btn-success">View Wire</button></a>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                                 <div class="col-xl-12 col-md-6 col-sm-4">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">Brand</span>
-                                            <h6 class="mt-1 mb-0">SUPA75</h6>
+                                            <h6 class="mt-1 mb-0"><?= $wire['brand'] ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="recent-chart text-center">
-                                    <div id="radial-2"></div>
+                                    <div id="radial-<?= $key + 1 ?>"></div>
                                     <h1></h1>
                                 </div>
                                 <div class="balance-profile">
@@ -92,12 +92,12 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style="background-color: white; color: initial;" scope="row"><?= date('d M Y') ?></td>
-                                                <td style="background-color: white; color: initial;">Azman</td>
-                                                <td style="background-color: white; color: initial;">Vest-1</td>
-                                                <td style="background-color: white; color: initial;">D5</td>
-                                                <td style="background-color: white; color: initial;">FlapperProbeCheck</td>
-                                                <td style="background-color: white; color: initial;">A-27L</td>
+                                                <td style="background-color: white; color: initial;" scope="row"><?= date('d M Y', strtotime($wire['last_entry']['issued_at'])) ?></td>
+                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['operator_name'] ?></td>
+                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['package_name'] ?></td>
+                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['drum_name'] ?></td>
+                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['job_type_name'] ?></td>
+                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['well_name'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
