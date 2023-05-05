@@ -21,6 +21,7 @@ class Api extends CI_Controller
         $this->load->model('Smart_monitor_model');
         $this->load->model('Company_model');
         $this->load->model('Client_model');
+        $this->load->model('Trial_model');
     }
 
     public function getClients()
@@ -29,7 +30,7 @@ class Api extends CI_Controller
             $company_id = $this->input->post('company_id');
             $clients = $this->Client_model->list($company_id);
 
-            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', $clients);
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', json_encode($clients));
             return;
         } catch (Exception $e) {
             echo $this->Utility_model->apiReturn(0, $e->getMessage());
@@ -119,7 +120,7 @@ class Api extends CI_Controller
         unset($data['is_smart_monitor']);
 
         if ($is_smart_monitor == 1) {
-            $path = 'assets/upload/smart-monitor/' . $data['wire_id'];
+            $path = 'assets/upload/' . $data['wire_id'] . '/smart_monitors';
 
             $this->Utility_model->mkdir($path);
             $config['upload_path']          = $path;
@@ -144,7 +145,7 @@ class Api extends CI_Controller
             }
         }
 
-        $results = $this->Wire_model->store($data);
+        $results = $this->Trial_model->storeApi($data);
 
         echo json_encode($results);
     }
