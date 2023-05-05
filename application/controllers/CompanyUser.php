@@ -27,7 +27,7 @@ class CompanyUser extends CI_Controller
             'back' => base_url("companies"),
         ];
 
-        $users = $this->User_model->list($company_id);
+        $users = $this->User_model->list([$company_id]);
 
         $this->load->view('master/index', compact('page', 'company_id', 'users'));
     }
