@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-xl-12">
             <div class="row">
                 <div class="col-sm-12">
-                    <form class="theme-form" action="<?= base_url("roles/store") ?>" method="POST">
+                    <form action="<?= base_url("roles/store") ?>" method="POST">
                         <div class="card">
                             <div class="card-header">
                                 <h5><?= $page['subtitle'] ?></h5>
