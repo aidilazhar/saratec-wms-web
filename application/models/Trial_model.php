@@ -63,16 +63,6 @@ class Trial_model extends CI_Model
                 'type' => 'left'
             ],
             [
-                'from_name' => 'trials',
-                'name' => 'users',
-                'as' => 'supervisors',
-                'prefix' => 'supervisor',
-                'self_column' => 'id',
-                'relation_column' => 'supervisor_id',
-                'get' => 'name',
-                'type' => 'left'
-            ],
-            [
                 'from_name' => 'clients',
                 'name' => 'companies',
                 'as' => 'companies',

@@ -5,17 +5,21 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
-                    <a href="<?= base_url("wires/" . encode($wire_id) . "/trials/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Trial</button></a>
+                    <a href="<?= base_url("wires/" . encode($wire_id) . "/trials/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Record</button></a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="display" id="data-source-1" style="width:100%">
+                        <table class="data-table" id="data-source-1" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Operator</th>
-                                    <th>Supervisor</th>
+                                    <th>Job Type</th>
+                                    <th>Wrap Test</th>
+                                    <th>Pull Test</th>
+                                    <th>X(inches)</th>
+                                    <th>Y(inches)</th>
+                                    <th>Duration(s)</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -25,9 +29,13 @@
                                 ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
-                                        <td><?= $trial['date'] ?>, <?= $trial['time'] ?></td>
-                                        <td><?= $trial['operator']['name'] ?></td>
-                                        <td><?= $trial['supervisor']['name'] ?></td>
+                                        <td><?= date('d M Y h:i A', strtotime($trial['issued_at'])) ?></td>
+                                        <td><?= $trial['job_type_name'] ?></td>
+                                        <td><?= $trial['wrap_test'] ?></td>
+                                        <td><?= $trial['pull_test'] ?></td>
+                                        <td><?= $trial['x_inch'] ?></td>
+                                        <td><?= $trial['y_inch'] ?></td>
+                                        <td><?= $trial['duration'] ?></td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
                                                 <li class="view"><a href="<?= base_url('wires/' . encode($trial['wire_id']) . '/trials/' . encode($trial['id'])) ?>"><i class="icon-eye"></i></a></li>
