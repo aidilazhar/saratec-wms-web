@@ -8,7 +8,13 @@ class Wire_model extends CI_Model
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $this->with = [];
+        $this->with = [
+            [
+                'name' => 'companies',
+                'column' => 'id',
+                'value' => 'company_id'
+            ]
+        ];
         $this->appends = [];
     }
 
@@ -21,7 +27,7 @@ class Wire_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
+                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result[$with['value']]);
             }
         }
 
@@ -43,7 +49,7 @@ class Wire_model extends CI_Model
 
         foreach ($results as $key => $result) {
             foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
+                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result[$with['value']]);
             }
         }
 

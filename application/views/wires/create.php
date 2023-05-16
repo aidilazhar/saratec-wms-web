@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-xl-12">
             <div class="row">
                 <div class="col-sm-12">
-                    <form action="<?= base_url("wires/store") ?>" method="POST" enctype="multipart/form-data">
+                    <form action="<?= base_url("wires/store") ?>" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()" novalidate>
                         <div class="card">
                             <div class="card-header">
                                 <h5><?= $page['subtitle'] ?></h5>
@@ -11,27 +11,27 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Wire ID</label>
-                                    <input name="name" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <input required name="name" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Size</label>
-                                    <input name="size" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
+                                    <input required name="size" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Brand</label>
-                                    <input name="brand" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter brand">
+                                    <input required name="brand" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter brand">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Grade</label>
-                                    <input name="grade" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter grade">
+                                    <input required name="grade" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter grade">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Manufacturer</label>
-                                    <input name="manufacturer" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter manufacturer">
+                                    <input required name="manufacturer" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter manufacturer">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Company</label>
-                                    <select name="company_id" class="form-select digits company-input" id="exampleFormControlSelect9">
+                                    <select required name="company_id" class="form-select digits company-input" id="exampleFormControlSelect9">
                                         <?php
                                         foreach ($companies as $company) {
                                         ?>
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Drum</label>
-                                    <select name="drum_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <select required name="drum_id" class="form-select digits" id="exampleFormControlSelect9">
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Package</label>
-                                    <select name="package_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <select required name="package_id" class="form-select digits" id="exampleFormControlSelect9">
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
-                                    <select name="client_id" class="form-select clients-input" id="exampleFormControlSelect9">
+                                    <select required name="client_id" class="form-select clients-input" id="exampleFormControlSelect9">
                                         <?php
                                         foreach ($clients as $client) {
                                         ?>
@@ -82,12 +82,12 @@
                                     <input name="material_certifications" class="form-control" id="exampleInputEmail1" type="file" aria-describedby="emailHelp">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Tech Sheet</label>
+                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Eddy Current</label>
                                     <input name="tech_sheet" class="form-control" id="exampleInputEmail1" type="file" aria-describedby="emailHelp">
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <a href="<?= base_url("wires") ?>"><button class="btn btn-secondary">Cancel</button></a>
+                                <a href="<?= base_url("wires") ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>
                                 <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>
