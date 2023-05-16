@@ -7,7 +7,7 @@
                 <div class="card height-equal">
                     <div class="card-header" style="padding: 15px;">
                         <div class="header-top">
-                            <h5><?= $wire['name'] ?></h5>
+                            <h5><?= $wire['name'] ?> (<?= $wire['companies']['name'] ?>)</h5>
                             <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>"><button class="btn btn-success">View Wire</button></a>
                         </div>
                     </div>
@@ -91,14 +91,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td style="background-color: white; color: initial;" scope="row"><?= date('d M Y', strtotime($wire['last_entry']['issued_at'])) ?></td>
-                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['operator_name'] ?></td>
-                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['package_name'] ?></td>
-                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['drum_name'] ?></td>
-                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['job_type_name'] ?></td>
-                                                <td style="background-color: white; color: initial;"><?= $wire['last_entry']['well_name'] ?></td>
-                                            </tr>
+                                            <?php
+                                            if (isset($wire) && !empty($wire['last_entry'])) {
+                                            ?>
+                                                <tr>
+                                                    <td style="background-color: white; color: initial;" scope="row"><?= date('d M Y', strtotime($wire['last_entry']['issued_at'])) ?></td>
+                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['operator_name'] ?></td>
+                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['package_name'] ?></td>
+                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['drum_name'] ?></td>
+                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['job_type_name'] ?></td>
+                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['well_name'] ?></td>
+                                                </tr>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <tr>
+                                                    <td class="text-center" colspan="6">No data found</td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+
                                         </tbody>
                                     </table>
                                 </div>

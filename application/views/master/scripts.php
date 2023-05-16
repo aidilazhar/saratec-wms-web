@@ -22,6 +22,8 @@
 <script src="<?= base_url("assets/js/dashboard/dashboard_4.js") ?>"></script>
 <script src="<?= base_url("assets/js/height-equal.js") ?>"></script>
 <script src="<?= base_url("assets/js/animation/wow/wow.min.js") ?>"></script>
+<script src="<?= base_url("assets/js/sweet-alert/sweetalert.min.js") ?>"></script>
+<script src="<?= base_url("assets/js/sweet-alert/app.js") ?>"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="<?= base_url("assets/js/script.js") ?>"></script>
@@ -29,6 +31,53 @@
 <!-- Plugin used-->
 <script src="<?= base_url("assets/js/datatable/datatables/jquery.dataTables.min.js") ?>"></script>
 <script src="<?= base_url("assets/js/dashboard/default.js") ?>"></script>
+
+<script>
+    $('.card :input, .card select').each(function() {
+        var attr = $(this).attr('required');
+
+        if (typeof attr !== 'undefined' && attr !== false) {
+            var prev = $(this).prev()
+            var text = prev.text();
+            prev.html(text + ' <span style="color: red">*</span>')
+
+        }
+    });
+</script>
+
+<script>
+    var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+
+    function validateForm() {
+        var no_error = true;
+
+        $('.card :input, .card select').each(function() {
+            var text = $(this).prev().text().replace('*', '');
+            console.log(text)
+            var element = $(this);
+            var required = element.attr('required');
+            var type = element.attr('type');
+
+            if (element.val() == "" && element.prop('required')) {
+                sweetAlert('error', 'Error!', text + ' cannot be empty', null);
+                no_error = false;
+                return false;
+            } else if (type == 'email') {
+                if (testEmail.test(element.val()) == false && element.val() != '') {
+                    sweetAlert('error', 'Error!', text + ' is not in email format', null);
+
+                    no_error = false;
+                    return false;
+                }
+            }
+        });
+        return no_error;
+    }
+
+    function sweetAlert(icon, title, text, footer) {
+        swal(title, text, icon);
+    }
+</script>
 
 <script>
     $('.data-table').DataTable();
@@ -486,6 +535,11 @@
             }
         });
     });
+</script>
+<script>
+    $(document).on('change', '.smart-monitor', function() {
+        $('.smart-monitor-csv').prop('disabled', !$(this).prop('checked'))
+    })
 </script>
 <!-- jQuery -->
 <!-- jQuery -->

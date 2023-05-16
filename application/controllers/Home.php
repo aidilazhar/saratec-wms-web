@@ -407,6 +407,7 @@ class Home extends CI_Controller
 
         $this->load->model('Wire_model');
         $this->load->model('Trial_model');
+        $this->load->model('Utility_model');
     }
 
     public function index()
