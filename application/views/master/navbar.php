@@ -130,6 +130,8 @@
                             <li><a href="<?= base_url("packages") ?>">Packages</a></li>
                             <li><a href="<?= base_url("job-types") ?>">Job Types</a></li>
                             <li><a href="<?= base_url("drums") ?>">Drums</a></li>
+                            <li><a href="<?= base_url("wells") ?>">Wells</a></li>
+                            <li><a href="<?= base_url("fields") ?>">Fields</a></li>
                             <li><a href="<?= base_url("companies") ?>">Companies</a></li>
                             <li><a href="<?= base_url("users") ?>">Users</a></li>
                             <li><a href="<?= base_url("roles") ?>">Roles</a></li>
