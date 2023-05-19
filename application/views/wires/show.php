@@ -9,43 +9,43 @@
                         </div>
                         <div class="card-body row">
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Company</label>
-                                <input disabled value="<?= $company['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                <label class="col-form-label pt-0">Company</label>
+                                <input disabled value="<?= $company['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
-                                <input disabled value="<?= $client['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                <label class="col-form-label pt-0">Client</label>
+                                <input disabled value="<?= $client['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Name</label>
-                                <input disabled value="<?= $wire['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                <label class="col-form-label pt-0">Name</label>
+                                <input disabled value="<?= $wire['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Package</label>
-                                <input disabled value="<?= $package['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
+                                <label class="col-form-label pt-0">Package</label>
+                                <input disabled value="<?= $package['name'] ?>" class="form-control" type="text" placeholder="Enter size">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Drum</label>
-                                <input disabled value="<?= $drum['name'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
+                                <label class="col-form-label pt-0">Drum</label>
+                                <input disabled value="<?= $drum['name'] ?>" class="form-control" type="text" placeholder="Enter size">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Size</label>
-                                <input disabled value="<?= $wire['size'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
+                                <label class="col-form-label pt-0">Size</label>
+                                <input disabled value="<?= $wire['size'] ?>" class="form-control" type="text" placeholder="Enter size">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Brand</label>
-                                <input disabled value="<?= $wire['brand'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter brand">
+                                <label class="col-form-label pt-0">Brand</label>
+                                <input disabled value="<?= $wire['brand'] ?>" class="form-control" type="text" placeholder="Enter brand">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Grade</label>
-                                <input disabled value="<?= $wire['grade'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter grade">
+                                <label class="col-form-label pt-0">Grade</label>
+                                <input disabled value="<?= $wire['grade'] ?>" class="form-control" type="text" placeholder="Enter grade">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Manufacturer</label>
-                                <input disabled value="<?= $wire['manufacturer'] ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter manufacturer">
+                                <label class="col-form-label pt-0">Manufacturer</label>
+                                <input disabled value="<?= $wire['manufacturer'] ?>" class="form-control" type="text" placeholder="Enter manufacturer">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Material Certifications</label>
+                                <label class="col-form-label pt-0">Material Certifications</label>
                                 <?php
                                 if ($wire['material_certifications'] != null || $wire['material_certifications']  != '') {
                                 ?>
@@ -57,7 +57,7 @@
                                 ?>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0" for="exampleInputEmail1">Tech Sheet</label>
+                                <label class="col-form-label pt-0">Eddy Current</label>
                                 <?php
                                 if ($wire['tech_sheet'] != null || $wire['tech_sheet']  != '') {
                                 ?>

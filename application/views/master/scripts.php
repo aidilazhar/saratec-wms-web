@@ -541,6 +541,26 @@
         $('.smart-monitor-csv').prop('disabled', !$(this).prop('checked'))
     })
 </script>
+<script>
+    $(document).on('input propertychange', '.name-1', function() {
+        var value = $(this).val();
+        console.log(value)
+
+        value = value.toUpperCase()
+        $(this).val(value)
+    })
+
+    $(document).on('input propertychange', '.name-2', function() {
+        var value = $(this).val();
+
+        if (value.charAt(0) == '0') {
+            value = value.slice(1)
+        }
+        value = value.toUpperCase()
+
+        $(this).val(value)
+    })
+</script>
 <!-- jQuery -->
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -559,7 +579,7 @@ if (isset($base64)) {
     <script>
         myPDF = "<?= $base64 ?>";
 
-        easyPDF(myPDF, "PDF Name")
+        RenderPDF(myPDF, 0)
     </script>
 <?php
 }

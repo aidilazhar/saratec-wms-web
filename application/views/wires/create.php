@@ -10,28 +10,28 @@
                             </div>
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Wire ID</label>
-                                    <input required name="name" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <label class="col-form-label pt-0">Wire ID</label>
+                                    <input required name="name" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Size</label>
-                                    <input required name="size" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter size">
+                                    <label class="col-form-label pt-0">Size</label>
+                                    <input required name="size" class="form-control" type="text" placeholder="Enter size">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Brand</label>
-                                    <input required name="brand" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter brand">
+                                    <label class="col-form-label pt-0">Brand</label>
+                                    <input required name="brand" class="form-control" type="text" placeholder="Enter brand">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Grade</label>
-                                    <input required name="grade" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter grade">
+                                    <label class="col-form-label pt-0">Grade</label>
+                                    <input required name="grade" class="form-control" type="text" placeholder="Enter grade">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Manufacturer</label>
-                                    <input required name="manufacturer" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter manufacturer">
+                                    <label class="col-form-label pt-0">Manufacturer</label>
+                                    <input required name="manufacturer" class="form-control" type="text" placeholder="Enter manufacturer">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Company</label>
-                                    <select required name="company_id" class="form-select digits company-input" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Company</label>
+                                    <select required name="company_id" class="form-select digits company-input">
                                         <?php
                                         foreach ($companies as $company) {
                                         ?>
@@ -42,8 +42,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Drum</label>
-                                    <select required name="drum_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Drum</label>
+                                    <select required name="drum_id" class="form-select digits">
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>
@@ -54,8 +54,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Package</label>
-                                    <select required name="package_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Package</label>
+                                    <select required name="package_id" class="form-select digits">
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>
@@ -66,8 +66,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
-                                    <select required name="client_id" class="form-select clients-input" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Client</label>
+                                    <select required name="client_id" class="form-select clients-input">
                                         <?php
                                         foreach ($clients as $client) {
                                         ?>
@@ -78,12 +78,20 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Material Certifications</label>
-                                    <input name="material_certifications" class="form-control" id="exampleInputEmail1" type="file" aria-describedby="emailHelp">
+                                    <label class="col-form-label pt-0">Initial Length</label>
+                                    <input required name="initial_length" class="form-control" type="number" placeholder="Enter Initial Length">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Eddy Current</label>
-                                    <input name="tech_sheet" class="form-control" id="exampleInputEmail1" type="file" aria-describedby="emailHelp">
+                                    <label class="col-form-label pt-0">First Spooling Date</label>
+                                    <input required name="first_spooling_at" class="form-control" type="date">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Material Certifications</label>
+                                    <input name="material_certifications" class="form-control" type="file">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Eddy Current</label>
+                                    <input name="tech_sheet" class="form-control" type="file">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

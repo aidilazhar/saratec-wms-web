@@ -68,10 +68,10 @@ class Wire extends CI_Controller
         $wire_id = $this->Wire_model->store($data);
 
         if (isset($_FILES['material_certifications'])) {
-            $path = 'assets/upload/' . $wire_id;
+            $path = 'upload/wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
-            $config['upload_path'] = $path;
+            $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = 'pdf|png|jpg|jpeg';
             $config['file_name'] = 'material-certifications';
             $config['max_size'] = 10000000;
@@ -97,10 +97,10 @@ class Wire extends CI_Controller
         $config = [];
 
         if (isset($_FILES['tech_sheet'])) {
-            $path = 'assets/upload/' . $wire_id;
+            $path = 'upload/wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
-            $config['upload_path'] = $path;
+            $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = 'pdf|png|jpg|jpeg';
             $config['file_name'] = 'tech-sheet';
             $config['max_size'] = 10000000;
@@ -272,8 +272,15 @@ class Wire extends CI_Controller
 
     public function materialCertifications($wire_id)
     {
-        $base64 = base64_encode(file_get_contents("https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"));
         $wire_id = decode($wire_id);
+        $wire = $this->Wire_model->details($wire_id);
+
+        if (!is_null($wire['material_certifications'])) {
+            $base64 = base64_encode(file_get_contents(asset_url($wire['material_certifications'])));
+        } else {
+            $base64 = null;
+        }
+
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire's Material Certifications",
@@ -281,7 +288,6 @@ class Wire extends CI_Controller
             'back' => base_url("wires"),
         ];
 
-        $wire = $this->Wire_model->details($wire_id);
 
         $this->load->view('master/index', compact('page', 'wire', 'base64'));
     }
@@ -338,16 +344,22 @@ class Wire extends CI_Controller
 
     public function techSheet($wire_id)
     {
-        $base64 = base64_encode(file_get_contents("https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"));
         $wire_id = decode($wire_id);
+        $wire = $this->Wire_model->details($wire_id);
+
+        if (!is_null($wire['material_certifications'])) {
+            $base64 = base64_encode(file_get_contents(asset_url($wire['tech_sheet'])));
+        } else {
+            $base64 = null;
+        }
+
         $page = [
             'title' => $this->title,
-            'subtitle' => "Wire's Tech Sheets",
+            'subtitle' => "Wire's Eddy Currents",
             'view' => 'wires/dashboards/tech-sheets',
             'back' => base_url("wires"),
         ];
 
-        $wire = $this->Wire_model->details($wire_id);
 
         $this->load->view('master/index', compact('page', 'wire', 'base64'));
     }
