@@ -14,34 +14,48 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4 row">
-                                <div class="col-xl-12 col-md-6 col-sm-4">
+                                <div class="col-md-12">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">Brand</span>
                                             <h6 class="mt-1 mb-0"><?= $wire['brand'] ?></h6>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-12 col-md-6 col-sm-4">
+                                <div class="col-md-12">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">Wire OD</span>
                                             <h6 class="mt-1 mb-0">0.108"</h6>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-12 col-md-6 col-sm-4">
+                                <div class="col-md-12">
+                                    <div class="light-card balance-card">
+                                        <div> <span class="f-light">Wire Balance(ft)</span>
+                                            <h6 class="mt-1 mb-0">16,945</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="light-card balance-card">
+                                        <div> <span class="f-light">Wire Running</span>
+                                            <h6 class="mt-1 mb-0">210 hours</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-xl-12 col-md-6 col-sm-4">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">Length</span>
                                             <h6 class="mt-1 mb-0"> 25,267 FT(New)</h6>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 col-sm-4">
+                                </div> -->
+                                <!-- <div class="col-xl-12 col-md-6 col-sm-4">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">1<sup>st</sup> Spooling</span>
                                             <h6 class="mt-1 mb-0"><?= date('d M Y') ?></h6>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-sm-8">
                                 <div class="recent-chart text-center">
@@ -82,11 +96,9 @@
                                     <table class="table table-light">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Job Date</th>
+                                                <th scope="col">Date</th>
                                                 <th scope="col">Operators</th>
-                                                <th scope="col">Package</th>
                                                 <th scope="col">Drum</th>
-                                                <th scope="col">Type of Job</th>
                                                 <th scope="col">Well Name</th>
                                             </tr>
                                         </thead>
@@ -97,9 +109,7 @@
                                                 <tr>
                                                     <td style="background-color: white; color: initial;" scope="row"><?= date('d M Y', strtotime($wire['last_entry']['issued_at'])) ?></td>
                                                     <td style="background-color: white; color: initial;"><?= $wire['last_entry']['operator_name'] ?></td>
-                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['package_name'] ?></td>
                                                     <td style="background-color: white; color: initial;"><?= $wire['last_entry']['drum_name'] ?></td>
-                                                    <td style="background-color: white; color: initial;"><?= $wire['last_entry']['job_type_name'] ?></td>
                                                     <td style="background-color: white; color: initial;"><?= $wire['last_entry']['well_name'] ?></td>
                                                 </tr>
                                             <?php

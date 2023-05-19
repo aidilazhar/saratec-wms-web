@@ -59,6 +59,8 @@ $route['blank'] = 'Home/blank';
 include('web/auth.php');
 include('web/wires.php');
 include('web/packages.php');
+include('web/fields.php');
+include('web/wells.php');
 include('web/drums.php');
 include('web/companies.php');
 include('web/job-types.php');

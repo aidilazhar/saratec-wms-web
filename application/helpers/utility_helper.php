@@ -6,3 +6,10 @@ if (!function_exists('asset_url()')) {
         return base_url() . 'assets/' . $path;
     }
 }
+
+if (!function_exists('temp_url()')) {
+    function temp_url($path = '')
+    {
+        return base_url() . 'temp/' . $path;
+    }
+}
