@@ -22,6 +22,7 @@ class Trial extends CI_Controller
         $this->load->model('Drum_model');
         $this->load->model('Client_model');
         $this->load->model('Smart_monitor_model');
+        $this->load->model('Well_model');
     }
 
     public function index($wire_id)
@@ -59,15 +60,15 @@ class Trial extends CI_Controller
             $last_supervisor = "";
         }
 
-
         $operators = $this->User_model->list([], [ROLE_OPERATOR]);
         $company = $this->Company_model->details($wire['company_id']);
         $clients = $this->Client_model->list($company['id']);
         $packages = $this->Package_model->list();
+        $wells = $this->Well_model->list();
         $job_types = $this->JobType_model->list();
         $drums = $this->Drum_model->list();
 
-        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id'));
+        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'wire', 'wells'));
     }
 
     public function store($wire_id)
@@ -83,10 +84,10 @@ class Trial extends CI_Controller
         }
 
         if ($is_smart_monitor == 'on') {
-            $path = 'assets/upload/' . $wire_id . '/smart_monitors';
+            $path = 'upload/' . $wire_id . '/smart_monitors';
 
-            $this->Utility_model->mkdir($path);
-            $config['upload_path']          = $path;
+            $this->Utility_model->mkdir('temp/' . $path);
+            $config['upload_path']          = 'temp/' . $path;
             $config['allowed_types']        = 'csv|xlsx';
             $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
             $config['max_size']             = 10000000;
@@ -102,7 +103,8 @@ class Trial extends CI_Controller
                     'url' => $path . '/' . $upload_data['upload_data']['file_name'],
                 ];
 
-                $results = $this->Smart_monitor_model->store($smart_monitor_data);
+                $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+                $data['smart_monitor_id'] = $smart_monitor_id;
             }
         }
 
@@ -118,36 +120,76 @@ class Trial extends CI_Controller
     {
         $wire_id = decode($wire_id);
         $trial_id = decode($trial_id);
-        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+        $wire = $this->Wire_model->details($wire_id);
         $page = [
             'title' => $this->title . "(" . $wire['name'] . ")",
-            'subtitle' => "Edit Wire Usage Record",
+            'subtitle' => "Wire Details",
             'view' => 'trials/edit',
             'back' => base_url("wires/" . encode($wire_id) . "/trials"),
         ];
 
-        $supervisors = $this->supervisors;
-        $operators = $this->operators;
-        $clients = $this->clients;
-        $packages = $this->packages;
-        $job_types = $this->job_types;
-        $drums = $this->drums;
+        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $clients = $this->Client_model->list($wire['company_id']);
+        $packages = $this->Package_model->list();
+        $job_types = $this->JobType_model->list();
+        $drums = $this->Drum_model->list();
+        $wells = $this->Well_model->list();
 
-        $trial = $this->trials[array_search($trial_id, array_column($this->trials, 'id'))];
+        $trial = $this->Trial_model->details($trial_id);
 
-        $this->load->view('master/index', compact('page', 'supervisors', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial'));
+        $this->load->view('master/index', compact('page', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial', 'wells'));
     }
 
     public function update($wire_id, $trial_id)
     {
-        redirect(base_url("wires/" . $wire_id . "/trials"));
+        $wire_id = decode($wire_id);
+        $trial_id = decode($trial_id);
+        $data = $this->input->post();
+
+        if (isset($data['smart_monitor'])) {
+            $is_smart_monitor = $data['smart_monitor'];
+            unset($data['smart_monitor']);
+        } else {
+            $is_smart_monitor = 'off';
+        }
+
+        if ($is_smart_monitor == 'on') {
+            $path = 'upload/smart_monitors/' . $wire_id;
+
+            $this->Utility_model->mkdir('temp/' . $path);
+            $config['upload_path']          = 'temp/' . $path;
+            $config['allowed_types']        = 'csv|xlsx';
+            $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
+            $config['max_size']             = 10000000;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('smart_monitor_csv')) {
+                $error = array('error' => $this->upload->display_errors());
+            } else {
+                $upload_data = array('upload_data' => $this->upload->data());
+                $smart_monitor_data = [
+                    'name' => $upload_data['upload_data']['file_name'],
+                    'url' => $path . '/' . $upload_data['upload_data']['file_name'],
+                ];
+
+                $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+                $data['smart_monitor_id'] = $smart_monitor_id;
+            }
+        }
+
+        $data['wire_id'] = $wire_id;
+        $data['operator_id'] = auth()->id;
+
+        $res = $this->Trial_model->update($trial_id, $data);
+        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
     }
 
     public function show($wire_id, $trial_id)
     {
         $wire_id = decode($wire_id);
         $trial_id = decode($trial_id);
-        $wire = $this->wires[array_search($wire_id, array_column($this->wires, 'id'))];
+        $wire = $this->Wire_model->details($wire_id);
         $page = [
             'title' => $this->title . "(" . $wire['name'] . ")",
             'subtitle' => "Wire Details",
@@ -155,20 +197,23 @@ class Trial extends CI_Controller
             'back' => base_url("wires/" . encode($wire_id) . "/trials"),
         ];
 
-        $supervisors = $this->supervisors;
-        $operators = $this->operators;
-        $clients = $this->clients;
-        $packages = $this->packages;
-        $job_types = $this->job_types;
-        $drums = $this->drums;
+        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $clients = $this->Client_model->list($wire['company_id']);
+        $packages = $this->Package_model->list();
+        $job_types = $this->JobType_model->list();
+        $drums = $this->Drum_model->list();
+        $wells = $this->Well_model->list();
 
-        $trial = $this->trials[array_search($trial_id, array_column($this->trials, 'id'))];
+        $trial = $this->Trial_model->details($trial_id);
 
-        $this->load->view('master/index', compact('page', 'supervisors', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial'));
+        $this->load->view('master/index', compact('page', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial', 'wells'));
     }
 
     public function delete($wire_id, $trial_id)
     {
-        redirect(base_url("wires/" . $wire_id . "/trials"));
+        $trial_id = decode($trial_id);
+        $wire_id = decode($wire_id);
+        $this->Trial_model->delete($trial_id);
+        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
     }
 }

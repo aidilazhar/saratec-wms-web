@@ -11,19 +11,9 @@ class Smart_monitor_model extends CI_Model
 
     public function store($data)
     {
+        $data['created_at'] = date('Y-m-d H:i:s');
         $this->db->insert('smart_monitors', $data);
-
-        if (!empty($this->db->error()['message'])) {
-            return [
-                'status' => 0,
-                'message' => $this->db->error()['message'],
-            ];
-        } else {
-            return [
-                'status' => 1,
-                'message' => 'The data has been stored successfully',
-            ];
-        }
+        return $this->db->insert_id();
     }
 
     public function lastEntry()

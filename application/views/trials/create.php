@@ -10,28 +10,46 @@
                             </div>
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Date</label>
+                                    <label class="col-form-label pt-0">Date</label>
                                     <input class="form-control digits" id="example-datetime-local-input" type="datetime-local" required name="issued_at" value="<?= date('Y-m-d H:i:s') ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Supervisor</label>
-                                    <input required name="supervisor_name" value="<?= $last_supervisor ?>" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter supervisor">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Client</label>
-                                    <select required name="client_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Operator</label>
+                                    <select <?php if (auth()->role_id == ROLE_OPERATOR) {
+                                                echo 'disabled';
+                                            } ?> required name="operator_id" class="form-select digits">
                                         <?php
-                                        foreach ($clients as $client) {
+                                        foreach ($operators as $operator) {
                                         ?>
-                                            <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                                            <option <?php if ($operator['id'] == auth()->id) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $operator['id'] ?>"><?= $operator['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Package</label>
-                                    <select required name="package_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Supervisor</label>
+                                    <input required name="supervisor_name" value="<?= $last_supervisor ?>" class="form-control" type="text" placeholder="Enter supervisor">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Client</label>
+                                    <select required name="client_id" class="form-select digits">
+                                        <?php
+                                        foreach ($clients as $client) {
+                                        ?>
+                                            <option <?php if ($client['id'] == $wire['client_id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Package</label>
+                                    <select required name="package_id" class="form-select digits">
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>
@@ -42,8 +60,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Drum No</label>
-                                    <select required name="drum_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Drum No</label>
+                                    <select required name="drum_id" class="form-select digits">
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>
@@ -54,7 +72,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Wrap Test</label>
+                                    <label class="col-form-label pt-0">Wrap Test</label>
                                     <select required name="wrap_test" class="form-control">
                                         <option>N/A</option>
                                         <option>Pass</option>
@@ -62,7 +80,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Pull Test Value</label>
+                                    <label class="col-form-label pt-0">Pull Test Value</label>
                                     <select required name="pull_test" class="form-control">
                                         <option>N/A</option>
                                         <option>0 - 999 lbs</option>
@@ -71,24 +89,34 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">X (inches)</label>
-                                    <input required name="x_inch" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter X (in)">
+                                    <label class="col-form-label pt-0">X (inches)</label>
+                                    <input required name="x_inch" value="" class="form-control" type="text" placeholder="Enter X (in)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Y (inches)</label>
-                                    <input required name="y_inch" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Y (in)">
+                                    <label class="col-form-label pt-0">Y (inches)</label>
+                                    <input required name="y_inch" value="" class="form-control" type="text" placeholder="Enter Y (in)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Cut Off (ft)</label>
-                                    <input required name="cut_off" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Cut Off (ft)">
+                                    <label class="col-form-label pt-0">Cut Off (ft)</label>
+                                    <input required name="cut_off" value="" class="form-control" type="text" placeholder="Enter Cut Off (ft)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Well Name</label>
-                                    <input required name="well_name" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Well Name">
+                                    <label class="col-form-label pt-0">Well Name</label>
+                                    <select required name="well_id" class="form-select digits">
+                                        <?php
+                                        foreach ($wells as $well) {
+                                        ?>
+                                            <option <?php if ($well['id'] == $wire['client_id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $well['id'] ?>"><?= $well['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Type of Job</label>
-                                    <select required name="job_type_id" class="form-select digits" id="exampleFormControlSelect9">
+                                    <label class="col-form-label pt-0">Type of Job</label>
+                                    <select required name="job_type_id" class="form-select digits">
                                         <?php
                                         foreach ($job_types as $job_type) {
                                         ?>
@@ -99,23 +127,23 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">No of Jar</label>
-                                    <input required name="jar_number" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter No of Jar">
+                                    <label class="col-form-label pt-0">No of Jar</label>
+                                    <input required name="jar_number" value="" class="form-control" type="text" placeholder="Enter No of Jar">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Max Pull (lbs)</label>
-                                    <input required name="max_pull" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Max Pull (lbs)">
+                                    <label class="col-form-label pt-0">Max Pull (lbs)</label>
+                                    <input required name="max_pull" value="" class="form-control" type="text" placeholder="Enter Max Pull (lbs)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Max Depth (ft)</label>
-                                    <input required name="max_depth" value="" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter Pull Test">
+                                    <label class="col-form-label pt-0">Max Depth (ft)</label>
+                                    <input required name="max_depth" value="" class="form-control" type="text" placeholder="Enter Pull Test">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Duration (mins)</label>
-                                    <input required name="duration" value="" class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp" placeholder="Enter Duration (mins)">
+                                    <label class="col-form-label pt-0">Duration (mins)</label>
+                                    <input required name="duration" value="" class="form-control" type="number" placeholder="Enter Duration (mins)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Smart Monitor Logged</label>
+                                    <label class="col-form-label pt-0">Smart Monitor Logged</label>
                                     <div class="media-body switch-md">
                                         <label class="switch">
                                             <input name="smart_monitor" type="checkbox" class="smart-monitor"><span class="switch-state"></span>
@@ -123,12 +151,19 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Smart Monitor CSV</label>
-                                    <input disabled name="smart_monitor_csv" class="form-control smart-monitor-csv" id="exampleInputEmail1" type="file" aria-describedby="emailHelp">
+                                    <label class="col-form-label pt-0">Smart Monitor CSV</label>
+                                    <input disabled name="smart_monitor_csv" class="form-control smart-monitor-csv" type="file">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0" for="exampleInputEmail1">Special Note</label>
+                                    <label class="col-form-label pt-0">Special Note</label>
                                     <textarea name="remarks" class="form-control" rows="5" cols="5" placeholder="Enter special note"></textarea>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Job Status</label>
+                                    <select required name="job_status" class="form-select digits">
+                                        <option value="Complete">Complete</option>
+                                        <option value="Rerun">Rerun</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-footer text-end">

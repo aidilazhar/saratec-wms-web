@@ -9,7 +9,13 @@ class Trial_model extends CI_Model
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $this->with = [];
+        $this->with = [
+            [
+                'name' => 'smart_monitors',
+                'column' => 'id',
+                'relation' => 'one'
+            ],
+        ];
 
         $this->appends = [
             [
@@ -49,6 +55,16 @@ class Trial_model extends CI_Model
                 'prefix' => 'client',
                 'self_column' => 'id',
                 'relation_column' => 'client_id',
+                'get' => 'name',
+                'type' => 'left'
+            ],
+            [
+                'from_name' => 'trials',
+                'name' => 'wells',
+                'as' => 'wells',
+                'prefix' => 'well',
+                'self_column' => 'id',
+                'relation_column' => 'well_id',
                 'get' => 'name',
                 'type' => 'left'
             ],
@@ -98,26 +114,14 @@ class Trial_model extends CI_Model
             }
         }
 
-        // if (!empty($this->db->error()['message'])) {
-        //     return [
-        //         'status' => 0,
-        //         'message' => $this->db->error()['message'],
-        //     ];
-        // } else {
-        //     return [
-        //         'status' => 1,
-        //         'message' => 'The data has been stored successfully',
-        //     ];
-        // }
-
         return $results;
     }
 
-    public function details($package_id)
+    public function details($trial_id)
     {
         $this->db->select('*');
         $this->db->from('trials');
-        $this->db->where('id', $package_id);
+        $this->db->where('id', $trial_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
@@ -126,10 +130,8 @@ class Trial_model extends CI_Model
             }
         }
 
-        foreach ($results as $key => $result) {
-            foreach ($this->appends as $append) {
-                $results[$key][$append] = call_package_func(array('Trial_model', 'append_' . $append), $result);
-            }
+        foreach ($this->appends as $key => $append) {
+            $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
 
         if (empty($results)) {

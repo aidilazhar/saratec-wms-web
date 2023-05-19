@@ -120,10 +120,10 @@ class Api extends CI_Controller
         unset($data['is_smart_monitor']);
 
         if ($is_smart_monitor == 1) {
-            $path = 'assets/upload/' . $data['wire_id'] . '/smart_monitors';
+            $path = 'upload/' . $data['wire_id'] . '/smart_monitors';
 
             $this->Utility_model->mkdir($path);
-            $config['upload_path']          = $path;
+            $config['upload_path']          = 'temp/' . $path;
             $config['allowed_types']        = 'csv';
             $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
             $config['max_size']             = 10000000;
@@ -141,7 +141,8 @@ class Api extends CI_Controller
                     'url' => $path . '/' . $upload_data['upload_data']['file_name'] . $upload_data['upload_data']['file_ext'],
                 ];
 
-                $results = $this->Smart_monitor_model->store($smart_monitor_data);
+                $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+                $data['smart_monitor_id'] = $smart_monitor_id;
             }
         }
 
