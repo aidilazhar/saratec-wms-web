@@ -6,28 +6,15 @@ class Role extends CI_Controller
     function __construct()
     {
         $this->title = "Roles";
-        $this->roles = [
-            [
-                "id" => 1,
-                "name" => "Admin",
-            ],
-            [
-                "id" => 2,
-                "name" => "Supervisor",
-            ],
-            [
-                "id" => 3,
-                "name" => "Operator",
-            ],
-        ];
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
             redirect(base_url(LOGIN_URL));
         }
 
-
         $this->load->model('Authentication_model');
+        $this->load->model('Role_model');
+        $this->load->model('Permission_model');
     }
 
     public function index()
@@ -39,7 +26,7 @@ class Role extends CI_Controller
             'back' => null,
         ];
 
-        $roles = $this->roles;
+        $roles = $this->Role_model->list();
 
         $this->load->view('master/index', compact('page', 'roles'));
     }
@@ -86,18 +73,57 @@ class Role extends CI_Controller
         $role_id = decode($role_id);
         $page = [
             'title' => $this->title,
-            'subtitle' => "Role Details",
+            'subtitle' => "Permission",
             'view' => 'roles/show',
             'back' => base_url("roles"),
         ];
 
-        $role = $this->roles[array_search($role_id, array_column($this->roles, 'id'))];
+        $perms = $this->Permission_model->list();
 
-        $this->load->view('master/index', compact('page', 'role'));
+        $permissions = [];
+
+        foreach ($perms as $key => $perm) {
+            if (!isset($permissions[$perm['parent']])) {
+                $permissions[$perm['parent']] = [];
+            }
+
+            $permissions[$perm['parent']][] = [
+                'id' => $perm['id'],
+                'name' => $perm['name']
+            ];
+        }
+
+        $perm_role = $this->Permission_model->details($role_id);
+
+        $this->load->view('master/index', compact('page', 'perm_role', 'permissions', 'role_id'));
     }
 
     public function delete()
     {
         redirect(base_url("roles"));
+    }
+
+    public function permissionUpdate($role_id)
+    {
+        $role_id = decode($role_id);
+
+        $posts = $this->input->post('permission');
+
+        $this->Permission_model->delete($role_id);
+
+        foreach ($posts as $post) {
+            $data = [
+                'permission_id' => $post,
+                'role_id' => $role_id,
+            ];
+            $this->Permission_model->store($data);
+        }
+
+        $perms = $this->Permission_model->details($role_id);
+        $permissions = $this->Permission_model->permissions($perms);
+
+        $this->session->set_userdata('permissions', $permissions);
+
+        redirect(base_url("roles/" . encode($role_id)));
     }
 }

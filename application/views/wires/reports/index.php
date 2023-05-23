@@ -6,9 +6,9 @@
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
                     <?php
-                    if (permission('Create Packages')) {
+                    if (permission('Add Documents')) {
                     ?>
-                        <a href="<?= base_url("packages/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Package</button></a>
+                        <a href="<?= base_url('wires/' . encode($wire['id']) . '/reports/create') ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Add Report</button></a>
                     <?php
                     }
                     ?>
@@ -20,32 +20,35 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Issued At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($packages as $key => $package) {
+                                foreach ($reports as $key => $report) {
                                 ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
-                                        <td><?= $package['name'] ?></td>
+                                        <td><?= $report['name'] ?></td>
+                                        <td><?= $report['description'] ?></td>
+                                        <td><?= $report['category'] ?></td>
+                                        <td>
+                                            <?= date('d M Y, h:i A', strtotime($report['issued_at'])) ?>
+                                        </td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
                                                 <?php
-                                                if (permission('Show Packages')) {
+                                                if (permission('View Documents')) {
                                                 ?>
-                                                    <li class="view"><a href="<?= base_url('packages/' . encode($package['id'])) ?>"><i class="icon-eye"></i></a></li>
+                                                    <li class="view"><a target="_blank" href=" <?= temp_url($report['url']) ?>"><i class="icon-eye"></i></a></li>
                                                 <?php
                                                 }
-                                                if (permission('Edit Packages')) {
+                                                if (permission('Delete Documents')) {
                                                 ?>
-                                                    <li class="edit"> <a href="<?= base_url('packages/edit/' . encode($package['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
-                                                <?php
-                                                }
-                                                if (permission('Delete Packages')) {
-                                                ?>
-                                                    <li class="delete"><a href="<?= base_url('packages/delete/' . encode($package['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="<?= base_url('wires/' . encode($report['wire_id']) . '/reports/delete/' . encode($report['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

@@ -20,102 +20,42 @@
                             <span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
                         </div>
                     </li>
-                    <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("/") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-home") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-home") ?>"></use>
-                            </svg>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("wires") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-task") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-task") ?>"></use>
-                            </svg>
-                            <span>Wires</span>
-                        </a>
-                    </li>
-                    <!-- <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("packages") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-board") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-board") ?>"></use>
-                            </svg>
-                            <span>Packages</span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("job-types") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-knowledgebase") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-knowledgebase") ?>"></use>
-                            </svg>
-                            <span>Job Types</span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("drums") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-support-tickets") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-support-tickets") ?>"></use>
-                            </svg>
-                            <span>Drums</span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("clients") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-social") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-social") ?>"></use>
-                            </svg>
-                            <span>Clients</span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("users") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-user") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-user") ?>"></use>
-                            </svg>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("roles") ?>">
-                            <svg class="stroke-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-blog") ?>"></use>
-                            </svg>
-                            <svg class="fill-icon">
-                                <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-blog") ?>"></use>
-                            </svg>
-                            <span>Roles</span>
-                        </a>
-                    </li> -->
+                    <?php
+                    if (permission('Manage Dashboard')) {
+                    ?>
+                        <li class="sidebar-list">
+                            <i class="fa fa-thumb-tack"></i>
+                            <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("/") ?>">
+                                <svg class="stroke-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-home") ?>"></use>
+                                </svg>
+                                <svg class="fill-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-home") ?>"></use>
+                                </svg>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    if (permission('Manage Wires')) {
+                    ?>
+                        <li class="sidebar-list">
+                            <i class="fa fa-thumb-tack"></i>
+                            <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("wires") ?>">
+                                <svg class="stroke-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-task") ?>"></use>
+                                </svg>
+                                <svg class="fill-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-task") ?>"></use>
+                                </svg>
+                                <span>Wires</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
                     <li class="sidebar-list">
                         <i class="fa fa-thumb-tack"></i>
                         <a class="sidebar-link sidebar-title" href="#">
@@ -127,14 +67,48 @@
                             </svg><span>Admin</span>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="<?= base_url("packages") ?>">Packages</a></li>
-                            <li><a href="<?= base_url("job-types") ?>">Job Types</a></li>
-                            <li><a href="<?= base_url("drums") ?>">Drums</a></li>
-                            <li><a href="<?= base_url("wells") ?>">Wells</a></li>
-                            <li><a href="<?= base_url("fields") ?>">Fields</a></li>
-                            <li><a href="<?= base_url("companies") ?>">Companies</a></li>
-                            <li><a href="<?= base_url("users") ?>">Users</a></li>
-                            <li><a href="<?= base_url("roles") ?>">Roles</a></li>
+                            <?php
+                            if (permission('Manage Packages')) {
+                            ?>
+                                <li><a href="<?= base_url("packages") ?>">Packages</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Job Types')) {
+                            ?>
+                                <li><a href="<?= base_url("job-types") ?>">Job Types</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Drums')) {
+                            ?>
+                                <li><a href="<?= base_url("drums") ?>">Drums</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Wells')) {
+                            ?>
+                                <li><a href="<?= base_url("wells") ?>">Wells</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Fields')) {
+                            ?>
+                                <li><a href="<?= base_url("fields") ?>">Fields</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Companies')) {
+                            ?>
+                                <li><a href="<?= base_url("companies") ?>">Companies</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Users')) {
+                            ?>
+                                <li><a href="<?= base_url("users") ?>">Users</a></li>
+                            <?php
+                            }
+                            if (permission('Manage Roles')) {
+                            ?>
+                                <li><a href="<?= base_url("roles") ?>">Roles</a></li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                     </li>
                 </ul>

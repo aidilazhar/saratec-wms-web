@@ -14,10 +14,13 @@ class Well_model extends CI_Model
         $this->appends = [];
     }
 
-    public function list()
+    public function list($filters)
     {
         $this->db->select('*');
         $this->db->from('wells');
+        foreach ($filters as $key => $filter) {
+            $this->db->where_in($key, $filter);
+        }
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();
 

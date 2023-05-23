@@ -13,3 +13,15 @@ if (!function_exists('temp_url()')) {
         return base_url() . 'temp/' . $path;
     }
 }
+
+if (!function_exists('permission()')) {
+    function permission($perm)
+    {
+        $ci = &get_instance();
+        $ci->load->library('session');
+
+        $permissions = $ci->session->userdata('permissions') ?? [];
+
+        return (array_search($perm, array_column($permissions, 'name')) != '' || array_search($perm, array_column($permissions, 'name')) != null);
+    }
+}

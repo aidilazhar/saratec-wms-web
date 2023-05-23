@@ -17,6 +17,7 @@ class Auth extends CI_Controller
         $this->load->model('Authentication_model');
         $this->load->model('User_model');
         $this->load->model('Utility_model');
+        $this->load->model('Permission_model');
     }
 
     public function login()
@@ -40,6 +41,11 @@ class Auth extends CI_Controller
         }
 
         if (!empty($user) && $matched == true) {
+            $perms = $this->Permission_model->details($user['role_id']);
+            $permissions = $this->Permission_model->permissions($perms);
+
+            $this->session->set_userdata('permissions', $permissions);
+
             $this->session->set_userdata('hash_id', encode($user['id']));
             $this->session->set_userdata('auth', $this->User_model->details($user['id']));
             add_cookies(encode($user['id']));

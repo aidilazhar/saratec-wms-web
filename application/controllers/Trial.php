@@ -84,7 +84,7 @@ class Trial extends CI_Controller
         }
 
         if ($is_smart_monitor == 'on') {
-            $path = 'upload/' . $wire_id . '/smart_monitors';
+            $path = 'wires/' . $wire_id . '/smart_monitors';
 
             $this->Utility_model->mkdir('temp/' . $path);
             $config['upload_path']          = 'temp/' . $path;
@@ -154,7 +154,7 @@ class Trial extends CI_Controller
         }
 
         if ($is_smart_monitor == 'on') {
-            $path = 'upload/smart_monitors/' . $wire_id;
+            $path = 'wires/' . $wire_id . '/smart_monitors/';
 
             $this->Utility_model->mkdir('temp/' . $path);
             $config['upload_path']          = 'temp/' . $path;

@@ -55,7 +55,7 @@ class Well extends CI_Controller
 
 
         if (isset($_FILES['schematic'])) {
-            $path = 'upload/wells';
+            $path = 'wells';
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
@@ -116,7 +116,7 @@ class Well extends CI_Controller
 
 
         if (isset($_FILES['schematic']) && $_FILES["schematic"]["size"] > 0) {
-            $path = 'upload/wells';
+            $path = 'wells';
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;

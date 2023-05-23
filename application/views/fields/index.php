@@ -5,7 +5,13 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
-                    <a href="<?= base_url("fields/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Field</button></a>
+                    <?php
+                    if (permission('Create Fields')) {
+                    ?>
+                        <a href="<?= base_url("fields/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Field</button></a>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,9 +32,23 @@
                                         <td><?= $field['name'] ?></td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
-                                                <li class="view"><a href="<?= base_url('fields/' . encode($field['id'])) ?>"><i class="icon-eye"></i></a></li>
-                                                <li class="edit"> <a href="<?= base_url('fields/edit/' . encode($field['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
-                                                <li class="delete"><a href="<?= base_url('fields/delete/' . encode($field['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                <?php
+                                                if (permission('Show Fields')) {
+                                                ?>
+                                                    <li class="view"><a href="<?= base_url('fields/' . encode($field['id'])) ?>"><i class="icon-eye"></i></a></li>
+                                                <?php
+                                                }
+                                                if (permission('Edit Fields')) {
+                                                ?>
+                                                    <li class="edit"> <a href="<?= base_url('fields/edit/' . encode($field['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
+                                                <?php
+                                                }
+                                                if (permission('Delete Fields')) {
+                                                ?>
+                                                    <li class="delete"><a href="<?= base_url('fields/delete/' . encode($field['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                <?php
+                                                }
+                                                ?>
                                             </ul>
                                         </td>
                                     </tr>

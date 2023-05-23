@@ -5,7 +5,13 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
-                    <a href="<?= base_url("companies/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Company</button></a>
+                    <?php
+                    if (permission('Create Companies')) {
+                    ?>
+                        <a href="<?= base_url("companies/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Company</button></a>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,31 +32,53 @@
                                         <td><?= $company['name'] ?></td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
-                                                <li class="dashboard">
-                                                    <a href="<?= base_url('companies/' . encode($company['id']) . '/clients') ?>">
-                                                        <i class="icofont icofont-company"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="warning">
-                                                    <a href="<?= base_url('companies/' . encode($company['id']) . '/users') ?>">
-                                                        <i class="icofont icofont-users"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="view">
-                                                    <a href="<?= base_url('companies/' . encode($company['id'])) ?>">
-                                                        <i class="icon-eye"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="edit">
-                                                    <a href="<?= base_url('companies/edit/' . encode($company['id'])) ?>">
-                                                        <i class="icofont icofont-ui-edit"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="delete">
-                                                    <a href="<?= base_url('companies/delete/' . encode($company['id'])) ?>">
-                                                        <i class="icofont icofont-trash"></i>
-                                                    </a>
-                                                </li>
+                                                <?php
+                                                if (permission('Manage Clients')) {
+                                                ?>
+                                                    <li class="dashboard">
+                                                        <a href="<?= base_url('companies/' . encode($company['id']) . '/clients') ?>">
+                                                            <i class="icofont icofont-company"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php
+                                                }
+                                                if (permission('Manage Company\'s Users')) {
+                                                ?>
+                                                    <li class="warning">
+                                                        <a href="<?= base_url('companies/' . encode($company['id']) . '/users') ?>">
+                                                            <i class="icofont icofont-users"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php
+                                                }
+                                                if (permission('Show Companies')) {
+                                                ?>
+                                                    <li class="view">
+                                                        <a href="<?= base_url('companies/' . encode($company['id'])) ?>">
+                                                            <i class="icon-eye"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php
+                                                }
+                                                if (permission('Edit Companies')) {
+                                                ?>
+                                                    <li class="edit">
+                                                        <a href="<?= base_url('companies/edit/' . encode($company['id'])) ?>">
+                                                            <i class="icofont icofont-ui-edit"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php
+                                                }
+                                                if (permission('Delete Companies')) {
+                                                ?>
+                                                    <li class="delete">
+                                                        <a href="<?= base_url('companies/delete/' . encode($company['id'])) ?>">
+                                                            <i class="icofont icofont-trash"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php
+                                                }
+                                                ?>
                                             </ul>
                                         </td>
                                     </tr>

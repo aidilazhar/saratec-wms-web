@@ -30,15 +30,15 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="display" id="data-source-1" style="width:100%">
+                        <table class="data-table" id="data-source-1" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Date</th>
+                                    <th>Name</th>
                                     <th>Description</th>
                                     <th>Category</th>
-                                    <th>Issued By</th>
-                                    <th class="text-center">Actions</th>
+                                    <th>Issued At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,13 +47,15 @@
                                 ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
-                                        <td><?= $report['date'] ?></td>
+                                        <td><?= $report['name'] ?></td>
                                         <td><?= $report['description'] ?></td>
                                         <td><?= $report['category'] ?></td>
-                                        <td><?= $report['issued_by'] ?></td>
+                                        <td>
+                                            <?= date('d M Y, h:i A', strtotime($report['issued_at'])) ?>
+                                        </td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
-                                                <li class="view"><a target="_blank" href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"><i class="icon-eye"></i></a></li>
+                                                <li class="view"><a target="_blank" href=" <?= temp_url($report['url']) ?>"><i class="icon-eye"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>

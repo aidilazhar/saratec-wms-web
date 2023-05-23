@@ -13,7 +13,12 @@ class Wire_model extends CI_Model
                 'name' => 'companies',
                 'column' => 'id',
                 'value' => 'company_id'
-            ]
+            ],
+            [
+                'name' => 'clients',
+                'column' => 'id',
+                'value' => 'client_id'
+            ],
         ];
         $this->appends = [];
     }

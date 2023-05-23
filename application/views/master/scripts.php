@@ -30,7 +30,6 @@
 <!-- <script src="<?= base_url("assets/js/theme-customizer/customizer.js") ?>"></script> -->
 <!-- Plugin used-->
 <script src="<?= base_url("assets/js/datatable/datatables/jquery.dataTables.min.js") ?>"></script>
-<script src="<?= base_url("assets/js/dashboard/default.js") ?>"></script>
 
 <script>
     $('.card :input, .card select').each(function() {
@@ -44,6 +43,12 @@
         }
     });
 </script>
+
+<?php
+if (isset($page['scripts'])) {
+    $this->load->view($page['scripts']);
+}
+?>
 
 <script>
     var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
@@ -81,192 +86,6 @@
 
 <script>
     $('.data-table').DataTable();
-
-    // basic bar chart
-    var job_type_options = {
-        chart: {
-            height: 350,
-            type: 'bar',
-            toolbar: {
-                show: false
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: true,
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        series: [{
-            data: [400, 430, 448, 470, 540]
-        }],
-        xaxis: {
-            categories: ['SetRetGLVODummy', 'WireScratcherRun', 'TccTagTdGRingTDrift', 'FishingOperation', 'PerfTbgPunchCut'],
-        },
-        colors: [CubaAdminConfig.primary]
-    }
-
-    var job_type_chart = new ApexCharts(
-        document.querySelector("#type-of-jobs"),
-        job_type_options
-    );
-
-    job_type_chart.render();
-
-    // basic area chart
-    var cut_off_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'straight'
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                10, 4, 5, 6, 2, 1
-            ]
-        }],
-        labels: [
-            '09-04-2023',
-            '10-04-2023',
-            '11-04-2023',
-            '12-04-2023',
-            '13-04-2023',
-            '14-04-2023',
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'left'
-        },
-        colors: [CubaAdminConfig.primary]
-    }
-
-    var cut_off = new ApexCharts(
-        document.querySelector("#cut-off-chart"),
-        cut_off_options
-    );
-
-    cut_off.render();
-
-    // basic area chart
-    var max_pull_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'straight'
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                2, 5, 4, 7, 3, 2
-            ]
-        }],
-        labels: [
-            '09-04-2023',
-            '10-04-2023',
-            '11-04-2023',
-            '12-04-2023',
-            '13-04-2023',
-            '14-04-2023',
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'left'
-        },
-        colors: ["#f73164"]
-    }
-
-    var max_pull = new ApexCharts(
-        document.querySelector("#max-pull-chart"),
-        max_pull_options
-    );
-
-    max_pull.render();
-
-    // basic area chart
-    var jar_number_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'straight'
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                5, 5, 4, 3, 6, 10
-            ]
-        }],
-        labels: [
-            '09-04-2023',
-            '10-04-2023',
-            '11-04-2023',
-            '12-04-2023',
-            '13-04-2023',
-            '14-04-2023',
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'right'
-        },
-        colors: ["#FFAA05"]
-    }
-
-    var jar_number = new ApexCharts(
-        document.querySelector("#jar-number-chart"),
-        jar_number_options
-    );
-
-    jar_number.render();
 
     var data = generateDayWiseTimeSeries(new Date("22 Apr 2017").getTime(), 1000, {
         min: 30,

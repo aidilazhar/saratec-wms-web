@@ -91,7 +91,7 @@ class Trial_model extends CI_Model
         ];
     }
 
-    public function list($wire_id = [])
+    public function list($wire_id = [], $job_type_except = [], $group_by = null)
     {
         $select = '';
         foreach ($this->appends as $append) {
@@ -105,7 +105,13 @@ class Trial_model extends CI_Model
         if (!empty($wire_id)) {
             $this->db->where_in('wire_id', $wire_id);
         }
+        if (!empty($job_type_except)) {
+            $this->db->where_not_in('job_type_id', $job_type_except);
+        }
         $this->db->where('trials.is_deleted', 0);
+        if (!is_null($group_by)) {
+            $this->db->group_by($group_by);
+        }
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {

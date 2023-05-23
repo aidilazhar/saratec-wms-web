@@ -120,7 +120,7 @@ class Api extends CI_Controller
         unset($data['is_smart_monitor']);
 
         if ($is_smart_monitor == 1) {
-            $path = 'upload/' . $data['wire_id'] . '/smart_monitors';
+            $path = 'wires/' . $data['wire_id'] . '/smart_monitors';
 
             $this->Utility_model->mkdir($path);
             $config['upload_path']          = 'temp/' . $path;

@@ -5,7 +5,13 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
-                    <a href="<?= base_url("wells/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Well</button></a>
+                    <?php
+                    if (permission('Create Wells')) {
+                    ?>
+                        <a href="<?= base_url("wells/create") ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Create Well</button></a>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,9 +32,23 @@
                                         <td><?= $well['name'] ?></td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
-                                                <li class="view"><a href="<?= base_url('wells/' . encode($well['id'])) ?>"><i class="icon-eye"></i></a></li>
-                                                <li class="edit"> <a href="<?= base_url('wells/edit/' . encode($well['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
-                                                <li class="delete"><a href="<?= base_url('wells/delete/' . encode($well['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                <?php
+                                                if (permission('Show Wells')) {
+                                                ?>
+                                                    <li class="view"><a href="<?= base_url('wells/' . encode($well['id'])) ?>"><i class="icon-eye"></i></a></li>
+                                                <?php
+                                                }
+                                                if (permission('Edit Wells')) {
+                                                ?>
+                                                    <li class="edit"> <a href="<?= base_url('wells/edit/' . encode($well['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
+                                                <?php
+                                                }
+                                                if (permission('Delete Wells')) {
+                                                ?>
+                                                    <li class="delete"><a href="<?= base_url('wells/delete/' . encode($well['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                <?php
+                                                }
+                                                ?>
                                             </ul>
                                         </td>
                                     </tr>

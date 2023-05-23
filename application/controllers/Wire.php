@@ -24,6 +24,8 @@ class Wire extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('JobType_model');
         $this->load->model('Trial_model');
+        $this->load->model('Report_model');
+        $this->load->model('Well_model');
     }
 
     public function index()
@@ -68,7 +70,7 @@ class Wire extends CI_Controller
         $wire_id = $this->Wire_model->store($data);
 
         if (isset($_FILES['material_certifications'])) {
-            $path = 'upload/wires/' . $wire_id;
+            $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
@@ -97,7 +99,7 @@ class Wire extends CI_Controller
         $config = [];
 
         if (isset($_FILES['tech_sheet'])) {
-            $path = 'upload/wires/' . $wire_id;
+            $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
@@ -156,10 +158,10 @@ class Wire extends CI_Controller
         $data = $this->input->post();
 
         if (isset($_FILES['material_certifications']) && !empty($_FILES['material_certifications'])) {
-            $path = 'upload/' . $wire_id;
+            $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
-            $config['upload_path'] = 'assets/' . $path;
+            $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = 'pdf|png|jpg|jpeg';
             $config['file_name'] = 'material-certifications';
             $config['max_size'] = 10000000;
@@ -186,10 +188,10 @@ class Wire extends CI_Controller
         $config = [];
 
         if (isset($_FILES['tech_sheet']) && !empty($_FILES['tech_sheet'])) {
-            $path = 'upload/' . $wire_id;
+            $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
-            $config['upload_path'] = 'assets/' . $path;
+            $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = 'pdf|png|jpg|jpeg';
             $config['file_name'] = 'tech-sheet';
             $config['max_size'] = 10000000;
@@ -254,20 +256,67 @@ class Wire extends CI_Controller
     public function dashboard($wire_id)
     {
         $wire_id = decode($wire_id);
+        $wire = $this->Wire_model->details($wire_id);
         $page = [
-            'title' => $this->title,
+            'title' => $this->title . " (" . $wire['clients']['name'] . ")",
             'subtitle' => "Wire Details",
             'view' => 'wires/dashboards/index',
             'back' => base_url("wires"),
+            'scripts' => 'wires/dashboards/scripts'
         ];
 
         $operators = $this->User_model->list([], [ROLE_OPERATOR]);
-        $drums = $this->Drum_model->list();
-        $job_types = $this->JobType_model->list();
-        $wire = $this->Wire_model->details($wire_id);
         $trials = $this->Trial_model->list([$wire_id]);
+        $drums = $this->Drum_model->list();
 
-        $this->load->view('master/index', compact('page', 'wire', 'trials'));
+        $jobs = $wlls = $tj = $w = [];
+        foreach ($trials as $key => $row) {
+            if (isset($jobs[$row['job_type_id']])) {
+                $jobs[$row['job_type_id']] = $jobs[$row['job_type_id']] + 1;
+            } else {
+                $tj[] = $row['job_type_id'];
+                $jobs[$row['job_type_id']] = 1;
+            }
+
+            if (isset($wlls[$row['well_id']])) {
+                $wlls[$row['well_id']] = $wlls[$row['well_id']] + 1;
+            } else {
+                $w[] = $row['well_id'];
+                $wlls[$row['well_id']] = 1;
+            }
+        }
+        $job_types = $this->JobType_model->list([
+            'id' => $tj
+        ]);
+
+        $wells = $this->Well_model->list([
+            'id' => $w
+        ]);
+
+        foreach ($job_types as $key => $job_type) {
+            $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
+        }
+
+        foreach ($wells as $key => $well) {
+            $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+        }
+
+        $trials = $this->Trial_model->list([$wire_id]);
+        $trials_except = $this->Trial_model->list([$wire_id], [1, 16]);
+
+        $mins = array_sum(array_column($trials_except, 'duration'));
+        $hours = intdiv($mins, 60);
+        $days = round($hours / 24);
+
+        $dashboard = [
+            'total_number_run' => count($trials_except),
+            'total_running_number_hours' => $hours,
+            'total_running_number_days' => $days,
+            'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+            'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+        ];
+
+        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells'));
     }
 
     public function materialCertifications($wire_id)
@@ -294,26 +343,6 @@ class Wire extends CI_Controller
 
     public function otherReports($wire_id)
     {
-        $reports = [
-            [
-                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +1 days')),
-                'description' => "Sample From 5/12/2022",
-                'category' => 'Lab Test',
-                'issued_by' => "DAS",
-            ],
-            [
-                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +2 days')),
-                'description' => "Wire Twist",
-                'category' => 'Initial Problem Report',
-                'issued_by' => "Deleum",
-            ],
-            [
-                'date' => date('d M Y', strtotime(date('Y-m-d') . ' +3 days')),
-                'description' => "Lose Helix",
-                'category' => 'INVESTIGATION REPORT',
-                'issued_by' => "SARATEC",
-            ],
-        ];
         $wire_id = decode($wire_id);
         $page = [
             'title' => $this->title,
@@ -323,6 +352,7 @@ class Wire extends CI_Controller
         ];
 
         $wire = $this->Wire_model->details($wire_id);
+        $reports = $this->Report_model->list([$wire_id]);
 
         $this->load->view('master/index', compact('page', 'wire', 'reports'));
     }

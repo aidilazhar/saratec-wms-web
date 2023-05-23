@@ -34,10 +34,10 @@
                             <h6 class="mb-0">Brand</h6><span class="f-light"><?= $wire['brand'] ?></span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Wire OD</h6><span class="f-light"> - </span>
+                            <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?></span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Length</h6><span class="f-light">25145 FT (New)</span>
+                            <h6 class="mb-0">Length</h6><span class="f-light"><?= $wire['initial_length'] ?></span>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="card-body">
                     <div class="course-widget">
                         <div class="course-icon warning">
-                            <h4 class="mb-0"><?= count($trials) ?></h4>
+                            <h4 class="mb-0"><?= $dashboard['total_number_run'] ?></h4>
                         </div>
                         <div>
                             <h6 class="mb-0">Total number run</h6><span class="f-light">Exclude spooling</span>
@@ -82,7 +82,7 @@
                 <div class="card-body d-flex justify-content-between">
                     <div class="course-widget">
                         <div class="course-icon warning">
-                            <h4 class="mb-0">3</h4>
+                            <h4 class="mb-0"><?= $dashboard['total_running_number_hours'] ?></h4>
                         </div>
                         <div>
                             <h6 class="mb-0">Total running number</h6><span class="f-light">hours</span>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="course-widget">
                         <div class="course-icon warning">
-                            <h4 class="mb-0">0</h4>
+                            <h4 class="mb-0"><?= $dashboard['total_running_number_days'] ?></h4>
                         </div>
                         <div>
                             <h6 class="mb-0">Total running number</h6><span class="f-light">days</span>
@@ -125,7 +125,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="recent-chart">
-                                <div id="recentchart"></div>
+                                <div id="wire-on-drum"></div>
                             </div>
                         </div>
                         <div class="col-sm-6 row">
@@ -135,7 +135,7 @@
                                         <i class="icon-ruler-alt-2" style="font-size: 1.5rem"></i>
                                     </div>
                                     <div> <span class="f-light">Wire Balance (ft)</span>
-                                        <h6 class="mt-1 mb-0">23, 075</h6>
+                                        <h6 class="mt-1 mb-0"><?= $dashboard['wire_balances'] ?></h6>
                                     </div>
                                 </div>
                             </div>
@@ -154,48 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="card height-equal">
-                <div class="card-header card-no-border">
-                    <div class="header-top">
-                        <h5 class="m-0">Clients</h5>
-                    </div>
-                </div>
-                <div class="card-body pt-0 campaign-table">
-                    <div class="recent-table table-responsive currency-table">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="border-icon facebook">
-                                        <div>
-                                            <img src="https://ui-avatars.com/api/?name=VE&bold=true&size=30" alt="">
-                                        </div>
-                                    </td>
-                                    <td>VERTIGO</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-icon facebook">
-                                        <div>
-                                            <img src="https://ui-avatars.com/api/?name=EM&bold=true&size=30" alt="">
-                                        </div>
-                                    </td>
-                                    <td>EMEPMI</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-icon facebook">
-                                        <div>
-                                            <img src="https://ui-avatars.com/api/?name=SH&bold=true&size=30" alt="">
-                                        </div>
-                                    </td>
-                                    <td>SHELL</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="card height-equal">
                 <div class="card-header card-no-border">
                     <div class="header-top">
@@ -204,7 +163,7 @@
                 </div>
                 <div class="card-body pt-0 campaign-table">
                     <div class="recent-table table-responsive currency-table">
-                        <table class="table">
+                        <table class="table well-name">
                             <thead>
                                 <tr>
                                     <th class="f-light">Well Name</th>
@@ -212,48 +171,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        Testing 1
-                                    </td>
-                                    <td>4</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 2
-                                    </td>
-                                    <td>75</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 3
-                                    </td>
-                                    <td>52</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 4
-                                    </td>
-                                    <td>21</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 5
-                                    </td>
-                                    <td>42</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 6
-                                    </td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing 7
-                                    </td>
-                                    <td>2</td>
-                                </tr>
+                                <?php
+                                foreach ($wells as $well) {
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <?= $well['name'] ?>
+                                        </td>
+                                        <td><?= $well['total'] ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -265,7 +194,7 @@
                 <div class="card-header">
                     <h5>Type of Jobs</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding-top: 0px">
                     <div id="type-of-jobs"></div>
                 </div>
             </div>
