@@ -149,7 +149,10 @@ class Trial_model extends CI_Model
 
     public function store($data)
     {
-        $data['created_at'] = date('Y-m-d H:i:s');
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = date('Y-m-d H:i:s');
+        }
+
         $this->db->insert('trials', $data);
         return $this->db->insert_id();
     }
@@ -212,6 +215,35 @@ class Trial_model extends CI_Model
             return [];
         } else {
             return $results[0];
+        }
+    }
+
+    public function max_tension_applied($wire_id)
+    {
+        $this->db->select('*');
+        $this->db->from('trials');
+        $this->db->where('is_deleted', 0);
+        $this->db->where('wire_id', $wire_id);
+        $this->db->where('max_pull > ', 1000);
+        $results = $this->db->get()->result_array();
+
+        return $results;
+    }
+
+    public function first_spooling_date($wire_id)
+    {
+        $this->db->select('issued_at');
+        $this->db->from('trials');
+        $this->db->where('is_deleted', 0);
+        $this->db->where('wire_id', $wire_id);
+        $this->db->order_by('issued_at');
+        $this->db->limit('1');
+        $results = $this->db->get()->result_array();
+
+        if (!empty($results)) {
+            return date('d M Y', strtotime($results[0]['issued_at']));
+        } else {
+            return '-';
         }
     }
 }

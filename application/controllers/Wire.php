@@ -258,7 +258,7 @@ class Wire extends CI_Controller
         $wire_id = decode($wire_id);
         $wire = $this->Wire_model->details($wire_id);
         $page = [
-            'title' => $this->title . " (" . $wire['clients']['name'] . ")",
+            'title' => $this->title,
             'subtitle' => "Wire Details",
             'view' => 'wires/dashboards/index',
             'back' => base_url("wires"),
@@ -270,6 +270,7 @@ class Wire extends CI_Controller
         $drums = $this->Drum_model->list();
 
         $jobs = $wlls = $tj = $w = [];
+        $current_not_exposed_to_well_cond = $sum_cut_off = 0;
         foreach ($trials as $key => $row) {
             if (isset($jobs[$row['job_type_id']])) {
                 $jobs[$row['job_type_id']] = $jobs[$row['job_type_id']] + 1;
@@ -284,7 +285,28 @@ class Wire extends CI_Controller
                 $w[] = $row['well_id'];
                 $wlls[$row['well_id']] = 1;
             }
+
+            $sum_cut_off = $sum_cut_off + $row['cut_off'];
+
+            if ($row['max_depth'] == '') {
+                $max_depth = 0;
+            } else {
+                $max_depth = $row['max_depth'];
+            }
+
+            $trials[$key]['not_exposed_to_well_cond'] = $wire['initial_length'] - $sum_cut_off - $max_depth;
+
+            if ($key == 0) {
+                $current_not_exposed_to_well_cond = $trials[$key]['not_exposed_to_well_cond'];
+            } else {
+                if ($trials[$key]['not_exposed_to_well_cond'] < $current_not_exposed_to_well_cond) {
+                    $current_not_exposed_to_well_cond = $trials[$key]['not_exposed_to_well_cond'];
+                }
+            }
+
+            $clients[] = $row['client_id'];
         }
+
         $job_types = $this->JobType_model->list([
             'id' => $tj
         ]);
@@ -293,12 +315,32 @@ class Wire extends CI_Controller
             'id' => $w
         ]);
 
+        $clients = array_unique($clients);
+
+        $clients = $this->Client_model->list(null, [
+            'id' => $clients
+        ]);
+
         foreach ($job_types as $key => $job_type) {
             $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
         }
 
         foreach ($wells as $key => $well) {
             $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+        }
+
+        usort($wells, fn ($a, $b) => $a['total'] <=> $b['total']);
+        $wells = array_reverse($wells);
+
+        usort($job_types, fn ($a, $b) => $a['total'] <=> $b['total']);
+        $job_types = array_reverse($job_types);
+
+        if (count($wells) > 5) {
+            $wells = array_slice($wells, 0, 5);
+        }
+
+        if (count($job_types) > 10) {
+            $job_types = array_slice($job_types, 0, 10);
         }
 
         $trials = $this->Trial_model->list([$wire_id]);
@@ -314,9 +356,14 @@ class Wire extends CI_Controller
             'total_running_number_days' => $days,
             'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
             'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+            'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
+            'average_run_duration' => ($hours / count($trials)),
+            'average_tension' => (array_sum(array_column($trials, 'max_pull')) / count($trials)),
+            'max_tension_applied' => (count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100,
+            'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
         ];
 
-        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells'));
+        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients'));
     }
 
     public function materialCertifications($wire_id)

@@ -25,3 +25,17 @@ if (!function_exists('permission()')) {
         return (array_search($perm, array_column($permissions, 'name')) != '' || array_search($perm, array_column($permissions, 'name')) != null);
     }
 }
+
+if (!function_exists('compareByTotal()')) {
+    function compareByTotal($array)
+    {
+        $customSort = function ($a, $b) {
+            if ($a['age'] == $b['age']) {
+                return 0;
+            }
+            return ($a['age'] < $b['age']) ? -1 : 1;
+        };
+
+        return rsort($array, $customSort);
+    }
+}

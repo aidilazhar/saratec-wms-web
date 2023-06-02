@@ -41,19 +41,65 @@
                         </div>
                     </div>
                 </div>
-                <ul class="square-group">
-                    <li class="square-1 warning"></li>
-                    <li class="square-1 primary"></li>
-                    <li class="square-2 warning1"></li>
-                    <li class="square-3 danger"></li>
-                    <li class="square-4 light"></li>
-                    <li class="square-5 warning"></li>
-                    <li class="square-6 success"></li>
-                    <li class="square-7 success"></li>
-                </ul>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
+            <div class="card small-widget">
+                <div class="card-body primary">
+                    <span class="">Current Cut-Off Rate</span>
+                    <small class="d-block f-light">Exclude Spooling</small>
+                    <div class="d-flex align-items-end gap-1">
+                        <h4><?= number_format($dashboard['current_cut_off_rate'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>FT/Run</span></span>
+                    </div>
+                    <div class="bg-gradient">
+                        <i style="font-size: 30px; font-weight: 100;" class="icon-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card small-widget">
+                <div class="card-body warning">
+                    <span class="">Average Run Duration</span>
+                    <small class="d-block f-light">Exclude Spooling</small>
+                    <div class="d-flex align-items-end gap-1">
+                        <h4><?= number_format($dashboard['average_run_duration'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>Hour/Run</span></span>
+                    </div>
+                    <div class="bg-gradient">
+                        <i style="font-size: 30px; font-weight: 100;" class="icon-timer"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card small-widget">
+                <div class="card-body secondary">
+                    <span class="">Average Tension</span>
+                    <small class="d-block f-light">Exclude Spooling</small>
+                    <div class="d-flex align-items-end gap-1">
+                        <h4><?= number_format($dashboard['average_tension'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                    </div>
+                    <div class="bg-gradient">
+                        <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card small-widget">
+                <div class="card-body success">
+                    <span class="">% of Max Tension Applied</span>
+                    <small class="d-block f-light">exceeds 1000lbs</small>
+                    <div class="d-flex align-items-end gap-1">
+                        <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
+                    </div>
+                    <div class="bg-gradient">
+                        <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <div class="card course-box widget-course">
                 <div class="card-body">
                     <div class="course-widget">
@@ -77,7 +123,42 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+            <div class="card course-box widget-course">
+                <div class="card-body">
+                    <div class="course-widget">
+                        <div class="course-icon warning">
+                            <i style="font-size: 30px; font-weight: 100; fill: none" data-feather="users"></i>
+                        </div>
+                        <div>
+                            <li class="d-flex">
+                                <div>
+                                    <?php
+                                    $names = '';
+                                    foreach ($clients as $key => $client) {
+                                        $names .= $client['name'] . ', ';
+                                    }
+                                    $names = substr($names, 0, -1);
+                                    ?>
+                                    <h6 class="mb-0">Clients</h6><span class="f-light"><?= $names ?></span>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <ul class="square-group">
+                    <li class="square-1 warning"></li>
+                    <li class="square-1 primary"></li>
+                    <li class="square-2 warning1"></li>
+                    <li class="square-3 danger"></li>
+                    <li class="square-4 light"></li>
+                    <li class="square-5 warning"></li>
+                    <li class="square-6 success"></li>
+                    <li class="square-7 success"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <div class="card course-box widget-course">
                 <div class="card-body d-flex justify-content-between">
                     <div class="course-widget">
@@ -144,8 +225,8 @@
                                     <div class="svg-box">
                                         <i class="icon-ruler-alt" style="font-size: 1.5rem"></i>
                                     </div>
-                                    <div> <span class="f-light">X(in)</span>
-                                        <h6 class="mt-1 mb-0">0.11</h6>
+                                    <div> <span class="f-light">Not Expose to Well Cond.</span>
+                                        <h6 class="mt-1 mb-0"><?= $dashboard['not_exposed_to_well_cond'] ?></h6>
                                     </div>
                                 </div>
                             </div>

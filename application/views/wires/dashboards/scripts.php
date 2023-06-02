@@ -1,9 +1,12 @@
 <script>
     $('.well-name').DataTable({
         searching: false,
-        paging: true,
+        paging: false,
         info: false,
         pageLength: 5,
+        order: [
+            [1, 'DESC']
+        ],
         bLengthChange: false,
     });
 

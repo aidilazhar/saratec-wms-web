@@ -408,6 +408,7 @@ class Home extends CI_Controller
         $this->load->model('Wire_model');
         $this->load->model('Trial_model');
         $this->load->model('Utility_model');
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -415,7 +416,19 @@ class Home extends CI_Controller
         $wires = $this->Wire_model->list();
 
         foreach ($wires as $key => $wire) {
+            $trials = $this->Trial_model->list([$wire['id']]);
+            $spooling_date = $this->Trial_model->first_spooling_date($wire['id']);
+            $trials_except = $this->Trial_model->list([$wire['id']], [1, 16]);
+
+            $mins = array_sum(array_column($trials_except, 'duration'));
+            $hours = intdiv($mins, 60);
+            $days = round($hours / 24);
+
             $wires[$key]['last_entry'] = $this->Trial_model->last_entry($wire['id']);
+            $wires[$key]['wire_balances'] = $wire['initial_length'] - array_sum(array_column($trials, 'cut_off'));
+            $wires[$key]['wire_balances_percent'] = round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100);
+            $wires[$key]['total_running_number_hours'] = $hours;
+            $wires[$key]['spooling_date'] = $spooling_date;
         }
 
         $page = [
@@ -423,6 +436,7 @@ class Home extends CI_Controller
             'subtitle' => null,
             'view' => 'index',
             'back' => null,
+            'scripts' => 'scripts'
         ];
 
         $this->load->view('master/index', compact('page', 'wires'));

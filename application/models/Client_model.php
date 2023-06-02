@@ -14,10 +14,13 @@ class Client_model extends CI_Model
         $this->appends = [];
     }
 
-    public function list($company_id = null)
+    public function list($company_id = null, $filters = [])
     {
         $this->db->select('*');
         $this->db->from('clients');
+        foreach ($filters as $key => $filter) {
+            $this->db->where_in($key, $filter);
+        }
         $this->db->where('is_deleted', 0);
         if (!is_null($company_id)) {
             $this->db->where('company_id', $company_id);
@@ -95,5 +98,32 @@ class Client_model extends CI_Model
     public function append_role_name($data)
     {
         return $data['roles']['name'];
+    }
+
+    public function search($search)
+    {
+        $i = 0;
+        $this->db->select('*');
+        $this->db->from('clients');
+        foreach ($search as $key => $value) {
+            if ($i == 0) {
+                $this->db->where($value['column'], $value['value']);
+            } else {
+                if ($value['type'] == 'and') {
+                    $this->db->where($value['column'], $value['value']);
+                } else {
+                    $this->db->or_where($value['column'], $value['value']);
+                }
+            }
+            $i++;
+        }
+
+        $results = $this->db->get()->result_array();
+
+        if (empty($results)) {
+            return null;
+        } else {
+            return $results[0];
+        }
     }
 }

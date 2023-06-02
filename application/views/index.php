@@ -24,38 +24,24 @@
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
                                         <div> <span class="f-light">Wire OD</span>
-                                            <h6 class="mt-1 mb-0">0.108"</h6>
+                                            <h6 class="mt-1 mb-0"><?= $wire['size'] ?>"</h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">Wire Balance(ft)</span>
-                                            <h6 class="mt-1 mb-0">16,945</h6>
+                                        <div> <span class="f-light">Length (New)</span>
+                                            <h6 class="mt-1 mb-0"><?= number_format($wire['initial_length']) ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">Wire Running</span>
-                                            <h6 class="mt-1 mb-0">210 hours</h6>
+                                        <div> <span class="f-light">1<sup>st</sup> spooling date</span>
+                                            <h6 class="mt-1 mb-0"><?= $wire['spooling_date'] ?></h6>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-xl-12 col-md-6 col-sm-4">
-                                    <div class="light-card balance-card">
-                                        <div> <span class="f-light">Length</span>
-                                            <h6 class="mt-1 mb-0"> 25,267 FT(New)</h6>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="col-xl-12 col-md-6 col-sm-4">
-                                    <div class="light-card balance-card">
-                                        <div> <span class="f-light">1<sup>st</sup> Spooling</span>
-                                            <h6 class="mt-1 mb-0"><?= date('d M Y') ?></h6>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                             <div class="col-sm-8">
                                 <div class="recent-chart text-center">
@@ -71,7 +57,7 @@
                                                 </div>
                                                 <div>
                                                     <span class="f-12 f-light">Wire Balance(ft)</span>
-                                                    <h5>16,945</h5>
+                                                    <h5><?= number_format($wire['wire_balances']) ?></h5>
                                                 </div>
                                             </div>
                                         </li>
@@ -82,7 +68,7 @@
                                                 </div>
                                                 <div>
                                                     <span class="f-12 f-light">Wire Running</span>
-                                                    <h5>210 hours</h5>
+                                                    <h5><?= number_format($wire['total_running_number_hours']) ?> hours</h5>
                                                 </div>
                                             </div>
                                         </li>

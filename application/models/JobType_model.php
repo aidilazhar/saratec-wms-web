@@ -97,4 +97,31 @@ class JobType_model extends CI_Model
     {
         return $data['roles']['name'];
     }
+
+    public function search($search)
+    {
+        $i = 0;
+        $this->db->select('*');
+        $this->db->from('job_types');
+        foreach ($search as $key => $value) {
+            if ($i == 0) {
+                $this->db->where($value['column'], $value['value']);
+            } else {
+                if ($value['type'] == 'and') {
+                    $this->db->where($value['column'], $value['value']);
+                } else {
+                    $this->db->or_where($value['column'], $value['value']);
+                }
+            }
+            $i++;
+        }
+
+        $results = $this->db->get()->result_array();
+
+        if (empty($results)) {
+            return null;
+        } else {
+            return $results[0];
+        }
+    }
 }
