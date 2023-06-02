@@ -329,10 +329,14 @@ class Wire extends CI_Controller
             $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
         }
 
-        usort($wells, fn ($a, $b) => $a['total'] <=> $b['total']);
+        usort($wells, function ($a, $b) {
+            return $a['total'] <=> $b['total'];
+        });
         $wells = array_reverse($wells);
 
-        usort($job_types, fn ($a, $b) => $a['total'] <=> $b['total']);
+        usort($job_types, function ($a, $b) {
+            return $a['total'] <=> $b['total'];
+        });
         $job_types = array_reverse($job_types);
 
         if (count($wells) > 5) {

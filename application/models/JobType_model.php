@@ -14,7 +14,7 @@ class JobType_model extends CI_Model
         $this->appends = [];
     }
 
-    public function list($filters)
+    public function list($filters = [])
     {
         $this->db->select('*');
         $this->db->from('job_types');
