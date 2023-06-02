@@ -376,7 +376,7 @@ class Wire extends CI_Controller
         $wire = $this->Wire_model->details($wire_id);
 
         if (!is_null($wire['material_certifications'])) {
-            $base64 = base64_encode(file_get_contents(asset_url($wire['material_certifications'])));
+            $base64 = base64_encode(file_get_contents(temp_url($wire['material_certifications'])));
         } else {
             $base64 = null;
         }
@@ -429,7 +429,7 @@ class Wire extends CI_Controller
         $wire = $this->Wire_model->details($wire_id);
 
         if (!is_null($wire['material_certifications'])) {
-            $base64 = base64_encode(file_get_contents(asset_url($wire['tech_sheet'])));
+            $base64 = base64_encode(file_get_contents(temp_url($wire['tech_sheet'])));
         } else {
             $base64 = null;
         }
