@@ -27,7 +27,7 @@ class Utility_model extends CI_Model
     {
         $array = explode("/", $directory);
 
-        $path = '';
+        $path = 'temp/';
         foreach ($array as $arr) {
             $path .= $arr . '/';
             if (!is_dir($path)) {
