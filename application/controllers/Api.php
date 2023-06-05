@@ -22,6 +22,10 @@ class Api extends CI_Controller
         $this->load->model('Company_model');
         $this->load->model('Client_model');
         $this->load->model('Trial_model');
+        $this->load->model('Drum_model');
+        $this->load->model('JobType_model');
+        $this->load->model('Well_model');
+        $this->load->model('Report_model');
     }
 
     public function getClients()
@@ -214,5 +218,195 @@ class Api extends CI_Controller
 
         print_r($json);
         //echo $generated_text;
+    }
+
+    public function masterDashboard()
+    {
+        $wires = $this->Wire_model->list();
+
+        $data = [];
+        foreach ($wires as $key => $wire) {
+            $trials = $this->Trial_model->list([$wire['id']]);
+            $spooling_date = $this->Trial_model->first_spooling_date($wire['id']);
+            $trials_except = $this->Trial_model->list([$wire['id']], [1, 16]);
+
+            $mins = array_sum(array_column($trials_except, 'duration'));
+            $hours = intdiv($mins, 60);
+            $days = round($hours / 24);
+
+            $wires[$key]['last_entry'] = $this->Trial_model->last_entry($wire['id']);
+            $wires[$key]['wire_balances'] = $wire['initial_length'] - array_sum(array_column($trials, 'cut_off'));
+            $wires[$key]['wire_balances_percent'] = round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100);
+            $wires[$key]['total_running_number_hours'] = $hours;
+            $wires[$key]['spooling_date'] = $spooling_date;
+
+            $data[] = [
+                'brand' => $wire['brand'],
+                'wire_od' => $wire['size'],
+                'length' => $wire['initial_length'],
+                'spooling_date' => $spooling_date,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'last_entry' => $this->Trial_model->last_entry($wire['id']),
+                'total_running_number_hours' => $hours,
+            ];
+        }
+
+        echo json_encode(['wires' => $data]);
+    }
+
+    public function wireDashboard()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $wire = $this->Wire_model->details($wire_id);
+
+        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $trials = $this->Trial_model->list([$wire_id]);
+        $drums = $this->Drum_model->list();
+
+        $jobs = $wlls = $tj = $w = [];
+        $current_not_exposed_to_well_cond = $sum_cut_off = 0;
+        foreach ($trials as $key => $row) {
+            if (isset($jobs[$row['job_type_id']])) {
+                $jobs[$row['job_type_id']] = $jobs[$row['job_type_id']] + 1;
+            } else {
+                $tj[] = $row['job_type_id'];
+                $jobs[$row['job_type_id']] = 1;
+            }
+
+            if (isset($wlls[$row['well_id']])) {
+                $wlls[$row['well_id']] = $wlls[$row['well_id']] + 1;
+            } else {
+                $w[] = $row['well_id'];
+                $wlls[$row['well_id']] = 1;
+            }
+
+            $sum_cut_off = $sum_cut_off + $row['cut_off'];
+
+            if ($row['max_depth'] == '') {
+                $max_depth = 0;
+            } else {
+                $max_depth = $row['max_depth'];
+            }
+
+            $trials[$key]['not_exposed_to_well_cond'] = $wire['initial_length'] - $sum_cut_off - $max_depth;
+
+            if ($key == 0) {
+                $current_not_exposed_to_well_cond = $trials[$key]['not_exposed_to_well_cond'];
+            } else {
+                if ($trials[$key]['not_exposed_to_well_cond'] < $current_not_exposed_to_well_cond) {
+                    $current_not_exposed_to_well_cond = $trials[$key]['not_exposed_to_well_cond'];
+                }
+            }
+
+            $clients[] = $row['client_id'];
+        }
+
+        $job_types = $this->JobType_model->list([
+            'id' => $tj
+        ]);
+
+        $wells = $this->Well_model->list([
+            'id' => $w
+        ]);
+
+        $clients = array_unique($clients);
+
+        $clients = $this->Client_model->list(null, [
+            'id' => $clients
+        ]);
+
+        foreach ($job_types as $key => $job_type) {
+            $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
+        }
+
+        foreach ($wells as $key => $well) {
+            $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+        }
+
+        usort($wells, function ($a, $b) {
+            return $a['total'] <=> $b['total'];
+        });
+
+        $wells = array_reverse($wells);
+
+        usort($job_types, function ($a, $b) {
+            return $a['total'] <=> $b['total'];
+        });
+
+        $job_types = array_reverse($job_types);
+
+        $trials = $this->Trial_model->list([$wire_id]);
+        $trials_except = $this->Trial_model->list([$wire_id], [1, 16]);
+
+        $mins = array_sum(array_column($trials_except, 'duration'));
+        $hours = intdiv($mins, 60);
+        $days = round($hours / 24);
+
+        $data = [
+            'wire_id' => $wire['name'],
+            'brand' => $wire['brand'],
+            'wire_od' => $wire['size'],
+            'length' => $wire['initial_length'],
+            'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
+            'average_run_duration' => ($hours / count($trials)),
+            'average_tension' => (array_sum(array_column($trials, 'max_pull')) / count($trials)),
+            'max_tension_applied' => (count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100,
+            'total_number_run' => count($trials_except),
+            'clients' => $clients,
+            'total_running_hours' => $hours,
+            'total_running_days' => $days,
+            'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+            'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+            'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+            'wells' => $wells,
+            'job_types' => $job_types,
+            'wire_records' => $trials,
+        ];
+
+        echo json_encode(compact('data'));
+    }
+
+    public function wireMaterialCertifications()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $wire = $this->Wire_model->details($wire_id);
+
+        if (!is_null($wire['material_certifications'])) {
+            $material_certifications = base64_encode(file_get_contents(temp_url($wire['material_certifications'])));
+        } else {
+            $material_certifications = null;
+        }
+
+        echo json_encode(compact('material_certifications'));
+    }
+
+    public function wireOtherReports()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $reports = $this->Report_model->list([$wire_id]);
+
+        echo json_encode(compact('reports'));
+    }
+
+    public function wireThirdPartyData()
+    {
+        $wire_id = $this->input->post('wire_id');
+
+        echo json_encode(compact('wire_id'));
+    }
+
+    public function wireTechSheet()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $wire = $this->Wire_model->details($wire_id);
+
+        if (!is_null($wire['material_certifications'])) {
+            $tech_sheet = base64_encode(file_get_contents(temp_url($wire['tech_sheet'])));
+        } else {
+            $tech_sheet = null;
+        }
+
+        echo json_encode(compact('tech_sheet'));
     }
 }

@@ -339,14 +339,6 @@ class Wire extends CI_Controller
         });
         $job_types = array_reverse($job_types);
 
-        if (count($wells) > 5) {
-            $wells = array_slice($wells, 0, 5);
-        }
-
-        if (count($job_types) > 10) {
-            $job_types = array_slice($job_types, 0, 10);
-        }
-
         $trials = $this->Trial_model->list([$wire_id]);
         $trials_except = $this->Trial_model->list([$wire_id], [1, 16]);
 
