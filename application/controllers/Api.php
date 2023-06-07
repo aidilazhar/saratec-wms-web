@@ -241,6 +241,7 @@ class Api extends CI_Controller
             $wires[$key]['spooling_date'] = $spooling_date;
 
             $data[] = [
+                'id' => $wire['id'],
                 'brand' => $wire['brand'],
                 'wire_od' => $wire['size'],
                 'length' => $wire['initial_length'],
