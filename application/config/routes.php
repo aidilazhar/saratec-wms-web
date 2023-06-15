@@ -55,7 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route[''] = 'Home';
 $route['blank'] = 'Home/blank';
-$route['import'] = 'Import/index';
+$route['import-1'] = 'Import/index';
+$route['import-2'] = 'Import2/index';
 
 include('web/auth.php');
 include('web/wires.php');

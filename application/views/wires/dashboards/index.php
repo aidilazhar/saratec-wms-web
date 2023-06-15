@@ -34,10 +34,10 @@
                             <h6 class="mb-0">Brand</h6><span class="f-light"><?= $wire['brand'] ?></span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?></span>
+                            <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?> "</span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Length</h6><span class="f-light"><?= $wire['initial_length'] ?></span>
+                            <h6 class="mb-0">Length</h6><span class="f-light"><?= number_format($wire['initial_length'], 2) ?></span>
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                             <h4 class="mb-0"><?= $dashboard['total_running_number_hours'] ?></h4>
                         </div>
                         <div>
-                            <h6 class="mb-0">Total running number</h6><span class="f-light">hours</span>
+                            <h6 class="mb-0">Total Running</h6><span class="f-light">hours</span>
                         </div>
                     </div>
                     <div>
@@ -179,7 +179,7 @@
                             <h4 class="mb-0"><?= $dashboard['total_running_number_days'] ?></h4>
                         </div>
                         <div>
-                            <h6 class="mb-0">Total running number</h6><span class="f-light">days</span>
+                            <h6 class="mb-0">Total Running</h6><span class="f-light">days</span>
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card height-equal">
+            <div class="card">
                 <div class="card-header card-no-border">
                     <div class="header-top">
                         <h5>Wire on Drum</h5>
@@ -204,31 +204,37 @@
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="recent-chart">
                                 <div id="wire-on-drum"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6 row">
-                            <div class="col-sm-12">
-                                <div class=" light-card balance-card widget-hover">
-                                    <div class="svg-box">
-                                        <i class="icon-ruler-alt-2" style="font-size: 1.5rem"></i>
-                                    </div>
-                                    <div> <span class="f-light">Wire Balance (ft)</span>
-                                        <h6 class="mt-1 mb-0"><?= $dashboard['wire_balances'] ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="light-card balance-card widget-hover">
-                                    <div class="svg-box">
-                                        <i class="icon-ruler-alt" style="font-size: 1.5rem"></i>
-                                    </div>
-                                    <div> <span class="f-light">Not Expose to Well Cond.</span>
-                                        <h6 class="mt-1 mb-0"><?= $dashboard['not_exposed_to_well_cond'] ?></h6>
-                                    </div>
-                                </div>
+                        <div class="col-sm-12 row">
+                            <div class="balance-profile">
+                                <ul>
+                                    <li>
+                                        <div class="balance-item success">
+                                            <div class="balance-icon-wrap">
+                                                <i data-feather="hash"></i>
+                                            </div>
+                                            <div>
+                                                <span class="f-12 f-light">Wire Balance(ft)</span>
+                                                <h5><?= number_format($dashboard['wire_balances']) ?></h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="balance-item success">
+                                            <div class="balance-icon-wrap">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div>
+                                                <span class="f-12 f-light">Not Expose to Well Cond.</span>
+                                                <h5><?= number_format($dashboard['not_exposed_to_well_cond']) ?> hours</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -236,7 +242,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card height-equal">
+            <div class="card">
                 <div class="card-header card-no-border">
                     <div class="header-top">
                         <h5 class="m-0">Well Name</h5>
@@ -283,7 +289,7 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="card-header">
-                    <h5>Cut Off(ft)</h5>
+                    <h5>Cut Off (ft)</h5>
                 </div>
                 <div class="card-body">
                     <div id="cut-off-chart"></div>
@@ -293,7 +299,7 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="card-header">
-                    <h5>Max Pull(lbs)</h5>
+                    <h5>Max Pull (lbs)</h5>
                 </div>
                 <div class="card-body">
                     <div id="max-pull-chart"></div>
@@ -328,44 +334,203 @@
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive currency-table">
-                        <table class="data-table" id="data-source-1" style="width:100%">
+                        <table class="trials-datatable" id="data-source-1" style="width:100%">
                             <thead>
                                 <tr>
-                                    <td>#</td>
-                                    <td>Date and Time</td>
-                                    <td>Job Date</td>
-                                    <td>Operator</td>
-                                    <td>Drum Number</td>
-                                    <td>Type of Job</td>
-                                    <td>Well Name</td>
-                                    <td>Cut off(ft)</td>
-                                    <td>Max Pull(lbs)</td>
-                                    <td>Number of Jar</td>
-                                    <td>Special Note</td>
+                                    <th>#</th>
+                                    <th>Create At</th>
+                                    <th>Operator</th>
+                                    <th>Supervisor</th>
+                                    <th>Client</th>
+                                    <th>Package</th>
+                                    <th>Drum</th>
+                                    <th>Job Type</th>
+                                    <th>Wrap Test</th>
+                                    <th>Pull Test</th>
+                                    <th>X(inches)</th>
+                                    <th>Y(inches)</th>
+                                    <th>Cut Off</th>
+                                    <th>Well Name</th>
+                                    <th>Jar Number</th>
+                                    <th>Max Pull</th>
+                                    <th>Max Depth</th>
+                                    <th>Duration(s)</th>
+                                    <th>Smart Monitor</th>
+                                    <th>Remarks</th>
+                                    <th>Job Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php
-                                foreach ($trials as $key => $trial) {
-                                ?>
-                                    <tr>
-                                        <td><?= $key + 1 ?></td>
-                                        <td><?= date('d M Y, h:i A') ?></td>
-                                        <td><?= date('d M Y') ?></td>
-                                        <td><?= $trial['operator_name'] ?></td>
-                                        <td><?= $trial['drum_name'] ?></td>
-                                        <td><?= $trial['job_type_name'] ?></td>
-                                        <td><?= $trial['well_name'] ?></td>
-                                        <td><?= $trial['cut_off'] ?></td>
-                                        <td><?= $trial['max_pull'] ?></td>
-                                        <td><?= $trial['jar_number'] ?></td>
-                                        <td><?= $trial['remarks'] ?></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-none filter-column-group">
+    <div class="btn-group custom-filter">
+        <button class="btn btn-outline-light dropdown-toggle txt-dark" type="button" data-bs-toggle="dropdown" aria-expanded="true">Filter</button>
+        <div class="dropdown-menu dropdown-block text-start" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-200px, 37px); font-size: 14px; width: 500px">
+            <div class="row">
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column checkbox-solid-dark" type="checkbox" checked value="1" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Date</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="2" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Operator</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="3" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Supervisor</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="4" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Client</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="5" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Package</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="6" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Drum</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="7" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Type of Job</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="8" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Wrap Test</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="9" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Pull Test</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="10" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">X inches</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="11" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Y inches</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="12" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Cut Off</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="13" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Well Name</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="14" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Jar Number</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="15" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Max Pull</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="16" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Max Depth</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="17" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Duration</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="18" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Smart Monitor</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="19" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Remarks</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="20" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Job Status</label>
                     </div>
                 </div>
             </div>

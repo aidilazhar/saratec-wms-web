@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Import extends CI_Controller
+class Import2 extends CI_Controller
 {
     function __construct()
     {
@@ -27,7 +27,7 @@ class Import extends CI_Controller
 
     public function index()
     {
-        if (($open = fopen("C:/Users/mhanifazmi/Desktop/records/cwr-0855.csv", "r")) !== FALSE) {
+        if (($open = fopen("C:/Users/mhanifazmi/Desktop/records/cwr-1277.csv", "r")) !== FALSE) {
 
             while (($data = fgetcsv($open, 0, ",")) !== FALSE) {
                 $array[] = $data;
@@ -41,7 +41,7 @@ class Import extends CI_Controller
         $set = [];
 
         $company_id = $this->company("DELEUM");
-        $field_id = $this->field_id("Field A");
+        $field_id = $this->field_id("Field B");
 
         foreach ($array as $key => $arr) {
             $data = [
@@ -96,15 +96,15 @@ class Import extends CI_Controller
         $wire = [
             'company_id' => $company_id,
             'client_id' => $client_id,
-            "name" => "CWR-0855",
+            "name" => "CWR-1277",
             'package_id' => $package_id,
             'drum_id' => $drum_id,
             'size' => 0.108,
             'brand' => 'SUPA75',
             'grade' => '-',
             'manufacturer' => "SUPA75 DWS",
-            'initial_length' => 25918,
-            'first_spooling_at' => date('Y-m-d', strtotime('2021-12-02')),
+            'initial_length' => 25131,
+            'first_spooling_at' => date('Y-m-d', strtotime('2021-08-24')),
         ];
 
         $wire_id = $this->Wire_model->store($wire);
@@ -297,10 +297,24 @@ class Import extends CI_Controller
 
     public function company($name)
     {
-        $data = [
-            "name" => $name,
-        ];
+        $company = $this->Company_model->search([
+            [
+                'value' => $name,
+                'column' => 'name',
+                'type' => 'and'
+            ]
+        ]);
 
-        return $this->Company_model->store($data);
+        if (is_null($company)) {
+            $data = [
+                'name' => $name,
+            ];
+
+            $id = $this->Company_model->store($data);
+
+            return $id;
+        } else {
+            return $company['id'];
+        }
     }
 }

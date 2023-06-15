@@ -242,6 +242,7 @@ class Api extends CI_Controller
 
             $data[] = [
                 'id' => $wire['id'],
+                'name' => $wire['name'],
                 'brand' => $wire['brand'],
                 'wire_od' => $wire['size'],
                 'length' => $wire['initial_length'],
@@ -409,5 +410,90 @@ class Api extends CI_Controller
         }
 
         echo json_encode(compact('tech_sheet'));
+    }
+
+    public function wireStoreMultiple()
+    {
+        $data = $this->input->post();
+        $error = [];
+
+        $wire_id = $data['wire_id'];
+        $issued_at = $data['issued_at'];
+        $operator_id = $data['operator_id'];
+        $supervisor_name = $data['supervisor_name'];
+        $client_id = $data['client_id'];
+        $package_id = $data['package_id'];
+        $drum_id = $data['drum_id'];
+        $wrap_test = $data['wrap_test'];
+        $pull_test = $data['pull_test'];
+        $x_inch = $data['x_inch'];
+        $y_inch = $data['x_inch'];
+        $cut_off = $data['cut_off'];
+        $well_id = $data['well_id'];
+
+        $files = $_FILES;
+        $i = 0;
+
+        foreach ($data['job_type_id'] as $key => $job_type_id) {
+            $inputs = compact('wire_id', 'issued_at', 'operator_id', 'supervisor_name', 'client_id', 'package_id', 'drum_id', 'wrap_test', 'pull_test', 'x_inch', 'y_inch', 'cut_off', 'well_id');
+            $inputs['job_type_id'] = $job_type_id;
+            $inputs['jar_number'] = $data['jar_number'][$key];
+            $inputs['max_pull'] = $data['max_pull'][$key];
+            $inputs['max_depth'] = $data['max_depth'][$key];
+            $inputs['duration'] = $data['duration'][$key];
+            $inputs['remarks'] = $data['remarks'][$key];
+            $inputs['job_status'] = $data['job_status'][$key];
+            $inputs['smart_monitor_hidden'] = $data['smart_monitor_hidden'][$key];
+
+            if ($inputs['smart_monitor_hidden'] == 1) {
+                $path = 'wires/' . $wire_id . '/smart_monitors';
+
+                $this->Utility_model->mkdir($path);
+                $config['upload_path']          = 'temp/' . $path;
+                $config['allowed_types']        = 'csv|xlsx';
+                $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
+                $config['max_size']             = 10000000;
+
+                // Loop through each file and upload them
+                $_FILES['smart_monitor_csv']['name'] = $files['smart_monitor_csv']['name'][$i];
+                $_FILES['smart_monitor_csv']['type'] = $files['smart_monitor_csv']['type'][$i];
+                $_FILES['smart_monitor_csv']['tmp_name'] = $files['smart_monitor_csv']['tmp_name'][$i];
+                $_FILES['smart_monitor_csv']['error'] = $files['smart_monitor_csv']['error'][$i];
+                $_FILES['smart_monitor_csv']['size'] = $files['smart_monitor_csv']['size'][$i];
+
+                // Initialize the Upload library with the configuration
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                // Upload the file
+                if ($this->upload->do_upload('smart_monitor_csv')) {
+                    $upload_data = array('upload_data' => $this->upload->data());
+                    $smart_monitor_data = [
+                        'name' => $upload_data['upload_data']['file_name'],
+                        'url' => $path . '/' . $upload_data['upload_data']['file_name'],
+                    ];
+
+                    $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+                    $inputs['smart_monitor_id'] = $smart_monitor_id;
+                } else {
+                    $error[] = array('error' => $this->upload->display_errors());
+                }
+                $i++;
+            }
+
+            $inputs['wire_id'] = $wire_id;
+            $inputs['operator_id'] = auth()->id;
+
+            unset($inputs['smart_monitor']);
+            unset($inputs['smart_monitor_hidden']);
+
+            $res = $this->Trial_model->store($inputs);
+        }
+
+        if (!empty($error)) {
+            print_r($error);
+            return;
+        }
+        echo json_encode($res);
     }
 }

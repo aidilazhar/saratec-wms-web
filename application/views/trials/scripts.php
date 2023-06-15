@@ -1,0 +1,196 @@
+<script>
+    var length = [10, 25, 50, 100];
+    var data_table = $('.trials-datatable').DataTable({
+        "lengthMenu": [
+            length,
+            length
+        ],
+        dom: '<"wrapper"fl>tip',
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "<?php echo base_url('trials/ajax/' . encode($wire_id)) ?>",
+            dataType: "json",
+            type: "POST",
+        },
+        initComplete: function() {
+            $('.dataTables_columns').find('.filter-column').each(function() {
+                toggleColumn($(this).val(), $(this).prop('checked'));
+            });
+        },
+        columnDefs: [{
+                "targets": 0,
+                "render": function(data, type, row, meta) {
+                    return meta.settings._iDisplayStart + meta.row + 1
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 1,
+                "data": "issued_at",
+                "orderable": true,
+            },
+            {
+                "targets": 2,
+                "data": "operator_name",
+                "orderable": true,
+            },
+            {
+                "targets": 3,
+                "data": "supervisor_name",
+                "orderable": true,
+            },
+            {
+                "targets": 4,
+                "data": "client_name",
+                "orderable": true,
+            },
+            {
+                "targets": 5,
+                "data": "package_name",
+                "orderable": true,
+            },
+            {
+                "targets": 6,
+                "data": "drum_name",
+                "orderable": true,
+            },
+            {
+                "targets": 7,
+                "data": "job_type_name",
+                "orderable": true,
+            },
+            {
+                "targets": 8,
+                "data": "wrap_test",
+                "orderable": true,
+            },
+            {
+                "targets": 9,
+                "data": "pull_test",
+                "orderable": true,
+            },
+            {
+                "targets": 10,
+                "render": function(data, type, row, meta) {
+                    if (row.x_inch != null) {
+                        return row.x_inch
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 11,
+                "render": function(data, type, row, meta) {
+                    if (row.x_inch != null) {
+                        return row.y_inch
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 12,
+                "data": "cut_off",
+                "orderable": true,
+            },
+            {
+                "targets": 13,
+                "data": "well_name",
+                "orderable": true,
+            },
+            {
+                "targets": 14,
+                "data": "jar_number",
+                "orderable": true,
+            },
+            {
+                "targets": 15,
+                "data": "max_pull",
+                "orderable": true,
+            },
+            {
+                "targets": 16,
+                "data": "max_depth",
+                "orderable": true,
+            },
+            {
+                "targets": 17,
+                "data": "duration",
+                "orderable": true,
+            },
+            {
+                "targets": 18,
+                "render": function(data, type, row, meta) {
+                    if (row.smart_monitor_name != null) {
+                        return '<a target="_blank" href="<?= temp_url() ?>' + row.smart_monitor_url + '">' + row.smart_monitor_name + '</a>'
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 19,
+                "data": "remarks",
+                "orderable": true,
+            },
+            {
+                "targets": 20,
+                "data": "job_status",
+                "orderable": true,
+            },
+            {
+                "targets": 21,
+                "data": "actions",
+                "orderable": false,
+            },
+        ]
+    });
+
+    var filter = $('.filter-column-group').html();
+
+    $('div.wrapper').append('<div id="trials_columns" class="dataTables_columns">' + filter + '</div>');
+
+    $(".filter-column").change(function(e) {
+        var total = $('.dataTables_columns').find('.filter-column:checked').length
+        toggleColumn($(this).val(), $(this).prop('checked'))
+    });
+
+    function toggleColumn(columnIndex, toggle) {
+        var column = data_table.column(columnIndex);
+        column.visible(toggle);
+    }
+
+    $(document).on('change', '.smart-monitor', function() {
+        $(this).closest('.sm-csv').find('.smart-monitor-csv').prop('disabled', !$(this).prop('checked'))
+        $(this).closest('.sm-csv').find('.smart-monitor-button').prop('disabled', !$(this).prop('checked'))
+        if (!$(this).prop('checked')) {
+            $(this).closest('.sm-csv').find('.smart-monitor-hidden').val(0)
+        } else {
+            $(this).closest('.sm-csv').find('.smart-monitor-hidden').val(1)
+        }
+    })
+
+    $(document).on('change', '#smart-monitor-csv', function() {
+        var file = $(this)[0].files[0].name;
+        $(this).closest('.sm-csv').find('.csv-name').text(file);
+    });
+
+    $(document).on('click', '.smart-monitor-button', function() {
+        $(this).closest('.sm-csv').find('.smart-monitor-csv').click()
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.add-entry', function() {
+        var entry = $('.entry-hidden').html()
+        $('.entry-body').append(entry);
+    });
+
+    $(document).on('click', '.delete-entry', function() {
+        var row = $(this).closest('.entry-row');
+        row.remove();
+    });
+</script>

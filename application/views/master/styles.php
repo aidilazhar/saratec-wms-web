@@ -64,4 +64,29 @@
         border-radius: 5px;
         padding: 6px 10px;
     }
+
+    .custom-filter {
+        display: inline-block;
+    }
+
+    .dataTables_length>label>select,
+    .dataTables_columns>label>select,
+    .dataTables_filter>label>input {
+        display: inline-block !important;
+    }
+
+    .dataTables_length>label>,
+    .dataTables_columns>label>,
+    .dataTables_filter>label> {
+        display: inline-block;
+    }
+
+    .dataTables_wrapper .dataTables_columns {
+        text-align: center;
+    }
+
+    .dataTables_wrapper button {
+        color: initial;
+        border-radius: 0px;
+    }
 </style>

@@ -1,7 +1,7 @@
 <script>
     $('.well-name').DataTable({
         searching: false,
-        paging: false,
+        paging: true,
         info: false,
         pageLength: 5,
         order: [
@@ -54,184 +54,6 @@
     job_type_chart.render();
 </script>
 
-<script>
-    // basic area chart
-    var cut_off_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'straight',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo $trial['cut_off'] . ', ';
-                }
-                ?>
-            ]
-        }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'left'
-        },
-        colors: [CubaAdminConfig.primary]
-    }
-
-    var cut_off = new ApexCharts(
-        document.querySelector("#cut-off-chart"),
-        cut_off_options
-    );
-
-    cut_off.render();
-</script>
-
-<script>
-    // basic area chart
-    var max_pull_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'smooth',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo $trial['max_pull'] . ', ';
-                }
-                ?>
-            ]
-        }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'left'
-        },
-        colors: ["#f73164"]
-    }
-
-    var max_pull = new ApexCharts(
-        document.querySelector("#max-pull-chart"),
-        max_pull_options
-    );
-
-    max_pull.render();
-</script>
-<script>
-    // basic area chart
-    var jar_number_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: false
-            },
-            toolbar: {
-                show: false
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'smooth',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo $trial['jar_number'] . ', ';
-                }
-                ?>
-            ]
-        }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'right'
-        },
-        colors: ["#FFAA05"]
-    }
-
-    var jar_number = new ApexCharts(
-        document.querySelector("#jar-number-chart"),
-        jar_number_options
-    );
-
-    jar_number.render();
-</script>
 <script>
     // recent chart
     var recentoptions = {
@@ -494,4 +316,347 @@
         recentoptions
     );
     recentchart.render();
+</script>
+<script>
+    // basic area chart
+    var cut_off_options = {
+        chart: {
+            height: 350,
+            type: 'area',
+            zoom: {
+                enabled: true
+            },
+            toolbar: {
+                show: true
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            curve: 'straight',
+            lineCap: 'butt',
+            width: 1,
+            dashArray: 0,
+        },
+        series: [{
+            name: "Max Pull (lbs)",
+            data: [
+                <?php
+                echo json_encode(array_column($trials, "max_pull"));
+                ?>
+            ]
+        }],
+        labels: [
+            <?php
+            foreach ($trials as $trial) {
+                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
+            }
+            ?>
+        ],
+        xaxis: {
+            type: 'date',
+        },
+        yaxis: {
+            opposite: false
+        },
+        legend: {
+            horizontalAlign: 'left'
+        },
+        colors: [CubaAdminConfig.primary]
+    }
+
+    var cut_off = new ApexCharts(
+        document.querySelector("#cut-off-chart"),
+        cut_off_options
+    );
+
+    cut_off.render();
+</script>
+
+<script>
+    // basic area chart
+    var max_pull_options = {
+        chart: {
+            height: 350,
+            type: 'area',
+            zoom: {
+                enabled: true
+            },
+            toolbar: {
+                show: true
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            curve: 'smooth',
+            lineCap: 'butt',
+            width: 1,
+            dashArray: 0,
+        },
+        series: [{
+            name: "Max Pull (lbs)",
+            data: [
+                <?php
+                foreach ($trials as $trial) {
+                    echo $trial['max_pull'] . ', ';
+                }
+                ?>
+            ]
+        }],
+        labels: [
+            <?php
+            foreach ($trials as $trial) {
+                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
+            }
+            ?>
+        ],
+        xaxis: {
+            type: 'date',
+        },
+        yaxis: {
+            opposite: false
+        },
+        legend: {
+            horizontalAlign: 'left'
+        },
+        colors: ["#f73164"]
+    }
+
+    var max_pull = new ApexCharts(
+        document.querySelector("#max-pull-chart"),
+        max_pull_options
+    );
+
+    max_pull.render();
+</script>
+<script>
+    // basic area chart
+    var jar_number_options = {
+        chart: {
+            height: 350,
+            type: 'area',
+            zoom: {
+                enabled: true
+            },
+            toolbar: {
+                show: true
+            },
+            animation: false,
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            curve: 'smooth',
+            lineCap: 'butt',
+            width: 1,
+            dashArray: 0,
+        },
+        series: [{
+            name: "Max Pull (lbs)",
+            data: [
+                <?php
+                foreach ($trials as $trial) {
+                    echo $trial['jar_number'] . ', ';
+                }
+                ?>
+            ]
+        }],
+        labels: [
+            <?php
+            foreach ($trials as $trial) {
+                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
+            }
+            ?>
+        ],
+        xaxis: {
+            type: 'date',
+        },
+        yaxis: {
+            opposite: false
+        },
+        legend: {
+            horizontalAlign: 'right'
+        },
+        colors: ["#FFAA05"]
+    }
+
+    var jar_number = new ApexCharts(
+        document.querySelector("#jar-number-chart"),
+        jar_number_options
+    );
+
+    jar_number.render();
+</script>
+<script>
+    var length = [10, 25, 50, 100];
+    var data_table = $('.trials-datatable').DataTable({
+        "lengthMenu": [
+            length,
+            length
+        ],
+        dom: '<"wrapper"fl>tip',
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "<?php echo base_url('trials/ajax/' . encode($wire['id'])) ?>",
+            dataType: "json",
+            type: "POST",
+        },
+        initComplete: function() {
+            $('.dataTables_columns').find('.filter-column').each(function() {
+                toggleColumn($(this).val(), $(this).prop('checked'));
+            });
+        },
+        columnDefs: [{
+                "targets": 0,
+                "render": function(data, type, row, meta) {
+                    return meta.settings._iDisplayStart + meta.row + 1
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 1,
+                "data": "issued_at",
+                "orderable": true,
+            },
+            {
+                "targets": 2,
+                "data": "operator_name",
+                "orderable": true,
+            },
+            {
+                "targets": 3,
+                "data": "supervisor_name",
+                "orderable": true,
+            },
+            {
+                "targets": 4,
+                "data": "client_name",
+                "orderable": true,
+            },
+            {
+                "targets": 5,
+                "data": "package_name",
+                "orderable": true,
+            },
+            {
+                "targets": 6,
+                "data": "drum_name",
+                "orderable": true,
+            },
+            {
+                "targets": 7,
+                "data": "job_type_name",
+                "orderable": true,
+            },
+            {
+                "targets": 8,
+                "data": "wrap_test",
+                "orderable": true,
+            },
+            {
+                "targets": 9,
+                "data": "pull_test",
+                "orderable": true,
+            },
+            {
+                "targets": 10,
+                "render": function(data, type, row, meta) {
+                    if (row.x_inch != null) {
+                        return row.x_inch
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 11,
+                "render": function(data, type, row, meta) {
+                    if (row.x_inch != null) {
+                        return row.x_inch
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 12,
+                "data": "cut_off",
+                "orderable": true,
+            },
+            {
+                "targets": 13,
+                "data": "well_name",
+                "orderable": true,
+            },
+            {
+                "targets": 14,
+                "data": "jar_number",
+                "orderable": true,
+            },
+            {
+                "targets": 15,
+                "data": "max_pull",
+                "orderable": true,
+            },
+            {
+                "targets": 16,
+                "data": "max_depth",
+                "orderable": true,
+            },
+            {
+                "targets": 17,
+                "data": "duration",
+                "orderable": true,
+            },
+            {
+                "targets": 18,
+                "data": "smart_monitor_name",
+                "orderable": true,
+            },
+            {
+                "targets": 19,
+                "render": function(data, type, row, meta) {
+                    if (row.smart_monitor_name != null) {
+                        return '<a href="<?= temp_url() ?>" ' + row.smart_monitor_url + '>' + row.smart_monitor_name + '</a>'
+                    }
+                    return '-'
+                },
+                "orderable": true,
+            },
+            {
+                "targets": 20,
+                "data": "remarks",
+                "orderable": true,
+            },
+            {
+                "targets": 21,
+                "data": "job_status",
+                "orderable": true,
+            },
+        ]
+    });
+
+    var filter = $('.filter-column-group').html();
+
+    $('div.wrapper').append('<div id="trials_columns" class="dataTables_columns">' + filter + '</div>');
+
+    $(".filter-column").change(function(e) {
+        var total = $('.dataTables_columns').find('.filter-column:checked').length
+        console.log(total)
+        toggleColumn($(this).val(), $(this).prop('checked'))
+    });
+
+    function toggleColumn(columnIndex, toggle) {
+        var column = data_table.column(columnIndex);
+        column.visible(toggle);
+    }
 </script>

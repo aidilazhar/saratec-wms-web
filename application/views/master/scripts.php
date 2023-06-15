@@ -63,6 +63,8 @@ if (isset($page['scripts'])) {
             var required = element.attr('required');
             var type = element.attr('type');
 
+            if (type == file) return;
+
             if (element.val() == "" && element.prop('required')) {
                 sweetAlert('error', 'Error!', text + ' cannot be empty', null);
                 no_error = false;
@@ -261,11 +263,6 @@ if (isset($page['scripts'])) {
             }
         });
     });
-</script>
-<script>
-    $(document).on('change', '.smart-monitor', function() {
-        $('.smart-monitor-csv').prop('disabled', !$(this).prop('checked'))
-    })
 </script>
 <script>
     $(document).on('input propertychange', '.name-1', function() {

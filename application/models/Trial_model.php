@@ -9,14 +9,6 @@ class Trial_model extends CI_Model
         $this->load->helper('url');
         $this->load->helper('form');
 
-        $this->with = [
-            [
-                'name' => 'smart_monitors',
-                'column' => 'id',
-                'relation' => 'one'
-            ],
-        ];
-
         $this->appends = [
             [
                 'from_name' => 'trials',
@@ -88,6 +80,16 @@ class Trial_model extends CI_Model
                 'get' => 'name',
                 'type' => 'left'
             ],
+            [
+                'from_name' => 'trials',
+                'name' => 'smart_monitors',
+                'as' => 'smart_monitors',
+                'prefix' => 'smart_monitor',
+                'self_column' => 'id',
+                'relation_column' => 'smart_monitor_id',
+                'get' => ['name', 'url'],
+                'type' => 'left'
+            ],
         ];
     }
 
@@ -95,7 +97,13 @@ class Trial_model extends CI_Model
     {
         $select = '';
         foreach ($this->appends as $append) {
-            $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+            if (is_array($append['get'])) {
+                foreach ($append['get'] as $get) {
+                    $select .= $append['as'] . '.' . $get . ' AS ' . $append['prefix'] . '_' . $get . ', ';
+                }
+            } else {
+                $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+            }
         }
         $this->db->select('trials.*, ' . $select);
         $this->db->from('trials as trials');
@@ -113,13 +121,6 @@ class Trial_model extends CI_Model
             $this->db->group_by($group_by);
         }
         $results = $this->db->get()->result_array();
-
-        foreach ($results as $key => $result) {
-            foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['id'], $with['relation']);
-            }
-        }
-
         return $results;
     }
 
@@ -129,12 +130,6 @@ class Trial_model extends CI_Model
         $this->db->from('trials');
         $this->db->where('id', $trial_id);
         $results = $this->db->get()->result_array();
-
-        foreach ($results as $key => $result) {
-            foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['id'], $with['relation']);
-            }
-        }
 
         foreach ($this->appends as $key => $append) {
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
@@ -153,8 +148,14 @@ class Trial_model extends CI_Model
             $data['created_at'] = date('Y-m-d H:i:s');
         }
 
-        $this->db->insert('trials', $data);
-        return $this->db->insert_id();
+        if (!$this->db->insert('trials', $data)) {
+            $error = $this->db->error();
+            $error_message = $error['message'];
+            return $error_message;
+        }
+
+        // The insert was successful
+        return 'success';;
     }
 
     public function update($id, $data)
@@ -179,6 +180,10 @@ class Trial_model extends CI_Model
 
     public function storeApi($data)
     {
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = date('Y-m-d H:i:s');
+        }
+
         $this->db->insert('trials', $data);
 
         if (!empty($this->db->error()['message'])) {
@@ -198,7 +203,13 @@ class Trial_model extends CI_Model
     {
         $select = '';
         foreach ($this->appends as $append) {
-            $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+            if (is_array($append['get'])) {
+                foreach ($append['get'] as $get) {
+                    $select .= $append['as'] . '.' . $get . ' AS ' . $append['prefix'] . '_' . $get . ', ';
+                }
+            } else {
+                $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+            }
         }
         $this->db->select('trials.*, ' . $select);
         $this->db->from('trials as trials');
@@ -245,5 +256,82 @@ class Trial_model extends CI_Model
         } else {
             return '-';
         }
+    }
+
+    public function list_ajax($wire_id = [], $group_by = null, $columns = [], $search = null, $limit = 10, $start = 1, $order = 'trials.id', $dir = 'DESC')
+    {
+        $select = '';
+        foreach ($columns as $key => $column) {
+            $select .= $column . ' as ' . $key . ', ';
+        }
+        $this->db->select('trials.*, ' . $select);
+        $this->db->from('trials as trials');
+        foreach ($this->appends as $key => $append) {
+            $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
+        }
+        if (!empty($wire_id)) {
+            $this->db->where_in('wire_id', $wire_id);
+        }
+        if (!empty($job_type_except)) {
+            $this->db->where_not_in('job_type_id', $job_type_except);
+        }
+        if (!is_null($search)) {
+            $this->db->group_start();
+            $i = 0;
+            foreach ($columns as $key => $column) {
+                if ($i == 0) {
+                    $this->db->like($column, $search);
+                } else {
+                    $this->db->or_like($column, $search);
+                }
+                $i++;
+            }
+
+            $this->db->group_end();
+        }
+        $this->db->where('trials.is_deleted', 0);
+        $this->db->where_in('trials.wire_id', $wire_id);
+        if (!is_null($group_by)) {
+            $this->db->group_by($group_by);
+        }
+        $this->db->limit($limit, $start);
+        $this->db->order_by($order, $dir);
+        $results = $this->db->get()->result_array();
+
+        return $results;
+    }
+
+    public function list_ajax_count($wire_id = [], $columns = [], $search = null)
+    {
+        $select = '';
+        foreach ($columns as $key => $column) {
+            $select .= $column . ' as ' . $key . ', ';
+        }
+
+        $this->db->select('trials.id');
+        $this->db->from('trials as trials');
+        foreach ($this->appends as $key => $append) {
+            $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
+        }
+        if (!empty($wire_id)) {
+            $this->db->where_in('wire_id', $wire_id);
+        }
+        if (!is_null($search)) {
+            $this->db->group_start();
+            $i = 0;
+            foreach ($columns as $key => $column) {
+                if ($i == 0) {
+                    $this->db->like($column, $search);
+                } else {
+                    $this->db->or_like($column, $search);
+                }
+                $i++;
+            }
+
+            $this->db->group_end();
+        }
+        $this->db->where('trials.is_deleted', 0);
+        $this->db->where_in('trials.wire_id', $wire_id);
+        return $this->db->count_all_results();
     }
 }

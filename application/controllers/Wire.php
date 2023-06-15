@@ -340,7 +340,7 @@ class Wire extends CI_Controller
         $job_types = array_reverse($job_types);
 
         $trials = $this->Trial_model->list([$wire_id]);
-        $trials_except = $this->Trial_model->list([$wire_id], [1, 16]);
+        $trials_except = $this->Trial_model->list([$wire_id], [1]);
 
         $mins = array_sum(array_column($trials_except, 'duration'));
         $hours = intdiv($mins, 60);
@@ -354,8 +354,8 @@ class Wire extends CI_Controller
             'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
             'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
             'average_run_duration' => ($hours / count($trials)),
-            'average_tension' => (array_sum(array_column($trials, 'max_pull')) / count($trials)),
-            'max_tension_applied' => (count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100,
+            'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
+            'max_tension_applied' => number_format((count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100, 2),
             'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
         ];
 

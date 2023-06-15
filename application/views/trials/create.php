@@ -1,3 +1,8 @@
+<style>
+    .smart-monitor-label.label-disabled {
+        display: none;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-xl-12">
@@ -114,56 +119,80 @@
                                         ?>
                                     </select>
                                 </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Type of Job</label>
-                                    <select required name="job_type_id" class="form-select digits">
-                                        <?php
-                                        foreach ($job_types as $job_type) {
-                                        ?>
-                                            <option value="<?= $job_type['id'] ?>"><?= $job_type['name'] ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">No of Jar</label>
-                                    <input required name="jar_number" value="" class="form-control" type="text" placeholder="Enter No of Jar">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Max Pull (lbs)</label>
-                                    <input required name="max_pull" value="" class="form-control" type="text" placeholder="Enter Max Pull (lbs)">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Max Depth (ft)</label>
-                                    <input required name="max_depth" value="" class="form-control" type="text" placeholder="Enter Pull Test">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Duration (mins)</label>
-                                    <input required name="duration" value="" class="form-control" type="number" placeholder="Enter Duration (mins)">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Smart Monitor Logged</label>
-                                    <div class="media-body switch-md">
-                                        <label class="switch">
-                                            <input name="smart_monitor" type="checkbox" class="smart-monitor"><span class="switch-state"></span>
-                                        </label>
+                                <div class="mb-3 col-md-12">
+                                    <hr>
+                                    <div class="w-100 text-right">
+                                        <button type="button" class="btn btn-primary mb-3 add-entry" style="float: right;">
+                                            Add
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Smart Monitor CSV</label>
-                                    <input disabled name="smart_monitor_csv" class="form-control smart-monitor-csv" type="file">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Special Note</label>
-                                    <textarea name="remarks" class="form-control" rows="5" cols="5" placeholder="Enter special note"></textarea>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Job Status</label>
-                                    <select required name="job_status" class="form-select digits">
-                                        <option value="Complete">Complete</option>
-                                        <option value="Rerun">Rerun</option>
-                                    </select>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="text-center bg-light">
+                                                <th style="width: 15%;">Type of Job</th>
+                                                <th style="width: 10%;">No of Jar</th>
+                                                <th style="width: 10%;">Max Pull (lbs)</th>
+                                                <th style="width: 10%;">Max Depth (ft)</th>
+                                                <th style="width: 10%;">Duration (mins)</th>
+                                                <th style="width: 15%;">Smart Monitor Logged</th>
+                                                <th style="width: 15%;">Special Note</th>
+                                                <th style="width: 10%;">Job Status</th>
+                                                <th style="width: 5%;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="entry-body">
+                                            <tr class="text-center entry-row">
+                                                <td>
+                                                    <select required name="job_type_id[]" class="form-select digits">
+                                                        <?php
+                                                        foreach ($job_types as $job_type) {
+                                                        ?>
+                                                            <option value="<?= $job_type['id'] ?>"><?= $job_type['name'] ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input required name="jar_number[]" value="" class="form-control" type="text">
+                                                </td>
+                                                <td>
+                                                    <input required name="max_pull[]" value="" class="form-control" type="text">
+                                                </td>
+                                                <td>
+                                                    <input required name="max_depth[]" value="" class="form-control" type="text">
+                                                </td>
+                                                <td>
+                                                    <input required name="duration[]" value="" class="form-control" type="number">
+                                                </td>
+                                                <td class="sm-csv">
+                                                    <div class="media-body switch-md">
+                                                        <label class="switch">
+                                                            <input name="smart_monitor[]" type="checkbox" class="smart-monitor"><span class="switch-state"></span>
+                                                        </label>
+                                                    </div>
+                                                    <button for="smart-monitor-csv" disabled class="btn btn-light smart-monitor-button" type="button" value="Browse...">
+                                                        Upload
+                                                    </button>
+                                                    <input required id="smart-monitor-csv" disabled name="smart_monitor_csv[]" accept=".xls, .xlsx, application/vnd.ms-excel" class="form-control smart-monitor-csv" type="file" style="display: none;" />
+                                                    <label class="csv-name d-block"></label>
+                                                    <input name="smart_monitor_hidden[]" type="hidden" class="smart-monitor-hidden" value="0">
+                                                </td>
+                                                <td>
+                                                    <textarea name="remarks[]" class="form-control" rows="5" cols="3"></textarea>
+                                                </td>
+                                                <td>
+                                                    <select required name="job_status[]" class="form-select digits">
+                                                        <option value="Complete">Complete</option>
+                                                        <option value="Rerun">Rerun</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="card-footer text-end">
@@ -179,3 +208,57 @@
         </div>
     </div>
 </div>
+<table class="d-none">
+    <tbody class="entry-hidden">
+        <tr class="text-center entry-row">
+            <td>
+                <select required name="job_type_id[]" class="form-select digits">
+                    <?php
+                    foreach ($job_types as $job_type) {
+                    ?>
+                        <option value="<?= $job_type['id'] ?>"><?= $job_type['name'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </td>
+            <td>
+                <input required name="jar_number[]" value="" class="form-control" type="text">
+            </td>
+            <td>
+                <input required name="max_pull[]" value="" class="form-control" type="text">
+            </td>
+            <td>
+                <input required name="max_depth[]" value="" class="form-control" type="text">
+            </td>
+            <td>
+                <input required name="duration[]" value="" class="form-control" type="number">
+            </td>
+            <td class="sm-csv">
+                <div class="media-body switch-md">
+                    <label class="switch">
+                        <input name="smart_monitor[]" type="checkbox" class="smart-monitor"><span class="switch-state"></span>
+                    </label>
+                </div>
+                <button for="smart-monitor-csv" disabled class="btn btn-light smart-monitor-button" type="button" value="Browse...">
+                    Upload
+                </button>
+                <input required id="smart-monitor-csv" disabled name="smart_monitor_csv[]" accept=".xls, .xlsx, application/vnd.ms-excel" class="form-control smart-monitor-csv" type="file" style="display: none;" />
+                <label class="csv-name d-block"></label>
+                <input name="smart_monitor_hidden[]" type="hidden" class="smart-monitor-hidden" value="0">
+            </td>
+            <td>
+                <textarea name="remarks[]" class="form-control" rows="5" cols="3"></textarea>
+            </td>
+            <td>
+                <select required name="job_status[]" class="form-select digits">
+                    <option value="Complete">Complete</option>
+                    <option value="Rerun">Rerun</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" style="padding: 0.37rem 0.75rem;" class="btn btn-danger delete-entry"><i class="fa fa-minus"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

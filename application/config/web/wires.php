@@ -20,6 +20,8 @@ $route['wires/(:any)/trials/edit/(:any)'] = 'Trial/edit/$1/$2';
 $route['wires/(:any)/trials/update/(:any)'] = 'Trial/update/$1/$2';
 $route['wires/(:any)/trials/delete/(:any)'] = 'Trial/delete/$1/$2';
 
+$route['trials/ajax/(:any)'] = 'Trial/ajax/$1';
+
 $route['wires/(:any)/reports'] = 'Report/index/$1';
 $route['wires/(:any)/reports/create'] = 'Report/create/$1';
 $route['wires/(:any)/reports/store'] = 'Report/store/$1';
