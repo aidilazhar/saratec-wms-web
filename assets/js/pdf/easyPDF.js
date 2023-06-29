@@ -17,14 +17,18 @@ function easyPDF(_base64, _title) {
   $("#pageNum").text(page);
 }
 
-function RenderPDF(_base64, pageNumber) {
-  console.log(pageNumber);
-  var canvas = document.getElementById("pdfview");
+function RenderPDF(_base64, pageNumber, canvas_id) {
+  var canvas = document.getElementById(canvas_id);
   var pdfData = atob(_base64);
   pdfjsLib.disableWorker = true;
 
   // Get current global page number, defaults to 1
-  displayNum = parseInt($("#pageNum").html());
+  displayNum = parseInt(
+    $("#" + canvas_id)
+      .closest(".card")
+      .find("#pageNum")
+      .html()
+  );
   pageNumber = parseInt(pageNumber);
 
   var loadingTask = pdfjsLib.getDocument({ data: pdfData });
@@ -32,7 +36,10 @@ function RenderPDF(_base64, pageNumber) {
     .then(function (pdf) {
       // Gets total page length of pdf
       size = pdf.numPages;
-      $("#pageLength").text(size);
+      $("#" + canvas_id)
+        .closest(".card")
+        .find("#pageLength")
+        .text(size);
       // Handling for changing pages
       if (pageNumber == 1) {
         pageNumber = displayNum + 1;
@@ -48,7 +55,10 @@ function RenderPDF(_base64, pageNumber) {
         throw "bad page number";
       }
       // Changes the cheeky global to our valid new page number
-      $("#pageNum").text(pageNumber);
+      $("#" + canvas_id)
+        .closest(".card")
+        .find("#pageNum")
+        .text(pageNumber);
       pdf.getPage(pageNumber).then(function (page) {
         var scale = 2.0;
         var viewport = page.getViewport(scale);

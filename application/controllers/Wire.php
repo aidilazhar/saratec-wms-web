@@ -26,6 +26,7 @@ class Wire extends CI_Controller
         $this->load->model('Trial_model');
         $this->load->model('Report_model');
         $this->load->model('Well_model');
+        $this->load->model('ThirdPartyData_model');
     }
 
     public function index()
@@ -368,9 +369,15 @@ class Wire extends CI_Controller
         $wire = $this->Wire_model->details($wire_id);
 
         if (!is_null($wire['material_certifications'])) {
-            $base64 = base64_encode(file_get_contents(temp_url($wire['material_certifications'])));
+            $base64_material_ceritification = base64_encode(file_get_contents(temp_url($wire['material_certifications'])));
         } else {
-            $base64 = null;
+            $base64_material_ceritification = null;
+        }
+
+        if (!is_null($wire['tech_sheet'])) {
+            $base64_eddy_current = base64_encode(file_get_contents(temp_url($wire['tech_sheet'])));
+        } else {
+            $base64_eddy_current = null;
         }
 
         $page = [
@@ -381,7 +388,7 @@ class Wire extends CI_Controller
         ];
 
 
-        $this->load->view('master/index', compact('page', 'wire', 'base64'));
+        $this->load->view('master/index', compact('page', 'wire', 'base64_material_ceritification', 'base64_eddy_current'));
     }
 
     public function otherReports($wire_id)
@@ -400,7 +407,7 @@ class Wire extends CI_Controller
         $this->load->view('master/index', compact('page', 'wire', 'reports'));
     }
 
-    public function thirdPartyData($wire_id)
+    public function thirdPartyData($wire_id, $prefix = "mhsi_")
     {
         $wire_id = decode($wire_id);
         $page = [
@@ -408,32 +415,34 @@ class Wire extends CI_Controller
             'subtitle' => "Wire's 3rd Party Data",
             'view' => 'wires/dashboards/third-party-data',
             'back' => base_url("wires"),
+            'scripts' => 'wires/dashboards/scripts2'
         ];
 
         $wire = $this->Wire_model->details($wire_id);
+        $third_party_data = $this->ThirdPartyData_model->list($wire_id);
 
-        $this->load->view('master/index', compact('page', 'wire'));
-    }
+        $tension = array_map(function ($entry) use ($prefix) {
+            $time = date('H:i', strtotime($entry['issued_at']));
+            $minutes = date("i", strtotime($time));
+            $roundedMinutes = round($minutes / 5) * 5;
+            $roundedTime = date("H:i", strtotime(date("H:", strtotime($time)) . $roundedMinutes));
 
-    public function techSheet($wire_id)
-    {
-        $wire_id = decode($wire_id);
-        $wire = $this->Wire_model->details($wire_id);
+            $issued_at = strtotime(date('Y-m-d', strtotime($entry['issued_at'])) . ' ' . $roundedTime) * 1000;
+            $value = floatval($entry[$prefix . "tension"]);
+            return [$issued_at, $value];
+        }, $third_party_data);
+        $tension = array_values($tension);
 
-        if (!is_null($wire['material_certifications'])) {
-            $base64 = base64_encode(file_get_contents(temp_url($wire['tech_sheet'])));
-        } else {
-            $base64 = null;
-        }
+        $line_speed = array_map(function ($entry) use ($prefix) {
+            return [strtotime($entry['issued_at']), floatval($entry[$prefix . "speed"])];
+        }, $third_party_data);
+        $line_speed = array_values($line_speed);
 
-        $page = [
-            'title' => $this->title,
-            'subtitle' => "Wire's Eddy Currents",
-            'view' => 'wires/dashboards/tech-sheets',
-            'back' => base_url("wires"),
-        ];
+        $depth = array_map(function ($entry) use ($prefix) {
+            return [intval(strtotime($entry['issued_at'])), floatval($entry[$prefix . "depth"])];
+        }, $third_party_data);
+        $depth = array_values($depth);
 
-
-        $this->load->view('master/index', compact('page', 'wire', 'base64'));
+        $this->load->view('master/index', compact('page', 'wire', 'tension', 'line_speed', 'depth', 'third_party_data'));
     }
 }

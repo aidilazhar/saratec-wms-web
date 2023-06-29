@@ -117,6 +117,7 @@ class Trial_model extends CI_Model
             $this->db->where_not_in('job_type_id', $job_type_except);
         }
         $this->db->where('trials.is_deleted', 0);
+        $this->db->order_by('issued_at');
         if (!is_null($group_by)) {
             $this->db->group_by($group_by);
         }
@@ -129,6 +130,7 @@ class Trial_model extends CI_Model
         $this->db->select('*');
         $this->db->from('trials');
         $this->db->where('id', $trial_id);
+        $this->db->order_by('issued_at');
         $results = $this->db->get()->result_array();
 
         foreach ($this->appends as $key => $append) {

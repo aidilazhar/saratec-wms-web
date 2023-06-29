@@ -10,6 +10,7 @@ $route['wires/dashboard/(:any)'] = 'Wire/dashboard/$1';
 $route['wires/dashboard/material-certifications/(:any)'] = 'Wire/materialCertifications/$1';
 $route['wires/dashboard/other-reports/(:any)'] = 'Wire/otherReports/$1';
 $route['wires/dashboard/third-party-data/(:any)'] = 'Wire/thirdPartyData/$1';
+$route['wires/dashboard/third-party-data/(:any)/(:any)'] = 'Wire/thirdPartyData/$1/$2';
 $route['wires/dashboard/tech-sheets/(:any)'] = 'Wire/techSheet/$1';
 
 $route['wires/(:any)/trials'] = 'Trial/index/$1';

@@ -64,7 +64,7 @@ class Report extends CI_Controller
         if (isset($_FILES['report']) && !empty($_FILES['report'])) {
             $path = 'wires/' . $wire_id . '/reports';
 
-            $this->Utility_model->mkdir('temp/' . $path);
+            $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = '*';
             $config['file_name'] = $this->Utility_model->slugify($data['name']);

@@ -77,4 +77,32 @@ class Utility_model extends CI_Model
 
         return $text;
     }
+
+    public function detectOutliers($numbers)
+    {
+        // Calculate the mean
+        $mean = array_sum($numbers) / count($numbers);
+
+        // Calculate the standard deviation
+        $variance = 0;
+        foreach ($numbers as $number) {
+            $variance += pow($number - $mean, 2);
+        }
+        $variance /= count($numbers);
+        $standardDeviation = sqrt($variance);
+
+        // Define a threshold for considering a number as an outlier
+        $threshold = 0; // You can adjust this value based on your requirements
+
+        // Identify the outliers
+        $outliers = [];
+        foreach ($numbers as $number) {
+            $zScore = ($number - $mean) / $standardDeviation;
+            if (abs($zScore) > $threshold) {
+                $outliers[] = $number;
+            }
+        }
+
+        return $outliers;
+    }
 }

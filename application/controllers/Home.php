@@ -59,4 +59,27 @@ class Home extends CI_Controller
 
         $this->load->view('master/index', compact('page'));
     }
+
+    public function test()
+    {
+        $files = [
+            '107202182654.csv',
+            '107202192447.csv',
+            '162021153833.csv'
+        ];
+
+        foreach ($files as $file) {
+            $csvFilePath = 'C:/Users/mhanifazmi/Desktop/third_party/' . $file;
+            $result = validateCSV($csvFilePath);
+
+            if (!$result['status']) {
+                echo $file;
+                echo ': ';
+                print_r($result['message']);
+                break;
+            } else {
+                echo "Good";
+            }
+        }
+    }
 }

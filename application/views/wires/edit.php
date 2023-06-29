@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <a href="<?= base_url("wires") ?>"><button class="btn btn-secondary">Cancel</button></a>
+                                <a href="<?= base_url("wires") ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>
                                 <button class="btn btn-primary">Submit</button>
                             </div>
                         </div>

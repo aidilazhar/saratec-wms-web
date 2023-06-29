@@ -136,6 +136,10 @@ class Trial extends CI_Controller
 
                     $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
                     $inputs['smart_monitor_id'] = $smart_monitor_id;
+
+                    $csvFilePath = $path . '/' . $upload_data['upload_data']['file_name'];
+                    $result = $this->validateCSV($csvFilePath);
+                    echo $result;
                 } else {
                     $error[] = array('error' => $this->upload->display_errors());
                 }

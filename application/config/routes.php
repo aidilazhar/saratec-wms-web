@@ -57,6 +57,7 @@ $route[''] = 'Home';
 $route['blank'] = 'Home/blank';
 $route['import-1'] = 'Import/index';
 $route['import-2'] = 'Import2/index';
+$route['import-smart-monitor'] = 'ImportSmartMonitor/index';
 
 include('web/auth.php');
 include('web/wires.php');
@@ -69,3 +70,7 @@ include('web/job-types.php');
 include('web/users.php');
 include('web/roles.php');
 include('web/api.php');
+
+
+//testing routes
+$route['test'] = 'Home/test';

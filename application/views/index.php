@@ -1,3 +1,8 @@
+<style>
+    .light-card {
+        margin-bottom: 10px;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <?php
@@ -16,29 +21,33 @@
                             <div class="col-sm-4 row">
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">Brand</span>
+                                        <div>
+                                            <span class="f-light">Brand</span>
                                             <h6 class="mt-1 mb-0"><?= $wire['brand'] ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">Wire OD</span>
+                                        <div>
+                                            <span class="f-light">Wire OD</span>
                                             <h6 class="mt-1 mb-0"><?= $wire['size'] ?>"</h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">Length (New)</span>
-                                            <h6 class="mt-1 mb-0"><?= number_format($wire['initial_length']) ?></h6>
+                                        <div>
+                                            <span class="f-light">Wire Balance(ft)</span>
+                                            <h6 class="mt-1 mb-0"><?= number_format($wire['wire_balances']) ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="light-card balance-card">
-                                        <div> <span class="f-light">1<sup>st</sup> spooling date</span>
-                                            <h6 class="mt-1 mb-0"><?= $wire['spooling_date'] ?></h6>
+                                        <div>
+                                            <span class="f-light">Wire Running</span>
+                                            <h6 class="mt-1 mb-0"><?= number_format($wire['total_running_number_hours']) ?> hours</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -47,32 +56,6 @@
                                 <div class="recent-chart text-center">
                                     <div id="radial-<?= $key + 1 ?>"></div>
                                     <h1></h1>
-                                </div>
-                                <div class="balance-profile">
-                                    <ul>
-                                        <li>
-                                            <div class="balance-item success">
-                                                <div class="balance-icon-wrap">
-                                                    <i data-feather="hash"></i>
-                                                </div>
-                                                <div>
-                                                    <span class="f-12 f-light">Wire Balance(ft)</span>
-                                                    <h5><?= number_format($wire['wire_balances']) ?></h5>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="balance-item success">
-                                                <div class="balance-icon-wrap">
-                                                    <i data-feather="clock"></i>
-                                                </div>
-                                                <div>
-                                                    <span class="f-12 f-light">Wire Running</span>
-                                                    <h5><?= number_format($wire['total_running_number_hours']) ?> hours</h5>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
 

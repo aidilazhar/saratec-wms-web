@@ -23,6 +23,8 @@ class Import extends CI_Controller
         $this->load->model('Company_model');
         $this->load->model('JobType_model');
         $this->load->model('Field_model');
+        $this->load->model('Smart_monitor_model');
+        $this->load->model('ThirdPartyData_model');
     }
 
     public function index()
@@ -68,15 +70,15 @@ class Import extends CI_Controller
             ];
 
             if (!is_numeric($data['x_inch'])) {
-                $data['x_inch'] = null;
+                $data['x_inch'] = 0;
             }
 
             if (!is_numeric($data['y_inch'])) {
-                $data['y_inch'] = null;
+                $data['y_inch'] = 0;
             }
 
             if (!is_numeric($data['max_depth'])) {
-                $data['max_depth'] = null;
+                $data['max_depth'] = 0;
             }
 
             $data['operator_id'] = $this->operator($data['operator_id'], $company_id);
@@ -121,7 +123,7 @@ class Import extends CI_Controller
             }
         }
 
-        print_r($set);
+        $this->thirdPartyData($wire_id);
     }
 
     public function operator($operator_id, $company_id)
@@ -299,8 +301,82 @@ class Import extends CI_Controller
     {
         $data = [
             "name" => $name,
+            "password" => password_hash($name, PASSWORD_BCRYPT),
         ];
 
         return $this->Company_model->store($data);
+    }
+
+    public function thirdPartyData($wire_id)
+    {
+        $files = [
+            '107202182654.csv',
+            '107202192447.csv',
+            '162021153833.csv',
+            '1072021122454.csv',
+            '1072021171029.csv'
+        ];
+
+        foreach ($files as $file) {
+            $csvFilePath = 'C:/Users/mhanifazmi/Desktop/third_party/' . $file;
+            $path = 'wires/' . $wire_id . '/smart_monitors';
+            $this->Utility_model->mkdir($path);
+
+            // Extract the filename from the URL
+            $filename = $this->Smart_monitor_model->lastEntry() + 1;
+            $fileExtension = pathinfo($csvFilePath, PATHINFO_EXTENSION);
+
+            // Download the file using cURL
+            $fileData = file_get_contents($csvFilePath);
+
+            $smart_monitor_data = [
+                'name' => $filename,
+                'url' => $path . '/' . $filename . '.' . $fileExtension,
+            ];
+
+            $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+
+            if ($fileData !== false) {
+                // Write the file to the destination folder
+                file_put_contents('temp/' . $path . '/' . $filename . '.' . $fileExtension, $fileData);
+            }
+            $result = validateCSV($csvFilePath);
+
+            if ($result['status']) {
+                $open = fopen($csvFilePath, "r");
+
+                while (($data = fgetcsv($open, 0, ",")) !== FALSE) {
+                    $array[] = $data;
+                }
+
+                fclose($open);
+                unset($array[0]);
+
+                foreach ($array as $key => $arr) {
+                    $dateTime = DateTime::createFromFormat("d-m-Y-H:i:s", $arr[0]);
+                    $date = $dateTime->format("Y-m-d H:i:s");
+
+                    echo $date;
+
+                    $data = [
+                        'wire_id' => 1,
+                        'smart_monitor_id' => $smart_monitor_id,
+                        'issued_at' => $date,
+                        'mhsi_tension' => $arr[1],
+                        'mhsi_depth' => $arr[3],
+                        'mhsi_speed' => $arr[5],
+                        'mhi_tension' => $arr[2],
+                        'mhi_depth' => $arr[4],
+                        'mhi_speed' => $arr[6],
+                    ];
+
+                    $this->ThirdPartyData_model->store($data);
+                }
+            } else {
+                echo $result['message'];
+                break;
+            }
+        }
+        echo "Good";
     }
 }

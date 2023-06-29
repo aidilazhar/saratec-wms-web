@@ -318,17 +318,18 @@
     recentchart.render();
 </script>
 <script>
-    // basic area chart
+    // area spaline chart
     var cut_off_options = {
         chart: {
             height: 350,
             type: 'area',
-            zoom: {
-                enabled: true
-            },
             toolbar: {
                 show: true
-            }
+            },
+            animation: false,
+        },
+        markers: {
+            size: 0,
         },
         dataLabels: {
             enabled: false
@@ -341,30 +342,35 @@
             dashArray: 0,
         },
         series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                echo json_encode(array_column($trials, "max_pull"));
-                ?>
-            ]
+            name: 'Cut Off',
+            data: <?= json_encode(array_column($trials, 'cut_off')) ?>
+        }, {
+            name: 'Max Pull',
+            data: <?= json_encode(array_column($trials, 'max_pull')) ?>
+        }, {
+            name: 'Number of Jar',
+            data: <?= json_encode(array_column($trials, 'jar_number')) ?>
         }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
+
         xaxis: {
             type: 'date',
+            categories: [
+                <?php
+                foreach ($trials as $trial) {
+                    echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
+                }
+                ?>
+            ],
         },
-        yaxis: {
-            opposite: false
+        tooltip: {
+            x: {
+                format: 'dd/MM/yy HH:mm'
+            },
         },
+        colors: ["#7366ff", "#bd7ebe", "#51bb25"],
         legend: {
             horizontalAlign: 'left'
         },
-        colors: [CubaAdminConfig.primary]
     }
 
     var cut_off = new ApexCharts(
@@ -374,125 +380,63 @@
 
     cut_off.render();
 </script>
-
 <script>
-    // basic area chart
-    var max_pull_options = {
+    var onsite_od_check_options = {
         chart: {
             height: 350,
             type: 'area',
-            zoom: {
-                enabled: true
-            },
-            toolbar: {
-                show: true
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'smooth',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo $trial['max_pull'] . ', ';
-                }
-                ?>
-            ]
-        }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
-        xaxis: {
-            type: 'date',
-        },
-        yaxis: {
-            opposite: false
-        },
-        legend: {
-            horizontalAlign: 'left'
-        },
-        colors: ["#f73164"]
-    }
-
-    var max_pull = new ApexCharts(
-        document.querySelector("#max-pull-chart"),
-        max_pull_options
-    );
-
-    max_pull.render();
-</script>
-<script>
-    // basic area chart
-    var jar_number_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            zoom: {
-                enabled: true
-            },
             toolbar: {
                 show: true
             },
             animation: false,
         },
+        markers: {
+            size: 0,
+        },
         dataLabels: {
             enabled: false
         },
         stroke: {
             show: true,
-            curve: 'smooth',
+            curve: 'straight',
             lineCap: 'butt',
             width: 1,
             dashArray: 0,
         },
         series: [{
-            name: "Max Pull (lbs)",
-            data: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo $trial['jar_number'] . ', ';
-                }
-                ?>
-            ]
+            name: 'X (Inch)',
+            data: <?= json_encode(array_column($trials, 'x_inch')) ?>
+        }, {
+            name: 'Y (Inch)',
+            data: <?= json_encode(array_column($trials, 'y_inch')) ?>
         }],
-        labels: [
-            <?php
-            foreach ($trials as $trial) {
-                echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-            }
-            ?>
-        ],
         xaxis: {
             type: 'date',
+            categories: [
+                <?php
+                foreach ($trials as $trial) {
+                    echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
+                }
+                ?>
+            ],
         },
-        yaxis: {
-            opposite: false
+        tooltip: {
+            x: {
+                format: 'dd/MM/yy HH:mm'
+            },
         },
+        colors: ["#7366ff", "#bd7ebe", "#51bb25"],
         legend: {
-            horizontalAlign: 'right'
+            horizontalAlign: 'left'
         },
-        colors: ["#FFAA05"]
     }
 
-    var jar_number = new ApexCharts(
-        document.querySelector("#jar-number-chart"),
-        jar_number_options
+    var onsite_od_check = new ApexCharts(
+        document.querySelector("#onsite-od-check-chart"),
+        onsite_od_check_options
     );
 
-    jar_number.render();
+    onsite_od_check.render();
 </script>
 <script>
     var length = [10, 25, 50, 100];

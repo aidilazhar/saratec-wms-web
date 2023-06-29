@@ -19,11 +19,15 @@
 <script src="<?= base_url("assets/js/header-slick.js") ?>"></script>
 <script src="<?= base_url("assets/js/chart/apex-chart/apex-chart.js") ?>"></script>
 <script src="<?= base_url("assets/js/chart/apex-chart/moment.min.js") ?>"></script>
-<script src="<?= base_url("assets/js/dashboard/dashboard_4.js") ?>"></script>
 <script src="<?= base_url("assets/js/height-equal.js") ?>"></script>
 <script src="<?= base_url("assets/js/animation/wow/wow.min.js") ?>"></script>
 <script src="<?= base_url("assets/js/sweet-alert/sweetalert.min.js") ?>"></script>
-<script src="<?= base_url("assets/js/sweet-alert/app.js") ?>"></script>
+<script src="<?= base_url("assets/js/chart/chartist/chartist.js") ?>"></script>
+<script src="<?= base_url("assets/js/chart/chartist/chartist-plugin-tooltip.js") ?>"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/boost.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="<?= base_url("assets/js/script.js") ?>"></script>
@@ -63,7 +67,7 @@ if (isset($page['scripts'])) {
             var required = element.attr('required');
             var type = element.attr('type');
 
-            if (type == file) return;
+            if (type == 'file') return;
 
             if (element.val() == "" && element.prop('required')) {
                 sweetAlert('error', 'Error!', text + ' cannot be empty', null);
@@ -93,133 +97,6 @@ if (isset($page['scripts'])) {
         min: 30,
         max: 90
     });
-
-    var options1 = {
-        chart: {
-            id: "chart2",
-            type: "area",
-            height: 230,
-            foreColor: "#ccc",
-            toolbar: {
-                autoSelected: "pan",
-                show: false
-            }
-        },
-        colors: ["#00BAEC"],
-        stroke: {
-            width: 0
-        },
-        grid: {
-            borderColor: "#555",
-            clipMarkers: false,
-            yaxis: {
-                lines: {
-                    show: false
-                }
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        fill: {
-            gradient: {
-                enabled: false,
-                opacityFrom: 0,
-                opacityTo: 0
-            }
-        },
-        markers: {
-            size: 1,
-            colors: ["#000524"],
-            strokeColor: "#00BAEC",
-            strokeWidth: 3
-        },
-        series: [{
-            data: data
-        }],
-        tooltip: {
-            theme: "dark"
-        },
-        xaxis: {
-            type: "datetime"
-        },
-        yaxis: {
-            min: 0,
-            tickAmount: 4
-        }
-    };
-
-    var options2 = {
-        chart: {
-            id: "chart2",
-            type: "area",
-            height: 230,
-            foreColor: "#ccc",
-            toolbar: {
-                autoSelected: "pan",
-                show: false
-            }
-        },
-        colors: ["#00BAEC"],
-        stroke: {
-            width: 3
-        },
-        grid: {
-            borderColor: "#555",
-            clipMarkers: false,
-            yaxis: {
-                lines: {
-                    show: false
-                }
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        fill: {
-            gradient: {
-                enabled: true,
-                opacityFrom: 0.55,
-                opacityTo: 0
-            }
-        },
-        markers: {
-            size: 1,
-            colors: ["#000524"],
-            strokeColor: "#00BAEC",
-            strokeWidth: 3
-        },
-        series: [{
-            data: data
-        }],
-        tooltip: {
-            theme: "dark"
-        },
-        xaxis: {
-            type: "datetime"
-        },
-        yaxis: {
-            min: 0,
-            tickAmount: 4
-        }
-    };
-
-
-    var chart1 = new ApexCharts(document.querySelector("#on-site-od-chart"), options1);
-    chart1.render();
-
-    var chart2 = new ApexCharts(document.querySelector("#tension-chart"), options2);
-    chart2.render();
-
-    var chart3 = new ApexCharts(document.querySelector("#depth-chart"), options2);
-    chart3.render();
-
-    var chart4 = new ApexCharts(document.querySelector("#line-speed-chart"), options2);
-    chart4.render();
-
-    var chart5 = new ApexCharts(document.querySelector("#laser-od-chart"), options2);
-    chart5.render();
-
 
     function generateDayWiseTimeSeries(baseval, count, yrange) {
         var i = 0;
@@ -297,12 +174,24 @@ if (isset($page['scripts'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js"></script>
 <script src="<?= base_url("assets/js/pdf/easyPDF.js") ?>"></script>
 <?php
-if (isset($base64)) {
+if (isset($base64_material_ceritification)) {
 ?>
     <script>
-        myPDF = "<?= $base64 ?>";
+        myPDF1 = "<?= $base64_material_ceritification ?>";
 
-        RenderPDF(myPDF, 0)
+        RenderPDF(myPDF1, 0, 'pdfview_material_certifications')
+    </script>
+<?php
+}
+?>
+
+<?php
+if (isset($base64_eddy_current)) {
+?>
+    <script>
+        myPDF2 = "<?= $base64_eddy_current ?>";
+
+        RenderPDF(myPDF2, 0, 'pdfview_eddy_current')
     </script>
 <?php
 }

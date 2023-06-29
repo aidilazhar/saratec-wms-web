@@ -6,7 +6,7 @@
         var recentoptions = {
             series: [<?= $wire['wire_balances_percent'] ?>],
             chart: {
-                height: 270,
+                height: 400,
                 type: 'radialBar',
                 toolbar: {
                     show: false

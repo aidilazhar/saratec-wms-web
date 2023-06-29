@@ -23,6 +23,7 @@
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/responsive.css") ?>">
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/style.css") ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/vendors/chartist.css") ?>">
 
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <style>
@@ -88,5 +89,10 @@
     .dataTables_wrapper button {
         color: initial;
         border-radius: 0px;
+    }
+
+    .swal-modal .swal-text {
+
+        text-align: center;
     }
 </style>

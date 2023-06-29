@@ -193,4 +193,64 @@
         var row = $(this).closest('.entry-row');
         row.remove();
     });
+
+    $(document).on('click', '.submit-button', function() {
+        if (validateTrialForm()) {
+            $('.trial-form').submit()
+        }
+    });
+</script>
+
+<script>
+    function validateTrialForm() {
+        var no_error = true;
+
+        $('.card :input, .card select').each(function() {
+            var text = $(this).prev().text().replace('*', '');
+            var element = $(this);
+            var required = element.attr('required');
+            var type = element.attr('type');
+
+            if (type == "file") {
+                return;
+            }
+
+            if (element.val() == "" && element.prop('required')) {
+                if (text == "") {
+                    sweetAlert('error', 'Error!', '(*) input cannot be empty', null);
+                } else {
+                    sweetAlert('error', 'Error!', text + ' cannot be empty', null);
+                }
+
+                no_error = false;
+                return false;
+            } else if (type == 'email') {
+                if (testEmail.test(element.val()) == false && element.val() != '') {
+                    if (text == "") {
+                        sweetAlert('error', 'Error!', '(*) input cannot be empty', null);
+                    } else {
+                        sweetAlert('error', 'Error!', text + ' is not in email format', null);
+                    }
+
+
+                    no_error = false;
+                    return false;
+                }
+            }
+        });
+
+        if (no_error) {
+            swal({
+                title: "Are you sure?",
+                text: "Kindly to check the metric unit before submitting the form",
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    $('.trial-form').submit()
+                }
+            });
+        }
+    }
 </script>

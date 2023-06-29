@@ -1,28 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 project-list">
-            <div class="card bg-dark">
-                <div class="row">
-                    <ul class="nav nav-tabs border-tab d-flex justify-content-around" id="top-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link txt-primary text-center" href="<?= base_url("wires/dashboard/" . encode($wire['id'])) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link txt-white text-center" href="<?= base_url("wires/dashboard/material-certifications/" . encode($wire['id'])) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0">Material Certifications</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link txt-white text-center" href="<?= base_url("wires/dashboard/other-reports/" . encode($wire['id'])) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0">Inspection and Other Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link txt-white text-center" href="<?= base_url("wires/dashboard/third-party-data/" . encode($wire['id'])) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0">3<sup>rd </sup>&nbsp;Party Data</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link txt-white text-center" href="<?= base_url("wires/dashboard/tech-sheets/" . encode($wire['id'])) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0">Eddy Current</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <?php
+        $this->load->view('wires/dashboards/header', compact('wire'))
+        ?>
         <div class="col-sm-12">
             <div class="card course-box widget-course">
                 <div class="card-body">
@@ -77,7 +57,7 @@
                     <span class="">Average Tension</span>
                     <small class="d-block f-light">Exclude Spooling</small>
                     <div class="d-flex align-items-end gap-1">
-                        <h4><?= number_format($dashboard['average_tension'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                        <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
                     </div>
                     <div class="bg-gradient">
                         <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
@@ -286,44 +266,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <div class=" card">
                 <div class="card-header">
-                    <h5>Cut Off (ft)</h5>
+                    <h5>Cut Off (ft) & Max Pull (lbs) & Number of Jar</h5>
                 </div>
                 <div class="card-body">
                     <div id="cut-off-chart"></div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class=" card">
-                <div class="card-header">
-                    <h5>Max Pull (lbs)</h5>
-                </div>
-                <div class="card-body">
-                    <div id="max-pull-chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class=" card">
-                <div class="card-header">
-                    <h5>Number of Jar</h5>
-                </div>
-                <div class="card-body">
-                    <div id="jar-number-chart"></div>
-                </div>
-            </div>
-        </div>
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Laser OD History 1</h5>
-                    <span>New wire - Completed on 24 April 2023</span>
+                    <h5>On-site OD Check </h5>
                 </div>
                 <div class="card-body">
-                    <div id="laser-od-chart"></div>
+                    <div id="onsite-od-check-chart"></div>
                 </div>
             </div>
         </div>
