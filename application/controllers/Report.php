@@ -63,11 +63,13 @@ class Report extends CI_Controller
 
         if (isset($_FILES['report']) && !empty($_FILES['report'])) {
             $path = 'wires/' . $wire_id . '/reports';
+            $file_name = strtotime("now");
+            $file_ext = pathinfo($_FILES["report"]["name"], PATHINFO_EXTENSION);
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
             $config['allowed_types'] = '*';
-            $config['file_name'] = $this->Utility_model->slugify($data['name']);
+            $config['file_name'] = $file_name;
             $config['max_size'] = 10000000;
 
             $this->load->library('upload', $config);
@@ -79,7 +81,7 @@ class Report extends CI_Controller
 
                 $report_data = [
                     'name' => $upload_data['upload_data']['file_name'],
-                    'url' => $path . '/' . $upload_data['upload_data']['file_name'],
+                    'url' => $path . '/' . $file_name . '.' . $file_ext,
                 ];
             }
         }
