@@ -25,6 +25,7 @@ class Api extends CI_Controller
         $this->load->model('Drum_model');
         $this->load->model('JobType_model');
         $this->load->model('Well_model');
+        $this->load->model('LabTest_model');
         $this->load->model('Report_model');
     }
 
