@@ -34,7 +34,7 @@
                     Upload
                 </button>
                 <input required id="smart-monitor-csv" disabled name="smart_monitor_csv[]" accept=".xls, .xlsx, application/vnd.ms-excel" class="form-control smart-monitor-csv" type="file" style="display: none;" />
-                <label class="csv-name d-block"></label>
+                <small class="csv-name d-block"></small>
                 <input name="smart_monitor_hidden[]" type="hidden" class="smart-monitor-hidden" value="0">
             </td>
             <td>

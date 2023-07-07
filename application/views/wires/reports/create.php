@@ -11,27 +11,27 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input name="name" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="name" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Description</label>
-                                    <input name="description" class="form-control" type="text" placeholder="Enter description">
+                                    <input required name="description" class="form-control" type="text" placeholder="Enter description">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Category</label>
-                                    <input name="category" class="form-control" type="text" placeholder="Enter category">
+                                    <input required name="category" class="form-control" type="text" placeholder="Enter category">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Issued By</label>
-                                    <input name="issued_by" class="form-control" type="text" placeholder="Enter Issued By">
+                                    <input required name="issued_by" class="form-control" type="text" placeholder="Enter Issued By">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Issued At</label>
-                                    <input class="form-control digits" id="example-datetime-local-input" type="datetime-local" required name="issued_at" value="<?= date('Y-m-d H:i:s') ?>">
+                                    <input required class="form-control digits" id="example-datetime-local-input" type="datetime-local" required name="issued_at" value="<?= date('Y-m-d H:i:s') ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">File</label>
-                                    <input name="report" class="form-control" type="file" placeholder="File">
+                                    <input required name="report" class="form-control" type="file" placeholder="File">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

@@ -17,3 +17,4 @@ $route['api/wire-material-certifications'] = 'Api/wireMaterialCertifications';
 $route['api/wire-other-reports'] = 'Api/wireOtherReports';
 $route['api/wire-third-party'] = 'Api/wireThirdPartyData';
 $route['api/wire-tech-sheet'] = 'Api/wireTechSheet';
+$route['api/slugify'] = 'Api/slugify';

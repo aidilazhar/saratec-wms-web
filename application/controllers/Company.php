@@ -46,6 +46,7 @@ class Company extends CI_Controller
     public function store()
     {
         $data = $this->input->post();
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $results = $this->Company_model->store($data);
         redirect(base_url("companies"));
     }
@@ -69,7 +70,13 @@ class Company extends CI_Controller
     {
         $company_id = decode($company_id);
         $data = $this->input->post();
-        $results = $this->Company_model->update($company_id, $data);
+
+        if ($data['password'] == '') {
+            unset($data['password']);
+        } else {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        }
+        $this->Company_model->update($company_id, $data);
         redirect(base_url("companies"));
     }
 

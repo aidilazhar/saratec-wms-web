@@ -11,7 +11,11 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input name="name" value="<?= $company['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="name" value="<?= $company['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Dashboard's Password</label>
+                                    <input required name="password" value="" class="form-control" type="password" placeholder="Enter password">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

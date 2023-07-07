@@ -264,6 +264,7 @@ class Api extends CI_Controller
 
         $operators = $this->User_model->list([], [ROLE_OPERATOR]);
         $trials = $this->Trial_model->list([$wire_id]);
+        $lab_tests = $this->LabTest_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 
         $jobs = $wlls = $tj = $w = [];
@@ -364,6 +365,7 @@ class Api extends CI_Controller
             'wells' => $wells,
             'job_types' => $job_types,
             'wire_records' => $trials,
+            'lab_tests' => $lab_tests
         ];
 
         echo json_encode(compact('data'));
@@ -495,5 +497,13 @@ class Api extends CI_Controller
             return;
         }
         echo json_encode($res);
+    }
+
+    public function slugify()
+    {
+        $text = $this->input->post('text');
+        $text = slugify($text);
+        echo $text;
+        return;
     }
 }

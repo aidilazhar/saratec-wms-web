@@ -12,14 +12,14 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
                                     <div class="input-group">
-                                        <input value="<?= $well['names'][0] ?>" name="name1" class="form-control name-1" type="text" maxlength="6">
+                                        <input required value="<?= $well['names'][0] ?>" name="name1" class="form-control name-1" type="text" maxlength="6">
                                         <span class="input-group-text">-</span>
-                                        <input value="<?= $well['names'][1] ?>" name="name2" class="form-control name-2" type="text">
+                                        <input required value="<?= $well['names'][1] ?>" name="name2" class="form-control name-2" type="text">
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Field</label>
-                                    <select name="field_id" class="form-select digits">
+                                    <select required name="field_id" class="form-select digits">
                                         <?php
                                         foreach ($fields as $field) {
                                         ?>
@@ -35,15 +35,15 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Tubing Size</label>
-                                    <input value="<?= $well['tubing_size'] ?>" name="tubing_size" class="form-control" type="text" placeholder="Enter tubing size">
+                                    <input required value="<?= $well['tubing_size'] ?>" name="tubing_size" class="form-control" type="text" placeholder="Enter tubing size">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Max Angle</label>
-                                    <input value="<?= $well['max_angle'] ?>" name="max_angle" class="form-control" type="text" placeholder="Enter tubing size">
+                                    <input required value="<?= $well['max_angle'] ?>" name="max_angle" class="form-control" type="text" placeholder="Enter tubing size">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Type</label>
-                                    <select name="type" class="form-select digits">
+                                    <select required name="type" class="form-select digits">
                                         <option <?php
                                                 if ($well['type'] == 'Gas Well') {
                                                     echo 'selected';
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Schematic</label>
-                                    <input name="schematic" class="form-control" type="file">
+                                    <input required name="schematic" class="form-control" type="file">
                                     <?php
                                     if ($well['schematic'] != null || $well['schematic']  != '') {
                                     ?>

@@ -28,6 +28,10 @@
 <script src="https://code.highcharts.com/modules/boost.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="<?= base_url("assets/js/typeahead/handlebars.js") ?>"></script>
+<script src="<?= base_url("assets/js/typeahead/typeahead.bundle.js") ?>"></script>
+<script src="<?= base_url("assets/js/typeahead/typeahead.custom.js") ?>"></script>
+
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="<?= base_url("assets/js/script.js") ?>"></script>
@@ -40,9 +44,9 @@
         var attr = $(this).attr('required');
 
         if (typeof attr !== 'undefined' && attr !== false) {
-            var prev = $(this).prev()
-            var text = prev.text();
-            prev.html(text + ' <span style="color: red">*</span>')
+            var parent = $(this).parent()
+            var text = parent.find('label').html();
+            parent.find('label').html(text + ' <span style="color: red">*</span>')
 
         }
     });

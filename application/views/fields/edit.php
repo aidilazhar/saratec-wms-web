@@ -11,7 +11,7 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input name="name" value="<?= $field['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="name" value="<?= $field['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

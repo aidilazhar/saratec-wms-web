@@ -14,6 +14,13 @@
                                     <input name="name" value="<?= $wire['name'] ?>" class="form-control" type="text" placeholder="Enter name" disabled>
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1"><?= base_url() ?></span>
+                                        <input required name="url" value="<?= $wire['url'] ?>" class="form-control input-url" type="text" placeholder="Enter URL">
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Size</label>
                                     <input name="size" value="<?= $wire['size'] ?>" class="form-control" type="text" placeholder="Enter size" disabled>
                                 </div>

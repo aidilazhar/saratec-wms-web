@@ -11,19 +11,19 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input name="name" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="name" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Username</label>
-                                    <input name="username" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="username" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Contact</label>
-                                    <input name="contact" class="form-control" type="text" placeholder="Enter contact">
+                                    <input required name="contact" class="form-control" type="text" placeholder="Enter contact">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Role</label>
-                                    <select name="role_id" class="form-select digits">
+                                    <select required name="role_id" class="form-select digits">
                                         <?php
                                         foreach ($roles as $role) {
                                         ?>
@@ -35,11 +35,11 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Email address</label>
-                                    <input name="email" class="form-control" type="email" placeholder="Enter email">
+                                    <input required name="email" class="form-control" type="email" placeholder="Enter email">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Password</label>
-                                    <input name="password" class="form-control" type="password" placeholder="Password">
+                                    <input required name="password" class="form-control" type="password" placeholder="Password">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

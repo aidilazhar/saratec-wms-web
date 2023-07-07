@@ -15,8 +15,8 @@ if ($page['subtitle'] != null) {
     <meta name="description" content=" A WMS helps businesses manage their warehouse operations with greater efficiency and accuracy. Keep track of data, and save time with real-time visibility. Discover how a WMS can benefit your business.">
     <meta name="keywords" content="wms, saratec, system">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="<?= base_url("assets/images/favicon.png") ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= base_url("assets/images/favicon.png") ?>" type="image/x-icon">
     <title><?= $page_title ?></title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">

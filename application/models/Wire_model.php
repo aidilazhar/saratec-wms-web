@@ -97,4 +97,18 @@ class Wire_model extends CI_Model
         $this->db->update('wires', $data);
         return $id;
     }
+
+    public function dashboard($url)
+    {
+        $this->db->select('*');
+        $this->db->from('wires');
+        $this->db->where('url', $url);
+        $results = $this->db->get()->result_array();
+
+        if (empty($results)) {
+            return [];
+        } else {
+            return $results[0];
+        }
+    }
 }

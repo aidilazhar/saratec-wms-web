@@ -27,6 +27,7 @@ class Wire extends CI_Controller
         $this->load->model('Report_model');
         $this->load->model('Well_model');
         $this->load->model('ThirdPartyData_model');
+        $this->load->model('LabTest_model');
     }
 
     public function index()
@@ -60,6 +61,7 @@ class Wire extends CI_Controller
             'subtitle' => "Create Wire",
             'view' => 'wires/create',
             'back' => base_url("wires"),
+            'scripts' => 'wires/scripts',
         ];
 
         $this->load->view('master/index', compact('page', 'drums', 'packages', 'companies', 'clients'));
@@ -347,6 +349,26 @@ class Wire extends CI_Controller
         $hours = intdiv($mins, 60);
         $days = round($hours / 24);
 
+        $x_inch = array_map(function ($entry) {
+            if ($entry['x_inch'] == 0) return null;
+            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+            $value = floatval($entry["x_inch"]);
+            return [$issued_at, $value];
+        }, $trials);
+
+        $x_inch = array_values(array_filter($x_inch));
+
+        $y_inch = array_map(function ($entry) {
+            if ($entry['y_inch'] == 0) return null;
+            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+            $value = floatval($entry["y_inch"]);
+            return [$issued_at, $value];
+        }, $trials);
+
+        $y_inch = array_values(array_filter($y_inch));
+
+        $lab_tests = $this->LabTest_model->list([$wire_id]);
+
         $dashboard = [
             'total_number_run' => count($trials_except),
             'total_running_number_hours' => $hours,
@@ -356,11 +378,13 @@ class Wire extends CI_Controller
             'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
             'average_run_duration' => ($hours / count($trials)),
             'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
-            'max_tension_applied' => number_format((count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100, 2),
+            'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
             'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+            'x_inch' => $x_inch,
+            'y_inch' => $y_inch,
         ];
 
-        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients'));
+        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients', 'lab_tests'));
     }
 
     public function materialCertifications($wire_id)
@@ -422,27 +446,26 @@ class Wire extends CI_Controller
         $third_party_data = $this->ThirdPartyData_model->list($wire_id);
 
         $tension = array_map(function ($entry) use ($prefix) {
-            $time = date('H:i', strtotime($entry['issued_at']));
-            $minutes = date("i", strtotime($time));
-            $roundedMinutes = round($minutes / 5) * 5;
-            $roundedTime = date("H:i", strtotime(date("H:", strtotime($time)) . $roundedMinutes));
-
-            $issued_at = strtotime(date('Y-m-d', strtotime($entry['issued_at'])) . ' ' . $roundedTime) * 1000;
+            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
             $value = floatval($entry[$prefix . "tension"]);
             return [$issued_at, $value];
         }, $third_party_data);
         $tension = array_values($tension);
 
-        $line_speed = array_map(function ($entry) use ($prefix) {
-            return [strtotime($entry['issued_at']), floatval($entry[$prefix . "speed"])];
+        $speed = array_map(function ($entry) use ($prefix) {
+            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+            $value = floatval($entry[$prefix . "speed"]);
+            return [$issued_at, $value];
         }, $third_party_data);
-        $line_speed = array_values($line_speed);
+        $speed = array_values($speed);
 
         $depth = array_map(function ($entry) use ($prefix) {
-            return [intval(strtotime($entry['issued_at'])), floatval($entry[$prefix . "depth"])];
+            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+            $value = floatval($entry[$prefix . "depth"]);
+            return [$issued_at, $value];
         }, $third_party_data);
         $depth = array_values($depth);
 
-        $this->load->view('master/index', compact('page', 'wire', 'tension', 'line_speed', 'depth', 'third_party_data'));
+        $this->load->view('master/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix'));
     }
 }

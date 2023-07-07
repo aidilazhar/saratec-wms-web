@@ -20,6 +20,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>URL</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,9 @@
                                     <tr>
                                         <td><?= $key + 1 ?></td>
                                         <td><?= $wire['name'] ?></td>
+                                        <td>
+                                            <a target="_blank" href="<?= base_url() ?><?= $wire['url'] ?>/dashboard"><?= base_url() ?><?= $wire['url'] ?>/dashboard</a>
+                                        </td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
                                                 <?php
@@ -46,6 +50,11 @@
                                                 if (permission('Manage Documents')) {
                                                 ?>
                                                     <li class="dashboard""><a href=" <?= base_url('wires/' . encode($wire['id'])) . '/reports' ?>"><i style="color: #FFAA05;" class="icon-files"></i></a></li>
+                                                <?php
+                                                }
+                                                if (permission('Manage Lab Tests')) {
+                                                ?>
+                                                    <li class="dashboard""><a href=" <?= base_url('wires/' . encode($wire['id'])) . '/lab-tests' ?>"><i style="color: #FFAA05;" class="icon-agenda"></i></a></li>
                                                 <?php
                                                 }
                                                 if (permission('Show Wires')) {

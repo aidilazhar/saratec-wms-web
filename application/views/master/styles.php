@@ -95,4 +95,25 @@
 
         text-align: center;
     }
+
+    .dropdown-item.active {
+        color: #fff;
+        opacity: 0.6;
+        font-size: 13px;
+        padding: 6px 12px;
+        border-top: 1px solid #f5f5f5;
+        background-color: #0dcaf0;
+        line-height: 19px;
+    }
+
+
+    .dropdown-item:hover {
+        color: #fff;
+        opacity: 0.6;
+        font-size: 13px;
+        padding: 6px 12px;
+        border-top: 1px solid #f5f5f5;
+        background-color: #000 !important;
+        line-height: 19px;
+    }
 </style>

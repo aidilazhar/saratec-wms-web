@@ -16,7 +16,7 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Date</label>
-                                    <input class="form-control digits" id="example-datetime-local-input" type="datetime-local" required name="issued_at" value="<?= date('Y-m-d H:i:s') ?>">
+                                    <input class="form-control digits" type="date" value="<?= date('Y-m-d') ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Operator</label>
@@ -107,6 +107,8 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Well Name</label>
+                                    <input class="typeahead form-control well-name-prefix" type="text" placeholder="States of USA">
+                                    <br>
                                     <select required name="well_id" class="form-select digits">
                                         <?php
                                         foreach ($wells as $well) {
@@ -175,7 +177,7 @@
                                                         Upload
                                                     </button>
                                                     <input required id="smart-monitor-csv" disabled name="smart_monitor_csv[]" accept=".xls, .xlsx, application/vnd.ms-excel" class="form-control smart-monitor-csv" type="file" style="display: none;" />
-                                                    <label class="csv-name d-block"></label>
+                                                    <small class="csv-name d-block"></small>
                                                     <input name="smart_monitor_hidden[]" type="hidden" class="smart-monitor-hidden" value="0">
                                                 </td>
                                                 <td>
@@ -184,7 +186,7 @@
                                                 <td>
                                                     <select required name="job_status[]" class="form-select digits">
                                                         <option value="Complete">Complete</option>
-                                                        <option value="Rerun">Rerun</option>
+                                                        <option value="Rerun">To Rerun</option>
                                                     </select>
                                                 </td>
                                                 <td>

@@ -336,4 +336,14 @@ class Trial_model extends CI_Model
         $this->db->where_in('trials.wire_id', $wire_id);
         return $this->db->count_all_results();
     }
+
+    public function max_tension()
+    {
+        $this->db->select('*');
+        $this->db->from('trials');
+        $this->db->where('max_pull >= ', 1000);
+        $results = $this->db->get()->result_array();
+
+        return count($results);
+    }
 }

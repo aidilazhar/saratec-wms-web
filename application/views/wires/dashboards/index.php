@@ -210,7 +210,7 @@
                                             </div>
                                             <div>
                                                 <span class="f-12 f-light">Not Expose to Well Cond.</span>
-                                                <h5><?= number_format($dashboard['not_exposed_to_well_cond']) ?> hours</h5>
+                                                <h5><?= number_format($dashboard['not_exposed_to_well_cond']) ?> ft</h5>
                                             </div>
                                         </div>
                                     </li>
@@ -282,7 +282,47 @@
                     <h5>On-site OD Check </h5>
                 </div>
                 <div class="card-body">
-                    <div id="onsite-od-check-chart"></div>
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                    </figure>
+                    <!-- <div id="onsite-od-check-chart"></div> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Wire Laser OD and Lab Test Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table table-responsive">
+                        <table class="table data-table" id="data-source-1" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Job Status</th>
+                                    <th>Report Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($lab_tests as $key => $lab_test) {
+                                ?>
+                                    <tr>
+                                        <th><?= $key + 1 ?></th>
+                                        <td><?= date('d M Y', strtotime($lab_test['issued_at'])) ?></td>
+                                        <td><?= $lab_test['description'] ?></td>
+                                        <td><?= $lab_test['job_status'] ?></td>
+                                        <td><?= $lab_test['report_status'] ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

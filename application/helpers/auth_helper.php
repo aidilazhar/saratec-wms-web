@@ -79,3 +79,19 @@ if (!function_exists('auth')) {
         }
     }
 }
+
+if (!function_exists('is_authed')) {
+    function is_authed()
+    {
+        $CI = &get_instance();
+        $hash_id = $CI->session->userdata('dashboard_logged');
+        return isset($hash_id);
+    }
+}
+
+if (!function_exists('go_to_auth')) {
+    function go_to_auth($url)
+    {
+        redirect($url);
+    }
+}

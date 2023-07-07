@@ -71,6 +71,14 @@ include('web/users.php');
 include('web/roles.php');
 include('web/api.php');
 
+$route['(:any)/login'] = 'General/login/$1';
+$route['(:any)/unlock'] = 'General/unlock/$1';
+$route['(:any)/dashboard'] = 'General/dashboard/$1';
+$route['(:any)/material-certifications'] = 'General/materialCertifications/$1';
+$route['(:any)/other-reports'] = 'General/otherReports/$1';
+$route['(:any)/third-party-data'] = 'General/thirdPartyData/$1';
+$route['(:any)/third-party-data/(:any)'] = 'General/thirdPartyData/$1/$2';
+$route['(:any)/tech-sheets'] = 'General/techSheet/$1';
 
 //testing routes
 $route['test'] = 'Home/test';

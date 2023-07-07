@@ -11,15 +11,15 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input value="<?= $user['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required value="<?= $user['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Username</label>
-                                    <input value="<?= $user['username'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required value="<?= $user['username'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Contact</label>
-                                    <input value="<?= $user['contact'] ?>" class="form-control" type="text" placeholder="Enter email">
+                                    <input required value="<?= $user['contact'] ?>" class="form-control" type="text" placeholder="Enter email">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Role</label>

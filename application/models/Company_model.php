@@ -47,11 +47,11 @@ class Company_model extends CI_Model
         return $results;
     }
 
-    public function details($package_id)
+    public function details($company_id)
     {
         $this->db->select('*');
         $this->db->from('companies');
-        $this->db->where('id', $package_id);
+        $this->db->where('id', $company_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
@@ -129,6 +129,21 @@ class Company_model extends CI_Model
             return null;
         } else {
             return $results[0];
+        }
+    }
+
+    public function dashboard($url)
+    {
+        $this->db->select('company_id, url');
+        $this->db->from('wires');
+        $this->db->where('url', $url);
+        $results = $this->db->get()->result_array();
+
+        if (empty($results)) {
+            return [];
+        } else {
+            $wire = $results[0];
+            return $this->details($wire['company_id']);
         }
     }
 }

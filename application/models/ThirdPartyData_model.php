@@ -16,6 +16,7 @@ class ThirdPartyData_model extends CI_Model
         $this->db->from('third_party_datas');
         $this->db->where('is_deleted', 0);
         $this->db->where('wire_id', $wire_id);
+        $this->db->order_by('issued_at');
         $results = $this->db->get()->result_array();
 
         return $results;

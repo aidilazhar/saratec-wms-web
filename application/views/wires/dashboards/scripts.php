@@ -381,64 +381,6 @@
     cut_off.render();
 </script>
 <script>
-    var onsite_od_check_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: true
-            },
-            animation: false,
-        },
-        markers: {
-            size: 0,
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'straight',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: 'X (Inch)',
-            data: <?= json_encode(array_column($trials, 'x_inch')) ?>
-        }, {
-            name: 'Y (Inch)',
-            data: <?= json_encode(array_column($trials, 'y_inch')) ?>
-        }],
-        xaxis: {
-            type: 'date',
-            categories: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-                }
-                ?>
-            ],
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
-            },
-        },
-        colors: ["#7366ff", "#bd7ebe", "#51bb25"],
-        legend: {
-            horizontalAlign: 'left'
-        },
-    }
-
-    var onsite_od_check = new ApexCharts(
-        document.querySelector("#onsite-od-check-chart"),
-        onsite_od_check_options
-    );
-
-    onsite_od_check.render();
-</script>
-<script>
     var length = [10, 25, 50, 100];
     var data_table = $('.trials-datatable').DataTable({
         "lengthMenu": [
@@ -603,4 +545,87 @@
         var column = data_table.column(columnIndex);
         column.visible(toggle);
     }
+
+    Highcharts.setOptions({
+        colors: ["#fd7f6f", "#7eb0d5", "#b2e061", "#bd7ebe", "#ffb55a", "#ffee65", "#beb9db", "#fdcce5", "#8bd3c7"]
+    });
+
+    const series = [{
+        name: 'X (Inch)',
+        id: 'x',
+        marker: {
+            symbol: 'circle',
+            color: 'blue'
+        },
+        data: <?= json_encode($dashboard['x_inch']) ?>
+    }, {
+        name: 'Y (Inch)',
+        id: 'y',
+        marker: {
+            symbol: 'circle',
+            color: 'red'
+        },
+        data: <?= json_encode($dashboard['y_inch']) ?>
+    }];
+
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'scatter',
+            zoomType: 'x'
+        },
+        title: {
+            text: ' ',
+            align: 'left'
+        },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                format: '{value:%d-%m-%Y}' // Format as hours:minutes:seconds
+            },
+        },
+        yAxis: {
+            tickInterval: 0.0002, // 1000 milliseconds = 1 second
+            minRange: 0.0002,
+            max: 0.1092,
+            min: 0.1068,
+            plotLines: [{
+                value: 0.1080, // y-axis value where the line will be positioned
+                width: 2, // Line width
+                color: 'black', // Line color
+                dashStyle: 'dash' // Line style (optional)
+            }]
+        },
+        legend: {
+            enabled: true
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 3,
+                    symbol: 'circle',
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                jitter: {
+                    x: 0.5
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: 'Date: {point.x:%d-%m-%Y}<br/> X inch: {point.y} inch '
+        },
+        series
+    });
 </script>

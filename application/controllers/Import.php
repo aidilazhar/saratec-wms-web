@@ -99,6 +99,7 @@ class Import extends CI_Controller
             'company_id' => $company_id,
             'client_id' => $client_id,
             "name" => "CWR-0855",
+            "url" => slugify("CWR-0855"),
             'package_id' => $package_id,
             'drum_id' => $drum_id,
             'size' => 0.108,
@@ -359,7 +360,7 @@ class Import extends CI_Controller
                     echo $date;
 
                     $data = [
-                        'wire_id' => 1,
+                        'wire_id' => $wire_id,
                         'smart_monitor_id' => $smart_monitor_id,
                         'issued_at' => $date,
                         'mhsi_tension' => $arr[1],

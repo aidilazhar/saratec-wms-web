@@ -11,19 +11,19 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Name</label>
-                                    <input name="name" value="<?= $user['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="name" value="<?= $user['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Username</label>
-                                    <input name="username" value="<?= $user['username'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                    <input required name="username" value="<?= $user['username'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Contact</label>
-                                    <input name="contact" value="<?= $user['contact'] ?>" class="form-control" type="text" placeholder="Enter email">
+                                    <input required name="contact" value="<?= $user['contact'] ?>" class="form-control" type="text" placeholder="Enter email">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Role</label>
-                                    <select name="role_id" class="form-select digits">
+                                    <select required name="role_id" class="form-select digits">
                                         <?php
                                         foreach ($roles as $role) {
                                             if ($role['id'] == $user['role_id']) {
@@ -43,15 +43,15 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Email address</label>
-                                    <input name="email" value="<?= $user['email'] ?>" class="form-control" type="email" placeholder="Enter email">
+                                    <input required name="email" value="<?= $user['email'] ?>" class="form-control" type="email" placeholder="Enter email">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Password</label>
-                                    <input name="password" class="form-control" type="password" placeholder="Password">
+                                    <input required name="password" class="form-control" type="password" placeholder="Password">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Retype Password</label>
-                                    <input name="repassword" class="form-control" type="password" placeholder="Password">
+                                    <input required name="repassword" class="form-control" type="password" placeholder="Password">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

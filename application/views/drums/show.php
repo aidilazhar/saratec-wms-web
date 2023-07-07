@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0">Name</label>
-                                <input disabled value="<?= $drum['name'] ?>" class="form-control" type="text" placeholder="Enter name">
+                                <input required disabled value="<?= $drum['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                             </div>
                         </div>
                         <div class="card-footer text-end">

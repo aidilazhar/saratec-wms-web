@@ -30,3 +30,11 @@ $route['wires/(:any)/reports/(:any)'] = 'Report/show/$1/$2';
 $route['wires/(:any)/reports/edit/(:any)'] = 'Report/edit/$1/$2';
 $route['wires/(:any)/reports/update/(:any)'] = 'Report/update/$1/$2';
 $route['wires/(:any)/reports/delete/(:any)'] = 'Report/delete/$1/$2';
+
+$route['wires/(:any)/lab-tests'] = 'LabTest/index/$1';
+$route['wires/(:any)/lab-tests/create'] = 'LabTest/create/$1';
+$route['wires/(:any)/lab-tests/store'] = 'LabTest/store/$1';
+$route['wires/(:any)/lab-tests/(:any)'] = 'LabTest/show/$1/$2';
+$route['wires/(:any)/lab-tests/edit/(:any)'] = 'LabTest/edit/$1/$2';
+$route['wires/(:any)/lab-tests/update/(:any)'] = 'LabTest/update/$1/$2';
+$route['wires/(:any)/lab-tests/delete/(:any)'] = 'LabTest/delete/$1/$2';
