@@ -22,7 +22,7 @@ if (!function_exists('permission()')) {
 
         $permissions = $ci->session->userdata('permissions') ?? [];
 
-        return (array_search($perm, array_column($permissions, 'name')) != '' || array_search($perm, array_column($permissions, 'name')) != null);
+        return (in_array($perm, array_column($permissions, 'name')) != '' || in_array($perm, array_column($permissions, 'name')) != null);
     }
 }
 
