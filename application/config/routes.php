@@ -82,3 +82,4 @@ $route['(:any)/tech-sheets'] = 'General/techSheet/$1';
 
 //testing routes
 $route['test'] = 'Home/test';
+$route['php-info'] = 'Home/phpInfo';
