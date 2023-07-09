@@ -16,7 +16,7 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Date</label>
-                                    <input class="form-control digits" type="date" value="<?= date('Y-m-d') ?>">
+                                    <input name="issued_at" class="form-control digits" type="date" value="<?= date('Y-m-d') ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Operator</label>
@@ -107,19 +107,11 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Well Name</label>
-                                    <input class="typeahead form-control well-name-prefix" type="text" placeholder="States of USA">
-                                    <br>
-                                    <select required name="well_id" class="form-select digits">
-                                        <?php
-                                        foreach ($wells as $well) {
-                                        ?>
-                                            <option <?php if ($well['id'] == $wire['client_id']) {
-                                                        echo 'selected';
-                                                    } ?> value="<?= $well['id'] ?>"><?= $well['name'] ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
+                                    <div class="input-group">
+                                        <input required name="well_prefix" class="typeahead form-control well-name-prefix" type="text">
+                                        <span class="input-group-text"> - </span>
+                                        <input required name="well_postfix" class="typeahead form-control well-name-postfix" type="text">
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-12">
                                     <hr>

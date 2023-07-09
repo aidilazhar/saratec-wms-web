@@ -90,7 +90,21 @@ class Trial extends CI_Controller
         $x_inch = $data['x_inch'];
         $y_inch = $data['x_inch'];
         $cut_off = $data['cut_off'];
-        $well_id = $data['well_id'];
+
+        $well_name = $data['well_prefix'] . '-' . $data['well_postfix'];
+
+        $well = $this->Well_model->search([
+            [
+                'column' => 'name',
+                'value' => $well_name
+            ]
+        ]);
+
+        if (!empty($well)) {
+            $well_id = $well['id'];
+        } else {
+            $well_id = $this->Well_model->store(['name' => $well_name]);
+        }
 
         $files = $_FILES;
         $i = 0;

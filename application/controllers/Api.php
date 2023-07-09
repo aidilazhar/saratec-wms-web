@@ -507,4 +507,35 @@ class Api extends CI_Controller
         echo $text;
         return;
     }
+
+    public function wellNamePrefix()
+    {
+        $prefixes = $this->db->select('SUBSTRING_INDEX(name, "-", 1) AS prefix')
+            ->from('wells')
+            ->where('is_deleted', 0)
+            ->group_by('prefix')
+            ->get()
+            ->result_array();
+
+        echo json_encode($prefixes);
+        return;
+    }
+
+    public function wellNamePostfix()
+    {
+        $prefix = $this->input->post('prefix');
+
+        $prefix = $prefix . '-';
+
+        $data = $this->db->select('SUBSTRING_INDEX(name, "-", -1) AS postfix')
+            ->from('wells')
+            ->where('name LIKE', $prefix . '%')
+            ->where('is_deleted', 0)
+            ->group_by('postfix')
+            ->get()
+            ->result_array();
+
+        echo json_encode($data);
+        return;
+    }
 }

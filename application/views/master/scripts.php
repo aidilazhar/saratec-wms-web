@@ -30,7 +30,6 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="<?= base_url("assets/js/typeahead/handlebars.js") ?>"></script>
 <script src="<?= base_url("assets/js/typeahead/typeahead.bundle.js") ?>"></script>
-<script src="<?= base_url("assets/js/typeahead/typeahead.custom.js") ?>"></script>
 
 <!-- Plugins JS Ends-->
 <!-- Theme js-->

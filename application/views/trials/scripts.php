@@ -269,23 +269,73 @@
         };
     };
 
-    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-    ];
+    var prefixes = [];
+    var postfixes = [];
+
+    $.ajax({
+        url: '<?= base_url('api/well-name-prefix') ?>',
+        method: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            let options = [];
+            for (let i in data) {
+                options.push(data[i].prefix)
+            }
+
+            prefixes = options
+        },
+    });
 
     $('.well-name-prefix').typeahead({
         hint: true,
         highlight: true,
+        async: true,
         minLength: 1
     }, {
-        name: 'states',
-        source: substringMatcher(states)
+        source: substringMatcher(prefixes)
     });
+
+    let postfix_typeahead = $('.well-name-postfix').typeahead();
+
+    postfix_typeahead.typeahead({
+        hint: true,
+        highlight: true,
+        async: true,
+        minLength: 1
+    }, {
+        source: substringMatcher([])
+    });
+
+
+    $('.well-name-prefix').on('change', function() {
+        $.ajax({
+            url: '<?= base_url('api/well-name-postfix') ?>',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                prefix: $(this).val(),
+            },
+            async: false,
+            success: function(data) {
+                let options = [];
+                for (let i in data) {
+                    options.push(data[i].postfix)
+                }
+
+                postfixes = options
+            },
+        });
+
+        postfix_typeahead.typeahead('destroy')
+
+        postfix_typeahead.typeahead({
+            hint: true,
+            highlight: true,
+            async: true,
+            minLength: 1
+        }, {
+            source: substringMatcher(postfixes)
+        });
+    })
 </script>

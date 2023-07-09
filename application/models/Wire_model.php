@@ -27,6 +27,9 @@ class Wire_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('wires');
+        if (auth()->role_id == ROLE_CLIENT || auth()->role_id == ROLE_OPERATOR) {
+            $this->db->where('company_id', auth()->company_id);
+        }
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();
 
