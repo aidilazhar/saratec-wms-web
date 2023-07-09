@@ -23,7 +23,7 @@
                                                     foreach ($permission as $key => $perm) {
                                                     ?>
                                                         <div class="col-4">
-                                                            <input name="permission[]" <?php if (array_search($perm['id'], $perm_role) != false) {
+                                                            <input name="permission[]" <?php if (in_array($perm['id'], $perm_role) != false) {
                                                                                             echo 'checked';
                                                                                         } ?> class="form-check-input me-2" id="inlineCheckbox1" type="checkbox" value="<?= $perm['id'] ?>"> <?= $perm['name'] ?>
                                                         </div>
