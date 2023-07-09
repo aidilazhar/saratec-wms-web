@@ -95,6 +95,9 @@ class Role extends CI_Controller
 
         $perm_role = $this->Permission_model->details($role_id);
 
+        print_r($perm_role);
+        return;
+
         $this->load->view('master/index', compact('page', 'perm_role', 'permissions', 'role_id'));
     }
 
