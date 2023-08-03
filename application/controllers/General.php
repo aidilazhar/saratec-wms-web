@@ -69,7 +69,7 @@ class General extends CI_Controller
         $trials = $this->Trial_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 
-        $jobs = $wlls = $tj = $w = [];
+        $clients = $jobs = $wlls = $tj = $w = [];
         $current_not_exposed_to_well_cond = $sum_cut_off = 0;
         foreach ($trials as $key => $row) {
             if (isset($jobs[$row['job_type_id']])) {
@@ -122,11 +122,11 @@ class General extends CI_Controller
         ]);
 
         foreach ($job_types as $key => $job_type) {
-            $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
+            $job_types[$key]['total'] = $jobs[$job_type['id']] ?? 0;
         }
 
         foreach ($wells as $key => $well) {
-            $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+            $wells[$key]['total'] = $wlls[$well['id']] ?? 0;
         }
 
         usort($wells, function ($a, $b) {
@@ -166,20 +166,37 @@ class General extends CI_Controller
 
         $lab_tests = $this->LabTest_model->list([$wire_id]);
 
-        $dashboard = [
-            'total_number_run' => count($trials_except),
-            'total_running_number_hours' => $hours,
-            'total_running_number_days' => $days,
-            'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
-            'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
-            'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
-            'average_run_duration' => ($hours / count($trials)),
-            'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
-            'max_tension_applied' => number_format((count($this->Trial_model->max_tension_applied($wire_id)) / count($trials)) * 100, 2),
-            'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
-            'x_inch' => $x_inch,
-            'y_inch' => $y_inch,
-        ];
+        if (count($trials) == 0) {
+            $dashboard = [
+                'total_number_run' => count($trials_except),
+                'total_running_number_hours' => $hours,
+                'total_running_number_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'current_cut_off_rate' => 0,
+                'average_run_duration' => 0,
+                'average_tension' => number_format(0),
+                'max_tension_applied' => number_format(0, 2),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'x_inch' => $x_inch,
+                'y_inch' => $y_inch,
+            ];
+        } else {
+            $dashboard = [
+                'total_number_run' => count($trials_except),
+                'total_running_number_hours' => $hours,
+                'total_running_number_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
+                'average_run_duration' => ($hours / count($trials)),
+                'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
+                'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'x_inch' => $x_inch,
+                'y_inch' => $y_inch,
+            ];
+        }
 
         $this->load->view('general/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients', 'wire_name', 'lab_tests'));
     }

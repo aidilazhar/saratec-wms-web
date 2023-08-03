@@ -106,7 +106,7 @@
                                     <input required name="cut_off" value="" class="form-control" type="text" placeholder="Enter Cut Off (ft)">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Well Name</label>
+                                    <label class="col-form-label pt-0">Well Name <span style="color: red">*</span></label>
                                     <div class="input-group">
                                         <input required name="well_prefix" class="typeahead form-control well-name-prefix" type="text">
                                         <span class="input-group-text"> - </span>
@@ -148,13 +148,13 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input required name="jar_number[]" value="" class="form-control" type="text">
+                                                    <input required name="jar_number[]" value="" class="form-control" type="number">
                                                 </td>
                                                 <td>
-                                                    <input required name="max_pull[]" value="" class="form-control" type="text">
+                                                    <input required name="max_pull[]" value="" class="form-control" type="number">
                                                 </td>
                                                 <td>
-                                                    <input required name="max_depth[]" value="" class="form-control" type="text">
+                                                    <input required name="max_depth[]" value="" class="form-control" type="number">
                                                 </td>
                                                 <td>
                                                     <input required name="duration[]" value="" class="form-control" type="number">
@@ -171,6 +171,12 @@
                                                     <input required id="smart-monitor-csv" disabled name="smart_monitor_csv[]" accept=".xls, .xlsx, application/vnd.ms-excel" class="form-control smart-monitor-csv" type="file" style="display: none;" />
                                                     <small class="csv-name d-block"></small>
                                                     <input name="smart_monitor_hidden[]" type="hidden" class="smart-monitor-hidden" value="0">
+                                                    <button disabled class="btn btn-light smart-monitor-csv-validate mt-3" type="button">
+                                                        Validate
+                                                    </button>
+                                                    <span class="badge rounded-pill badge-success csv-passed d-none">Success</span>
+                                                    <span class="badge rounded-pill badge-danger csv-failed d-none">Success</span>
+
                                                 </td>
                                                 <td>
                                                     <textarea name="remarks[]" class="form-control" rows="5" cols="3"></textarea>

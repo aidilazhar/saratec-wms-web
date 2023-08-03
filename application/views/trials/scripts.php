@@ -174,8 +174,15 @@
     })
 
     $(document).on('change', '#smart-monitor-csv', function() {
-        var file = $(this)[0].files[0].name;
-        $(this).closest('.sm-csv').find('.csv-name').text(file);
+        if (typeof $(this)[0].files[0] !== 'undefined') {
+            var file = $(this)[0].files[0].name;
+            $(this).closest('.sm-csv').find('.csv-name').text(file);
+            $(this).closest('.sm-csv').find('.smart-monitor-csv-validate').prop('disabled', false)
+        } else {
+            $(this).closest('.sm-csv').find('.csv-name').text('');
+            $(this).closest('.sm-csv').find('.smart-monitor-csv-validate').prop('disabled', true)
+        }
+
     });
 
     $(document).on('click', '.smart-monitor-button', function() {
@@ -338,4 +345,48 @@
             source: substringMatcher(postfixes)
         });
     })
+</script>
+<script>
+    $('.smart-monitor-csv-validate').on('click', function() {
+        console.log(1)
+        // Get the file input element
+        var inputFile = $('.smart-monitor-csv')[0];
+
+        // Create a FormData object to store the file and other form data
+        var formData = new FormData();
+        formData.append('smart_monitor_csv', inputFile.files[0]); // Append the file to the form data
+        formData.append('wire_id', '<?= $wire_id ?>');
+
+        // Make the AJAX request
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url('api/validate-csv') ?>', // Replace this with your server endpoint to handle the file upload
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response)
+
+                if (typeof response.status !== 'undefined') {
+                    if (response.status == true) {
+                        $('.csv-passed').addClass('d-none')
+                        $('.csv-failed').addClass('d-none')
+                        $('.csv-passed').removeClass('d-none')
+                        console.log(1)
+                    } else {
+                        $('.csv-passed').addClass('d-none')
+                        $('.csv-failed').addClass('d-none')
+                        $('.csv-failed').removeClass('d-none')
+                        console.log(2)
+                    }
+                } else {
+
+                }
+            },
+            error: function(error) {
+                // Handle the error
+                console.error('Error uploading file:', error);
+            }
+        });
+    });
 </script>

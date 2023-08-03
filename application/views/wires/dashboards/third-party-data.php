@@ -1,3 +1,10 @@
+<?php
+if ($from == 'index') {
+    $url = 'index';
+} else {
+    $url = '';
+}
+?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 project-list">
@@ -14,10 +21,10 @@
                                 <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 40px);" data-popper-placement="bottom-start">
                                     <li><a class="dropdown-item <?php if ($prefix == 'mhsi_') {
                                                                     echo 'active';
-                                                                } ?>" href="<?= base_url('wires/dashboard/third-party-data/' . encode($wire['id']) . '/mhsi_') ?>">MHSI</a></li>
+                                                                } ?>" href="<?= base_url('wires/dashboard/third-party-data/' . encode($wire['id']) . '/mhsi_/' . $url) ?>">MHSI</a></li>
                                     <li><a class="dropdown-item <?php if ($prefix == 'mhi_') {
                                                                     echo 'active';
-                                                                } ?>" href="<?= base_url('wires/dashboard/third-party-data/' . encode($wire['id']) . '/mhi_') ?>">MHI</a></li>
+                                                                } ?>" href="<?= base_url('wires/dashboard/third-party-data/' . encode($wire['id']) . '/mhi_/' . $url) ?>">MHI</a></li>
                                 </ul>
                                 <input type="date" class="form-control filter-date" placeholder="Date">
                                 <input type="time" class="form-control filter-time-from" placeholder="From">

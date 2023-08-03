@@ -19,7 +19,9 @@ class Well_model extends CI_Model
         $this->db->select('*');
         $this->db->from('wells');
         foreach ($filters as $key => $filter) {
-            $this->db->where_in($key, $filter);
+            if (!empty($filter)) {
+                $this->db->where_in($key, $filter);
+            }
         }
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();

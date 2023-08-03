@@ -6,7 +6,7 @@
                 <div class="card-header d-flex justify-content-between">
                     <h5><?= $page['subtitle'] ?></h5>
                     <?php
-                    if (permission('Add Document')) {
+                    if (permission('Add Documents')) {
                     ?>
                         <a href="<?= base_url('wires/' . encode($wire['id']) . '/reports/create') ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Add Report</button></a>
                     <?php

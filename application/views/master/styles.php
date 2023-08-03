@@ -21,8 +21,8 @@
 <!-- App css-->
 <link id="color" rel="stylesheet" href="<?= base_url("assets/css/color-1.css") ?>" media="screen">
 <!-- Responsive css-->
-<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/responsive.css") ?>">
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/style.css") ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/responsive.css") ?>">
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/vendors/chartist.css") ?>">
 
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>

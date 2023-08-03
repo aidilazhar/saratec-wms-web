@@ -72,7 +72,6 @@ if (!function_exists('validateCSV()')) {
             return [
                 'status' => false,
                 'message' => 'CSV file does not match the expected template.',
-                'test' => compact('header', 'expectedColumns')
             ];
         }
 

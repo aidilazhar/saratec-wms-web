@@ -13,7 +13,7 @@
                     <div class="card-header" style="padding: 15px;">
                         <div class="header-top">
                             <h5><?= $wire['name'] ?> (<?= $wire['companies']['name'] ?>)</h5>
-                            <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>"><button class="btn btn-success">View Wire</button></a>
+                            <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>/index"><button class="btn btn-success">View Wire</button></a>
                         </div>
                     </div>
                     <div class="card-body">

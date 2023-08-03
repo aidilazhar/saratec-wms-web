@@ -538,4 +538,60 @@ class Api extends CI_Controller
         echo json_encode($data);
         return;
     }
+
+    function validateCsv()
+    {
+        $wire_id = $this->input->post('wire_id');
+
+        $files = $_FILES;
+
+        $path = 'wires/' . $wire_id . '/smart_monitors';
+
+        $this->Utility_model->mkdir($path);
+        $config['upload_path'] = 'temp/' . $path;
+        $config['allowed_types'] = 'csv|xlsx|txt';
+        $config['file_name'] = $wire_id . '-temporary';
+        $config['max_size'] = 10000000;
+
+        if (!isset($_FILES["smart_monitor_csv"])) {
+            echo json_encode([
+                'status' => false,
+                'message' => 'File not found',
+            ]);
+            return;
+        }
+
+        $path_parts = pathinfo($_FILES["smart_monitor_csv"]["name"]);
+        $extension = $path_parts['extension'];
+
+        // Loop through each file and upload them
+        $_FILES['smart_monitor_csv']['name'] = $wire_id . '-temporary.' . $extension;
+        $_FILES['smart_monitor_csv']['type'] = $extension;
+        $_FILES['smart_monitor_csv']['tmp_name'] = $files['smart_monitor_csv']['tmp_name'];
+        $_FILES['smart_monitor_csv']['error'] = $files['smart_monitor_csv']['error'];
+        $_FILES['smart_monitor_csv']['size'] = $files['smart_monitor_csv']['size'];
+
+        // Initialize the Upload library with the configuration
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        // Upload the file
+        if ($this->upload->do_upload('smart_monitor_csv')) {
+            $upload_data = array('upload_data' => $this->upload->data());
+            $smart_monitor_data = [
+                'name' => $upload_data['upload_data']['file_name'],
+                'url' => $path . '/' . $upload_data['upload_data']['file_name'],
+            ];
+
+            $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+            $inputs['smart_monitor_id'] = $smart_monitor_id;
+
+            $csvFilePath = temp_url($path . '/' . $upload_data['upload_data']['file_name']);
+            $result = validateCSV($csvFilePath);
+            echo json_encode($result);
+        } else {
+            $error[] = array('error' => $this->upload->display_errors());
+            echo json_encode($error);
+        }
+    }
 }

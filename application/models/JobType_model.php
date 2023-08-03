@@ -21,7 +21,9 @@ class JobType_model extends CI_Model
         $this->db->where('is_deleted', 0);
 
         foreach ($filters as $key => $filter) {
-            $this->db->where_in($key, $filter);
+            if (!empty($filter)) {
+                $this->db->where_in($key, $filter);
+            }
         }
         $results = $this->db->get()->result_array();
 

@@ -256,15 +256,24 @@ class Wire extends CI_Controller
         redirect(base_url("wires"));
     }
 
-    public function dashboard($wire_id)
+    public function dashboard($wire_id, $from = 'wire')
     {
+        if ($from == 'wire') {
+            $back = base_url('wires');
+        } else {
+            $back = base_url("");
+        }
+
         $wire_id = decode($wire_id);
         $wire = $this->Wire_model->details($wire_id);
+
+        // print_r($wire);
+        // return;
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire Details",
             'view' => 'wires/dashboards/index',
-            'back' => base_url("wires"),
+            'back' => $back,
             'scripts' => 'wires/dashboards/scripts'
         ];
 
@@ -272,7 +281,7 @@ class Wire extends CI_Controller
         $trials = $this->Trial_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 
-        $jobs = $wlls = $tj = $w = [];
+        $clients = $jobs = $wlls = $tj = $w = [];
         $current_not_exposed_to_well_cond = $sum_cut_off = 0;
         foreach ($trials as $key => $row) {
             if (isset($jobs[$row['job_type_id']])) {
@@ -325,11 +334,11 @@ class Wire extends CI_Controller
         ]);
 
         foreach ($job_types as $key => $job_type) {
-            $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
+            $job_types[$key]['total'] = $jobs[$job_type['id']] ?? 0;
         }
 
         foreach ($wells as $key => $well) {
-            $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+            $wells[$key]['total'] = $wlls[$well['id']] ?? 0;
         }
 
         usort($wells, function ($a, $b) {
@@ -369,26 +378,49 @@ class Wire extends CI_Controller
 
         $lab_tests = $this->LabTest_model->list([$wire_id]);
 
-        $dashboard = [
-            'total_number_run' => count($trials_except),
-            'total_running_number_hours' => $hours,
-            'total_running_number_days' => $days,
-            'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
-            'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
-            'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
-            'average_run_duration' => ($hours / count($trials)),
-            'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
-            'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
-            'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
-            'x_inch' => $x_inch,
-            'y_inch' => $y_inch,
-        ];
+        if (count($trials) == 0) {
+            $dashboard = [
+                'total_number_run' => count($trials_except),
+                'total_running_number_hours' => $hours,
+                'total_running_number_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'current_cut_off_rate' => 0,
+                'average_run_duration' => 0,
+                'average_tension' => number_format(0),
+                'max_tension_applied' => number_format(0, 2),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'x_inch' => $x_inch,
+                'y_inch' => $y_inch,
+            ];
+        } else {
+            $dashboard = [
+                'total_number_run' => count($trials_except),
+                'total_running_number_hours' => $hours,
+                'total_running_number_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'current_cut_off_rate' => (array_sum(array_column($trials, 'cut_off')) / count($trials)),
+                'average_run_duration' => ($hours / count($trials)),
+                'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials))),
+                'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'x_inch' => $x_inch,
+                'y_inch' => $y_inch,
+            ];
+        }
 
-        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients', 'lab_tests'));
+        $this->load->view('master/index', compact('page', 'wire', 'trials', 'dashboard', 'job_types', 'wells', 'clients', 'lab_tests', 'from'));
     }
 
-    public function materialCertifications($wire_id)
+    public function materialCertifications($wire_id, $from = 'wire')
     {
+        if ($from == 'wire') {
+            $back = base_url('wires');
+        } else {
+            $back = base_url("");
+        }
+
         $wire_id = decode($wire_id);
         $wire = $this->Wire_model->details($wire_id);
 
@@ -408,37 +440,49 @@ class Wire extends CI_Controller
             'title' => $this->title,
             'subtitle' => "Wire's Material Certifications",
             'view' => 'wires/dashboards/material-certifications',
-            'back' => base_url("wires"),
+            'back' => $back,
         ];
 
 
-        $this->load->view('master/index', compact('page', 'wire', 'base64_material_ceritification', 'base64_eddy_current'));
+        $this->load->view('master/index', compact('page', 'wire', 'base64_material_ceritification', 'base64_eddy_current', 'from'));
     }
 
-    public function otherReports($wire_id)
+    public function otherReports($wire_id, $from = 'wire')
     {
+        if ($from == 'wire') {
+            $back = base_url('wires');
+        } else {
+            $back = base_url("");
+        }
+
         $wire_id = decode($wire_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire's Inspection and Other Reports",
             'view' => 'wires/dashboards/other-reports',
-            'back' => base_url("wires"),
+            'back' => $back,
         ];
 
         $wire = $this->Wire_model->details($wire_id);
         $reports = $this->Report_model->list([$wire_id]);
 
-        $this->load->view('master/index', compact('page', 'wire', 'reports'));
+        $this->load->view('master/index', compact('page', 'wire', 'reports', 'from'));
     }
 
-    public function thirdPartyData($wire_id, $prefix = "mhsi_")
+    public function thirdPartyData($wire_id, $prefix, $from = 'wire')
     {
+        if ($from == 'wire') {
+            $back = base_url('wires');
+        } else {
+            $back = base_url("");
+        }
+
         $wire_id = decode($wire_id);
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire's 3rd Party Data",
             'view' => 'wires/dashboards/third-party-data',
-            'back' => base_url("wires"),
+            'back' => $back,
             'scripts' => 'wires/dashboards/scripts2'
         ];
 
@@ -466,6 +510,6 @@ class Wire extends CI_Controller
         }, $third_party_data);
         $depth = array_values($depth);
 
-        $this->load->view('master/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix'));
+        $this->load->view('master/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix', 'from'));
     }
 }
