@@ -53,8 +53,7 @@ class Well extends CI_Controller
         $data['schematic'] = '';
         $well_id = $this->Well_model->store($data);
 
-
-        if (isset($_FILES['schematic'])) {
+        if (isset($_FILES['schematic']) && !empty($_FILES['schematic'])) {
             $path = 'wells';
 
             $this->Utility_model->mkdir($path);

@@ -181,6 +181,9 @@
         } else {
             $(this).closest('.sm-csv').find('.csv-name').text('');
             $(this).closest('.sm-csv').find('.smart-monitor-csv-validate').prop('disabled', true)
+            $(this).closest('.sm-csv').find('.csv-result').val(0)
+            $(this).closest('.sm-csv').find('.csv-passed').addClass('d-none')
+            $(this).closest('.sm-csv').find('.csv-failed').addClass('d-none')
         }
 
     });
@@ -222,7 +225,7 @@
                 return;
             }
 
-            if (element.val() == "" && element.prop('required')) {
+            if ((element.val() == "" || element.val() == null) && element.prop('required')) {
                 if (text == "") {
                     sweetAlert('error', 'Error!', '(*) input cannot be empty', null);
                 } else {
@@ -234,15 +237,27 @@
             } else if (type == 'email') {
                 if (testEmail.test(element.val()) == false && element.val() != '') {
                     if (text == "") {
-                        sweetAlert('error', 'Error!', '(*) input cannot be empty', null);
+                        sweetAlert('error', 'Error!', 'All (*) input cannot be empty', null);
                     } else {
                         sweetAlert('error', 'Error!', text + ' is not in email format', null);
                     }
 
-
                     no_error = false;
                     return false;
                 }
+            }
+        });
+
+        $('.csv-result').each(function() {
+            let value = $(this).val()
+
+            console.log($(this).closest('.sm-csv').find('.smart-monitor').prop('checked'), value)
+            if ($(this).closest('.sm-csv').find('.smart-monitor').prop('checked') == false) return;
+
+            if (value == '0' || value == 0) {
+                console.log(1)
+                sweetAlert('error', 'Error!', 'All smart monitors CSV need to be passed the validation first', null);
+                no_error = false
             }
         });
 
@@ -262,7 +277,6 @@
     }
 
     var substringMatcher = function(strs) {
-        console.log(strs)
         return function findMatches(q, cb) {
             var matches, substringRegex;
             matches = [];
@@ -347,10 +361,10 @@
     })
 </script>
 <script>
-    $('.smart-monitor-csv-validate').on('click', function() {
-        console.log(1)
+    $(document).on('click', '.smart-monitor-csv-validate', function() {
+        let self = $(this).closest('.sm-csv')
         // Get the file input element
-        var inputFile = $('.smart-monitor-csv')[0];
+        var inputFile = self.find('.smart-monitor-csv')[0];
 
         // Create a FormData object to store the file and other form data
         var formData = new FormData();
@@ -365,19 +379,20 @@
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response)
+                let res = JSON.parse(response)
+                console.log(self)
+                if (typeof res.status !== 'undefined') {
+                    if (res.status == true) {
+                        self.find('.csv-passed').addClass('d-none')
+                        self.find('.csv-failed').addClass('d-none')
+                        self.find('.csv-passed').removeClass('d-none')
+                        self.find('.csv-result').val(1)
 
-                if (typeof response.status !== 'undefined') {
-                    if (response.status == true) {
-                        $('.csv-passed').addClass('d-none')
-                        $('.csv-failed').addClass('d-none')
-                        $('.csv-passed').removeClass('d-none')
-                        console.log(1)
                     } else {
-                        $('.csv-passed').addClass('d-none')
-                        $('.csv-failed').addClass('d-none')
-                        $('.csv-failed').removeClass('d-none')
-                        console.log(2)
+                        self.find('.csv-passed').addClass('d-none')
+                        self.find('.csv-failed').addClass('d-none')
+                        self.find('.csv-failed').removeClass('d-none')
+                        self.find('.csv-result').val(0)
                     }
                 } else {
 

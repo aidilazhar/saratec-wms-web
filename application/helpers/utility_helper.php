@@ -169,3 +169,53 @@ if (!function_exists('formatDate()')) {
         return $text;
     }
 }
+if (!function_exists('directory_map()')) {
+    function directory_map($source_dir, $directory_depth = 0, $hidden = FALSE)
+    {
+        if ($fp = @opendir($source_dir)) {
+            $filedata    = array();
+            $new_depth    = $directory_depth - 1;
+            $source_dir    = rtrim($source_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+            while (FALSE !== ($file = readdir($fp))) {
+                // Remove '.', '..', and hidden files [optional]
+                if ($file === '.' or $file === '..' or ($hidden === FALSE && $file[0] === '.')) {
+                    continue;
+                }
+
+                is_dir($source_dir . $file) && $file .= DIRECTORY_SEPARATOR;
+
+                if (($directory_depth < 1 or $new_depth > 0) && is_dir($source_dir . $file)) {
+                    $filedata[$file] = directory_map($source_dir . $file, $new_depth, $hidden);
+                } else {
+                    $filedata[] = $file;
+                }
+            }
+
+            closedir($fp);
+            return $filedata;
+        }
+
+        return FALSE;
+    }
+}
+
+if (!function_exists('delete_temporary_files()')) {
+    function delete_temporary_files($folder_path)
+    {
+        $files = directory_map($folder_path);
+
+        foreach ($files as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            $file_path = $folder_path . DIRECTORY_SEPARATOR . $file;
+            if (strpos($file, 'temporary') !== false) {
+                unlink($file_path);
+            }
+        }
+
+        return true;
+    }
+}

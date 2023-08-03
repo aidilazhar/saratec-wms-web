@@ -93,11 +93,11 @@
                                     <input required name="first_spooling_at" class="form-control" type="date">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Material Certifications</label>
+                                    <label class="col-form-label pt-0">Material Certifications (PDF only)</label>
                                     <input accept="application/pdf" name="material_certifications" class="form-control" type="file">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Eddy Current</label>
+                                    <label class="col-form-label pt-0">Eddy Current (PDF only)</label>
                                     <input accept="application/pdf" name="tech_sheet" class="form-control" type="file">
                                 </div>
                             </div>

@@ -72,7 +72,7 @@ class Wire extends CI_Controller
         $data = $this->input->post();
         $wire_id = $this->Wire_model->store($data);
 
-        if (isset($_FILES['material_certifications'])) {
+        if (isset($_FILES['material_certifications']) && !empty($_FILES['material_certifications'])) {
             $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
@@ -85,6 +85,12 @@ class Wire extends CI_Controller
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload('material_certifications')) {
+                $error = array('error' => $this->upload->display_errors());
+
+                $material_certifications_data = [
+                    'name' => null,
+                    'url' => null,
+                ];
             } else {
                 $upload_data = array('upload_data' => $this->upload->data());
                 $material_certifications_data = [
@@ -101,7 +107,7 @@ class Wire extends CI_Controller
 
         $config = [];
 
-        if (isset($_FILES['tech_sheet'])) {
+        if (isset($_FILES['tech_sheet']) && !empty($_FILES['tech_sheet'])) {
             $path = 'wires/' . $wire_id;
 
             $this->Utility_model->mkdir($path);
@@ -115,6 +121,12 @@ class Wire extends CI_Controller
             $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('tech_sheet')) {
+                $error = array('error' => $this->upload->display_errors());
+
+                $tech_sheet_data = [
+                    'name' => null,
+                    'url' => null,
+                ];
             } else {
                 $upload_data = array('upload_data' => $this->upload->data());
                 $tech_sheet_data = [
@@ -132,9 +144,10 @@ class Wire extends CI_Controller
         $data = [];
         $data['material_certifications'] = $material_certifications_data['url'];
         $data['tech_sheet'] = $tech_sheet_data['url'];
+
         $results = $this->Wire_model->update($wire_id, $data);
 
-        redirect(base_url("wires"));
+        //redirect(base_url("wires"));
     }
 
     public function edit($wire_id)

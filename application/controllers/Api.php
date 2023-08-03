@@ -578,14 +578,6 @@ class Api extends CI_Controller
         // Upload the file
         if ($this->upload->do_upload('smart_monitor_csv')) {
             $upload_data = array('upload_data' => $this->upload->data());
-            $smart_monitor_data = [
-                'name' => $upload_data['upload_data']['file_name'],
-                'url' => $path . '/' . $upload_data['upload_data']['file_name'],
-            ];
-
-            $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
-            $inputs['smart_monitor_id'] = $smart_monitor_id;
-
             $csvFilePath = temp_url($path . '/' . $upload_data['upload_data']['file_name']);
             $result = validateCSV($csvFilePath);
             echo json_encode($result);
@@ -593,5 +585,12 @@ class Api extends CI_Controller
             $error[] = array('error' => $this->upload->display_errors());
             echo json_encode($error);
         }
+    }
+
+    function test()
+    {
+        $wire_id = 11;
+        $url = 'temp/wires/' . $wire_id . '/smart_monitors';
+        delete_temporary_files($url);
     }
 }

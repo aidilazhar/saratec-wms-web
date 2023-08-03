@@ -21,3 +21,4 @@ $route['api/slugify'] = 'Api/slugify';
 $route['api/well-name-prefix'] = 'Api/wellNamePrefix';
 $route['api/well-name-postfix'] = 'Api/wellNamePostfix';
 $route['api/validate-csv'] = 'Api/validateCsv';
+$route['api/test'] = 'Api/test';

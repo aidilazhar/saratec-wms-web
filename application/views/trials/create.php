@@ -126,14 +126,14 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr class="text-center bg-light">
-                                                <th style="width: 15%;">Type of Job</th>
-                                                <th style="width: 10%;">No of Jar</th>
-                                                <th style="width: 10%;">Max Pull (lbs)</th>
-                                                <th style="width: 10%;">Max Depth (ft)</th>
-                                                <th style="width: 10%;">Duration (mins)</th>
+                                                <th style="width: 15%;">Type of Job <span style="color: red">*</span></th>
+                                                <th style="width: 10%;">No of Jar <span style="color: red">*</span></th>
+                                                <th style="width: 10%;">Max Pull (lbs) <span style="color: red">*</span></th>
+                                                <th style="width: 10%;">Max Depth (ft) <span style="color: red">*</span></th>
+                                                <th style="width: 10%;">Duration (mins) <span style="color: red">*</span></th>
                                                 <th style="width: 15%;">Smart Monitor Logged</th>
                                                 <th style="width: 15%;">Special Note</th>
-                                                <th style="width: 10%;">Job Status</th>
+                                                <th style="width: 10%;">Job Status <span style="color: red">*</span></th>
                                                 <th style="width: 5%;">Action</th>
                                             </tr>
                                         </thead>
@@ -177,9 +177,10 @@
                                                     <button disabled class="btn btn-light smart-monitor-csv-validate mt-3" type="button">
                                                         Validate
                                                     </button>
-                                                    <span class="badge rounded-pill badge-success csv-passed d-none">Success</span>
-                                                    <span class="badge rounded-pill badge-danger csv-failed d-none">Success</span>
-
+                                                    <br>
+                                                    <span class="badge rounded-pill badge-success csv-passed d-none">Passed</span>
+                                                    <span class="badge rounded-pill badge-danger csv-failed d-none">Failed</span>
+                                                    <input name="csv-result[]" class="csv-result" type="hidden" value="0">
                                                 </td>
                                                 <td>
                                                     <textarea name="remarks[]" class="form-control" rows="5" cols="3"></textarea>

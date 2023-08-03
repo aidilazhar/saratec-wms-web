@@ -127,15 +127,29 @@ class Trial_model extends CI_Model
 
     public function details($trial_id)
     {
-        $this->db->select('*');
-        $this->db->from('trials');
-        $this->db->where('id', $trial_id);
-        $this->db->order_by('issued_at');
-        $results = $this->db->get()->result_array();
-
+        $select = '';
+        foreach ($this->appends as $append) {
+            if (is_array($append['get'])) {
+                foreach ($append['get'] as $get) {
+                    $select .= $append['as'] . '.' . $get . ' AS ' . $append['prefix'] . '_' . $get . ', ';
+                }
+            } else {
+                $select .= $append['as'] . '.' . $append['get'] . ' AS ' . $append['prefix'] . '_' . $append['get'] . ', ';
+            }
+        }
+        $this->db->select('trials.*, ' . $select);
+        $this->db->from('trials as trials');
+        $this->db->where('trials.id', $trial_id);
         foreach ($this->appends as $key => $append) {
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
+        if (!empty($wire_id)) {
+            $this->db->where_in('wire_id', $wire_id);
+        }
+        if (!empty($job_type_except)) {
+            $this->db->where_not_in('job_type_id', $job_type_except);
+        }
+        $results = $this->db->get()->result_array();
 
         if (empty($results)) {
             return [];

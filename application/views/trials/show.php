@@ -177,16 +177,12 @@
                                 <?php
                                 if (!is_null($trial['smart_monitor_id'])) {
                                 ?>
-                                    <a target="_blank" href="<?= asset_url($trial['smart_monitor_name']) ?>">
+                                    <a target="_blank" href="<?= temp_url($trial['smart_monitor_url']) ?>">
                                         <p class="mb-0"><?= explode("/", $trial['smart_monitor_name'])[count(explode("/", $trial['smart_monitor_name'])) - 1] ?></p>
                                     </a>
                                 <?php
                                 }
                                 ?>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="col-form-label pt-0">Special Note</label>
-                                <textarea disabled name="remarks" class="form-control" rows="5" cols="5" placeholder="Enter special note"><?= $trial['remarks'] ?></textarea>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="col-form-label pt-0">Job Status</label>
@@ -198,6 +194,10 @@
                                                 echo 'selected';
                                             } ?> value="rerun">Rerun</option>
                                 </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="col-form-label pt-0">Special Note</label>
+                                <textarea disabled name="remarks" class="form-control" rows="5" cols="5" placeholder="Enter special note"><?= $trial['remarks'] ?></textarea>
                             </div>
                         </div>
                         <div class="card-footer text-end">

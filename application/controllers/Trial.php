@@ -152,8 +152,6 @@ class Trial extends CI_Controller
                     $inputs['smart_monitor_id'] = $smart_monitor_id;
 
                     $csvFilePath = $path . '/' . $upload_data['upload_data']['file_name'];
-                    $result = $this->validateCSV($csvFilePath);
-                    echo $result;
                 } else {
                     $error[] = array('error' => $this->upload->display_errors());
                 }
@@ -173,6 +171,8 @@ class Trial extends CI_Controller
             print_r($error);
             return;
         }
+
+        delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
         redirect(base_url("wires/" . encode($wire_id) . "/trials"));
     }
@@ -286,6 +286,7 @@ class Trial extends CI_Controller
 
         $data['wire_id'] = $wire_id;
         $data['operator_id'] = auth()->id;
+        delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
         $res = $this->Trial_model->update($trial_id, $data);
         redirect(base_url("wires/" . encode($wire_id) . "/trials"));
