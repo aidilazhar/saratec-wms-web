@@ -147,7 +147,7 @@ class Wire extends CI_Controller
 
         $results = $this->Wire_model->update($wire_id, $data);
 
-        //redirect(base_url("wires"));
+        redirect(base_url("wires"));
     }
 
     public function edit($wire_id)
