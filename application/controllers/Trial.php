@@ -33,7 +33,7 @@ class Trial extends CI_Controller
             'title' => $this->title . "(" . $wire['name'] . ")",
             'subtitle' => "Wire Usage Record Listing",
             'view' => 'trials/index',
-            'back' => null,
+            'back' => base_url("wires"),
             'scripts' => 'trials/scripts'
         ];
 

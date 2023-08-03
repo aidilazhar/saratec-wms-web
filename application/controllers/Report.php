@@ -34,7 +34,7 @@ class Report extends CI_Controller
             'title' => $this->title . "(" . $wire['name'] . ")",
             'subtitle' => "Report Listing",
             'view' => 'wires/reports/index',
-            'back' => null,
+            'back' => base_url("wires"),
         ];
 
         $reports = $this->Report_model->list([$wire_id]);

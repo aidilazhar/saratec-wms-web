@@ -34,7 +34,7 @@ class LabTest extends CI_Controller
             'title' => $this->title . " (" . $wire['name'] . ")",
             'subtitle' => "Lab Test Listing",
             'view' => 'wires/lab-tests/index',
-            'back' => null,
+            'back' => base_url("wires"),
         ];
 
         $lab_tests = $this->LabTest_model->list([$wire_id]);
