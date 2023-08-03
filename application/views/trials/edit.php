@@ -18,6 +18,7 @@
                                     <select <?php if (auth()->role_id == ROLE_OPERATOR) {
                                                 echo 'disabled';
                                             } ?> required name="operator_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($operators as $operator) {
                                         ?>
@@ -36,6 +37,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Client</label>
                                     <select required name="client_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($clients as $client) {
                                         ?>
@@ -50,6 +52,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Package</label>
                                     <select required name="package_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>
@@ -64,6 +67,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Drum No</label>
                                     <select required name="drum_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>

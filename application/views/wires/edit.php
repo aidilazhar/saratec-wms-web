@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Material Certifications</label>
-                                    <input name="material_certifications" class="form-control" type="file">
+                                    <input accept="application/pdf" name="material_certifications" class="form-control" type="file">
                                     <?php
                                     if ($wire['material_certifications'] != null || $wire['material_certifications']  != '') {
                                     ?>
@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Eddy Current</label>
-                                    <input name="tech_sheet" class="form-control" type="file">
+                                    <input accept="application/pdf" name="tech_sheet" class="form-control" type="file">
                                     <?php
                                     if ($wire['tech_sheet'] != null || $wire['tech_sheet']  != '') {
                                     ?>

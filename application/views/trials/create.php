@@ -23,6 +23,7 @@
                                     <select <?php if (auth()->role_id == ROLE_OPERATOR) {
                                                 echo 'disabled';
                                             } ?> required name="operator_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($operators as $operator) {
                                         ?>
@@ -41,6 +42,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Client</label>
                                     <select required name="client_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($clients as $client) {
                                         ?>
@@ -55,6 +57,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Package</label>
                                     <select required name="package_id" class="form-select digits">
+                                        <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>
@@ -95,15 +98,15 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">X (inches)</label>
-                                    <input required name="x_inch" value="" class="form-control" type="text" placeholder="Enter X (in)">
+                                    <input required name="x_inch" value="" class="form-control" type="number" placeholder="Enter X (in)">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Y (inches)</label>
-                                    <input required name="y_inch" value="" class="form-control" type="text" placeholder="Enter Y (in)">
+                                    <input required name="y_inch" value="" class="form-control" type="number" placeholder="Enter Y (in)">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Cut Off (ft)</label>
-                                    <input required name="cut_off" value="" class="form-control" type="text" placeholder="Enter Cut Off (ft)">
+                                    <input required name="cut_off" value="" class="form-control" type="number" placeholder="Enter Cut Off (ft)">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Well Name <span style="color: red">*</span></label>

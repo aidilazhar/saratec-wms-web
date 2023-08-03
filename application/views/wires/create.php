@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Size</label>
-                                    <input required name="size" class="form-control" type="text" placeholder="Enter size">
+                                    <input required name="size" class="form-control" type="number" placeholder="Enter size">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Brand</label>
@@ -94,11 +94,11 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Material Certifications</label>
-                                    <input name="material_certifications" class="form-control" type="file">
+                                    <input accept="application/pdf" name="material_certifications" class="form-control" type="file">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Eddy Current</label>
-                                    <input name="tech_sheet" class="form-control" type="file">
+                                    <input accept="application/pdf" name="tech_sheet" class="form-control" type="file">
                                 </div>
                             </div>
                             <div class="card-footer text-end">

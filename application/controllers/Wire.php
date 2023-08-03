@@ -77,7 +77,7 @@ class Wire extends CI_Controller
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
-            $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+            $config['allowed_types'] = 'pdf';
             $config['file_name'] = 'material-certifications';
             $config['max_size'] = 10000000;
             $config['overwrite'] = TRUE;
@@ -106,12 +106,13 @@ class Wire extends CI_Controller
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
-            $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+            $config['allowed_types'] = 'pdf';
             $config['file_name'] = 'tech-sheet';
             $config['max_size'] = 10000000;
             $config['overwrite'] = TRUE;
 
             $this->load->library('upload', $config);
+            $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('tech_sheet')) {
             } else {
@@ -200,6 +201,7 @@ class Wire extends CI_Controller
             $config['max_size'] = 10000000;
             $config['overwrite'] = TRUE;
 
+            $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('tech_sheet')) {
