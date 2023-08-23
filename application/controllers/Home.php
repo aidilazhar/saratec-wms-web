@@ -17,6 +17,7 @@ class Home extends CI_Controller
         $this->load->model('Trial_model');
         $this->load->model('Utility_model');
         $this->load->model('User_model');
+        $this->load->model('Broadcast_model');
     }
 
     public function index()

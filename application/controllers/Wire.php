@@ -342,11 +342,19 @@ class Wire extends CI_Controller
             'id' => $w
         ]);
 
+        $client_count = array_count_values($clients);
+
+        $total_client = count($clients);
+
         $clients = array_unique($clients);
 
         $clients = $this->Client_model->list(null, [
             'id' => $clients
         ]);
+
+        foreach ($clients as $key => $client) {
+            $clients[$key]['percent'] = number_format(($client_count[$client['id']] / $total_client) * 100, 2);
+        }
 
         foreach ($job_types as $key => $job_type) {
             $job_types[$key]['total'] = $jobs[$job_type['id']] ?? 0;

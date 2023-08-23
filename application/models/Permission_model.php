@@ -53,6 +53,7 @@ class Permission_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['issued_at'] = date('Y-m-d H:i:s');
         $this->db->insert('permission_role', $data);
         return $this->db->insert_id();
     }

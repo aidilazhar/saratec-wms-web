@@ -89,6 +89,7 @@ defined('SYSTEM_NAME')        or define('SYSTEM_NAME', 'SARATEC'); // no errors
 defined('LOCALHOST_PROJECT_NAME')        or define('LOCALHOST_PROJECT_NAME', 'saratec-wms-web'); // no errors
 defined('ROLE_SUPERADMIN')        or define('ROLE_SUPERADMIN', 1); // no errors
 defined('ROLE_ADMIN')        or define('ROLE_ADMIN', 2); // no errors
-defined('ROLE_CLIENT')        or define('ROLE_CLIENT', 3); // no errors
-defined('ROLE_OPERATOR')        or define('ROLE_OPERATOR', 4); // no errors
-defined('ROLE_SUPERVISOR')        or define('ROLE_SUPERVISOR', 5); // no errors
+defined('ROLE_COMPANY')        or define('ROLE_COMPANY', 3); // no errors
+defined('ROLE_CLIENT')        or define('ROLE_CLIENT', 4); // no errors
+defined('ROLE_OPERATOR')        or define('ROLE_OPERATOR', 5); // no errors
+defined('ROLE_OPERATOR_ASSISTANT')        or define('ROLE_OPERATOR_ASSISTANT', 6); // no errors

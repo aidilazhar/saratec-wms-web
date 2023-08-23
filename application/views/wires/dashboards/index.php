@@ -116,7 +116,7 @@
                                     <?php
                                     $names = '';
                                     foreach ($clients as $key => $client) {
-                                        $names .= $client['name'] . ', ';
+                                        $names .= $client['name'] . "(" . $client['percent'] . ")" . ', ';
                                     }
                                     $names = substr($names, 0, -1);
                                     ?>

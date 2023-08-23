@@ -39,11 +39,24 @@
     <div class="container-fluid p-0">
         <div class="row m-0">
             <div class="col-12 p-0">
-                <div class="login-card login-dark">
+                <div class="login-card login-dark" style="background-size: contain;">
                     <div>
-                        <div><a class="logo" href="#"><img style="max-width: 150px;" class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage"><img style="max-width: 200px;" class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo_dark.png') ?>" alt="looginpage"></a></div>
+                        <div>
+                            <a class="logo" href="#"><img style="max-width: 450px" class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage"><img style="max-width: 200px;" class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo_dark.png') ?>" alt="looginpage"></a>
+                        </div>
                         <div class="login-main">
-                            <form action="<?= base_url('authenticate') ?>" method="POST">
+                            <?php
+                            if ($this->input->get('error') && $this->input->get('error') == 1) {
+                            ?>
+                                <div class="alert alert-secondary dark alert-dismissible fade show" role="alert">
+                                    <p>Login failed. Email and password does not match</p>
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php
+                            }
+                            ?>
+
+                            <form action="<?= base_url('authenticate') ?>" method="POST" class="theme-form">
                                 <h4>Sign in to account</h4>
                                 <p>Enter your email & password to login</p>
                                 <div class="form-group">

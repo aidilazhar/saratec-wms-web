@@ -22,7 +22,23 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Size</label>
-                                    <input name="size" value="<?= $wire['size'] ?>" class="form-control" type="text" placeholder="Enter size" disabled>
+                                    <select readonly required class="form-control" name="size">
+                                        <option <?php if ($wire['size'] == '0.092') {
+                                                    echo 'selected';
+                                                } ?> value="0.092">0.092</option>
+                                        <option <?php if ($wire['size'] == '0.108') {
+                                                    echo 'selected';
+                                                } ?> value="0.108">0.108</option>
+                                        <option <?php if ($wire['size'] == '0.125') {
+                                                    echo 'selected';
+                                                } ?> value="0.125">0.125</option>
+                                        <option <?php if ($wire['size'] == '0.140') {
+                                                    echo 'selected';
+                                                } ?> value="0.140">0.140</option>
+                                        <option <?php if ($wire['size'] == '0.160') {
+                                                    echo 'selected';
+                                                } ?> value="0.160">0.160</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Brand</label>
@@ -30,7 +46,20 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Grade</label>
-                                    <input name="grade" value="<?= $wire['grade'] ?>" class="form-control" type="text" placeholder="Enter grade" disabled>
+                                    <select readonly required class="form-control" name="grade">
+                                        <option <?php if ($wire['grade'] == 'Carbon Steel') {
+                                                    echo 'selected';
+                                                } ?> value="Carbon Steel">Carbon Steel</option>
+                                        <option <?php if ($wire['grade'] == 'Duplex SS') {
+                                                    echo 'selected';
+                                                } ?> value="Duplex SS">Duplex SS</option>
+                                        <option <?php if ($wire['grade'] == 'Super Duplex SS') {
+                                                    echo 'selected';
+                                                } ?> value="Super Duplex SS">Super Duplex SS</option>
+                                        <option <?php if ($wire['grade'] == 'High Alloy Austenitic SS') {
+                                                    echo 'selected';
+                                                } ?> value="High Alloy Austenitic SS">High Alloy Austenitic SS</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Manufacturer</label>
@@ -54,9 +83,23 @@
                                         ?>
                                     </select>
                                 </div>
+                                <!-- <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Client</label>
+                                    <select name="client_id" class="form-select clients-input">
+                                        <?php
+                                        foreach ($clients as $client) {
+                                        ?>
+                                            <option <?php if ($client['id'] == $wire['client_id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div> -->
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Drum</label>
-                                    <select name="drum_id" class="form-select digits">
+                                    <label class="col-form-label pt-0">Drum No</label>
+                                    <select required name="drum_id" class="form-select digits">
                                         <?php
                                         foreach ($drums as $drum) {
                                             if ($drum['id'] == $wire['drum_id']) {
@@ -66,8 +109,10 @@
                                             } else {
                                             ?>
                                                 <option value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
-                                        <?php
+                                            <?php
                                             }
+                                            ?>
+                                        <?php
                                         }
                                         ?>
                                     </select>
@@ -86,20 +131,6 @@
                                                 <option value="<?= $package['id'] ?>"><?= $package['name'] ?></option>
                                         <?php
                                             }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Client</label>
-                                    <select name="client_id" class="form-select clients-input">
-                                        <?php
-                                        foreach ($clients as $client) {
-                                        ?>
-                                            <option <?php if ($client['id'] == $wire['client_id']) {
-                                                        echo 'selected';
-                                                    } ?> value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                                        <?php
                                         }
                                         ?>
                                     </select>

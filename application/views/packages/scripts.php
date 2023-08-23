@@ -1,22 +1,4 @@
 <script>
-    $(document).on('change, keydown, paste, input', '.input-name', function() {
-        var name = $(this).val()
-        $.ajax({
-            type: 'post',
-            url: '<?= base_url() ?>/api/slugify',
-            data: {
-                text: name
-            },
-            success: function(data) {
-                $('.input-url').val(data)
-            },
-            error: function(xhr, status, error) {
-                return 'Error';
-            }
-        });
-    });
-</script>
-<script>
     $(document).on('change', '.company-input', function() {
         let data = {
             company_id: $(this).val(),
@@ -42,5 +24,23 @@
                 return 'Error';
             }
         });
+    });
+</script>
+<script>
+    $(document).on('change', '.night-shift', function() {
+        let value = $(this).prop('checked');
+        let card = $(this).closest('.card');
+
+        console.log(value)
+
+        if (value == true) {
+            card.find('select').each(function() {
+                $(this).prop('disabled', false)
+            });
+        } else {
+            card.find('select').each(function() {
+                $(this).prop('disabled', true)
+            });
+        }
     });
 </script>

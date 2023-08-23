@@ -2,12 +2,13 @@
     <div>
         <div class="logo-wrapper">
             <a href="<?= base_url("") ?>">
-                <img style="max-height: 40px;" class=" img-fluid for-light" src="<?= base_url("assets/images/logo/logo.png") ?>" alt=""><img style="max-width: 150px" class="img-fluid for-dark" src="<?= base_url("assets/images/logo/logo_dark.png") ?>" alt="">
+                <img style="max-height: 40px;" class=" img-fluid for-light" src="<?= base_url("assets/images/logo/logo.png") ?>" alt="">
+                <img style="max-width: 150px" class="img-fluid for-dark" src="<?= base_url("assets/images/logo/logo.png") ?>" alt="">
             </a>
             <div class="back-btn"><i class="fa fa-angle-left"></i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
         </div>
-        <div class="logo-icon-wrapper"><a href="index.html"><img style="max-width: 30px" class="img-fluid" src="<?= base_url("assets/images/logo/logo-icon.png") ?>" alt=""></a></div>
+        <div class="logo-icon-wrapper"><a href="<?= base_url() ?>"><img style="max-width: 30px" class="img-fluid" src="<?= base_url("assets/images/logo/logo-icon.png") ?>" alt=""></a></div>
         <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="sidebar-menu">
@@ -111,6 +112,24 @@
                             ?>
                         </ul>
                     </li>
+                    <?php
+                    if (permission('Manage Broadcasts')) {
+                    ?>
+                        <li class="sidebar-list">
+                            <i class="fa fa-thumb-tack"></i>
+                            <a class="sidebar-link sidebar-title link-nav" href="<?= base_url("broadcasts") ?>">
+                                <svg class="stroke-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#stroke-chat") ?>"></use>
+                                </svg>
+                                <svg class="fill-icon">
+                                    <use href="<?= base_url("assets/svg/icon-sprite.svg#fill-chat") ?>"></use>
+                                </svg>
+                                <span>Broadcasts</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

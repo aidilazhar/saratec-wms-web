@@ -20,6 +20,14 @@ if (!function_exists('permission()')) {
         $ci = &get_instance();
         $ci->load->library('session');
 
+        if (!$ci->session->has_userdata('permissions')) {
+            $user = auth()->role_id;
+
+            $perms = $ci->Permission_model->details($user['role_id']);
+            $permissions = $ci->Permission_model->permissions($perms);
+
+            $ci->session->set_userdata('permissions', $permissions);
+        }
         $permissions = $ci->session->userdata('permissions') ?? [];
 
         return (in_array($perm, array_column($permissions, 'name')) != '' || in_array($perm, array_column($permissions, 'name')) != null);
@@ -217,5 +225,31 @@ if (!function_exists('delete_temporary_files()')) {
         }
 
         return true;
+    }
+}
+
+if (!function_exists('broadcasts()')) {
+    function broadcasts()
+    {
+        $ci = &get_instance();
+        $broadcasts = $ci->Broadcast_model->broadcasts();
+
+        return $broadcasts;
+    }
+}
+
+
+if (!function_exists('profile()')) {
+    function profile()
+    {
+        $ci = &get_instance();
+
+        $user = auth();
+        $user_id = $user->id;
+        $shift = $ci->Shift_model->user_assignment($user_id);
+
+        $activities = $ci->Trial_model->activities($user_id);
+
+        return compact('shift', 'activities');
     }
 }

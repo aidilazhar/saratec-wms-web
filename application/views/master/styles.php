@@ -19,6 +19,7 @@
 <!-- Bootstrap css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/vendors/bootstrap.css") ?>">
 <!-- App css-->
+<link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/vendors/scrollable.css") ?>">
 <link id="color" rel="stylesheet" href="<?= base_url("assets/css/color-1.css") ?>" media="screen">
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="<?= base_url("assets/css/style.css") ?>">
@@ -115,5 +116,20 @@
         border-top: 1px solid #f5f5f5;
         background-color: #000 !important;
         line-height: 19px;
+    }
+
+    .page-wrapper.material-icon .page-body-wrapper .page-body {
+        max-width: unset;
+    }
+
+    .inbox-user {
+        min-width: 290px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .page-title h3 {
+        padding-left: 10px !important;
     }
 </style>

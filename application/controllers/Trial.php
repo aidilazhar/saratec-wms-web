@@ -23,6 +23,7 @@ class Trial extends CI_Controller
         $this->load->model('Client_model');
         $this->load->model('Smart_monitor_model');
         $this->load->model('Well_model');
+        $this->load->model('Shift_model');
     }
 
     public function index($wire_id)
@@ -63,6 +64,7 @@ class Trial extends CI_Controller
         }
 
         $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
         $company = $this->Company_model->details($wire['company_id']);
         $clients = $this->Client_model->list($company['id']);
         $packages = $this->Package_model->list();
@@ -70,7 +72,24 @@ class Trial extends CI_Controller
         $job_types = $this->JobType_model->list();
         $drums = $this->Drum_model->list();
 
-        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'wire', 'wells'));
+        $package = $this->Package_model->details($wire['package_id']);
+        $shift = $this->Package_model->details($wire['package_id']);
+
+        $shift_day = $this->Shift_model->details($package['id'], 'day');
+        $shift_night = $this->Shift_model->details($package['id'], 'night');
+        $has_shift_night = true;
+
+        if ($shift_night == null) {
+            $has_shift_night = false;
+            $shift_night = [
+                'operator_id' => null,
+                'assistant1_id' => null,
+                'assistant2_id' => null,
+                'assistant3_id' => null,
+            ];
+        }
+
+        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'wire', 'wells', 'package', 'assistants', 'shift_day', 'shift_night', 'has_shift_night'));
     }
 
     public function store($wire_id)
@@ -81,6 +100,9 @@ class Trial extends CI_Controller
 
         $issued_at = $data['issued_at'];
         $operator_id = $data['operator_id'];
+        $assistant1_id = $data['operator_id'];
+        $assistant2_id = $data['assistant2_id'];
+        $assistant3_id = $data['assistant3_id'];
         $supervisor_name = $data['supervisor_name'];
         $client_id = $data['client_id'];
         $package_id = $data['package_id'];
@@ -110,7 +132,7 @@ class Trial extends CI_Controller
         $i = 0;
 
         foreach ($data['job_type_id'] as $key => $job_type_id) {
-            $inputs = compact('issued_at', 'operator_id', 'supervisor_name', 'client_id', 'package_id', 'drum_id', 'wrap_test', 'pull_test', 'x_inch', 'y_inch', 'cut_off', 'well_id');
+            $inputs = compact('issued_at', 'operator_id', 'supervisor_name', 'client_id', 'package_id', 'drum_id', 'wrap_test', 'pull_test', 'x_inch', 'y_inch', 'cut_off', 'well_id', 'assistant1_id', 'assistant2_id', 'assistant3_id');
             $inputs['job_type_id'] = $job_type_id;
             $inputs['jar_number'] = $data['jar_number'][$key];
             $inputs['max_pull'] = $data['max_pull'][$key];
@@ -232,9 +254,11 @@ class Trial extends CI_Controller
             'subtitle' => "Wire Details",
             'view' => 'trials/edit',
             'back' => base_url("wires/" . encode($wire_id) . "/trials"),
+            'scripts' => 'trials/scripts'
         ];
 
         $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
         $clients = $this->Client_model->list($wire['company_id']);
         $packages = $this->Package_model->list();
         $job_types = $this->JobType_model->list();
@@ -243,7 +267,30 @@ class Trial extends CI_Controller
 
         $trial = $this->Trial_model->details($trial_id);
 
-        $this->load->view('master/index', compact('page', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial', 'wells'));
+        $package = $this->Package_model->details($wire['package_id']);
+        $shift = $this->Package_model->details($wire['package_id']);
+
+        $shift_day = $this->Shift_model->details($package['id'], 'day');
+        $shift_night = $this->Shift_model->details($package['id'], 'night');
+        $has_shift_night = true;
+
+        if ($shift_night == null) {
+            $has_shift_night = false;
+            $shift_night = [
+                'operator_id' => null,
+                'assistant1_id' => null,
+                'assistant2_id' => null,
+                'assistant3_id' => null,
+            ];
+        }
+
+        if ($trial['shift'] == 'day') {
+            $selected_shift = $shift_day;
+        } else {
+            $selected_shift = $shift_day;
+        }
+
+        $this->load->view('master/index', compact('page', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'trial', 'wells', 'shift_day', 'shift_night', 'has_shift_night', 'assistants', 'selected_shift'));
     }
 
     public function update($wire_id, $trial_id)
@@ -286,9 +333,12 @@ class Trial extends CI_Controller
 
         $data['wire_id'] = $wire_id;
         $data['operator_id'] = auth()->id;
+        $data['issued_at'] = date('Y-m-d h:i:s', strtotime($data['issued_at']));
         delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
         $res = $this->Trial_model->update($trial_id, $data);
+
+
         redirect(base_url("wires/" . encode($wire_id) . "/trials"));
     }
 

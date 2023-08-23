@@ -30,7 +30,8 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="<?= base_url("assets/js/typeahead/handlebars.js") ?>"></script>
 <script src="<?= base_url("assets/js/typeahead/typeahead.bundle.js") ?>"></script>
-
+<script src="<?= base_url("assets/js/scrollable/perfect-scrollbar.min.js") ?>"></script>
+<script src="<?= base_url("assets/js/scrollable/scrollable-custom.js") ?>"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="<?= base_url("assets/js/script.js") ?>"></script>
@@ -115,34 +116,6 @@ if (isset($page['scripts'])) {
         }
         return series;
     }
-</script>
-<script>
-    $(document).on('change', '.company-input', function() {
-        let data = {
-            company_id: $(this).val(),
-        }
-
-        $.ajax({
-            type: 'post',
-            url: window.location.origin + '/<?= LOCALHOST_PROJECT_NAME ?>' + '/api/get-clients',
-            cache: false,
-            data: data,
-            dataType: 'json',
-            success: function(data) {
-                clients = JSON.parse(data.data)
-
-                let options = '';
-                $('.clients-input').html('');
-                for (let i in clients) {
-                    let row = clients[i];
-                    $('.clients-input').append('<option value="' + row.id + '">' + row.name + '</option>');
-                }
-            },
-            error: function(xhr, status, error) {
-                return 'Error';
-            }
-        });
-    });
 </script>
 <script>
     $(document).on('input propertychange', '.name-1', function() {

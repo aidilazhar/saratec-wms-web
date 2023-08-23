@@ -27,7 +27,7 @@ class User_model extends CI_Model
         $this->db->from('users');
         $this->db->where('is_deleted', 0);
         if (!empty($company_id)) {
-            $this->db->where('company_id', $company_id);
+            $this->db->where_in('company_id', $company_id);
         }
         if (!empty($role_id)) {
             $this->db->where_in('role_id', $role_id);
@@ -79,6 +79,7 @@ class User_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = auth()->id;
         $this->db->insert('users', $data);
         return $this->db->insert_id();
     }

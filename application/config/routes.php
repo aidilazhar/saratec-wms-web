@@ -69,6 +69,7 @@ include('web/companies.php');
 include('web/job-types.php');
 include('web/users.php');
 include('web/roles.php');
+include('web/broadcasts.php');
 include('web/api.php');
 
 $route['(:any)/login'] = 'General/login/$1';

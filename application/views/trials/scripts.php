@@ -405,3 +405,42 @@
         });
     });
 </script>
+<script>
+    $(document).on('change', '.shift-options', function() {
+        let day = {
+            operator_id: '<?= $shift_day['operator_id'] ?>',
+            assistant1_id: '<?= $shift_day['assistant1_id'] ?>',
+            assistant2_id: '<?= $shift_day['assistant2_id'] ?>',
+            assistant3_id: '<?= $shift_day['assistant3_id'] ?>',
+        }
+
+        let night = {
+            operator_id: '<?= $shift_night['operator_id'] ?>',
+            assistant1_id: '<?= $shift_night['assistant1_id'] ?>',
+            assistant2_id: '<?= $shift_night['assistant2_id'] ?>',
+            assistant3_id: '<?= $shift_night['assistant3_id'] ?>',
+        }
+
+        if ($(this).val() == 'night') {
+            $('.operator-id').val(night.operator_id)
+            $('.assistant1-id').val(night.assistant1_id)
+            $('.assistant2-id').val(night.assistant2_id)
+            $('.assistant3-id').val(night.assistant3_id)
+
+            $('input[name=operator_id]').val(night.operator_id)
+            $('input[name=assistant1_id]').val(night.assistant1_id)
+            $('input[name=assistant2_id]').val(night.assistant2_id)
+            $('input[name=assistant3_id]').val(night.assistant3_id)
+        } else {
+            $('.operator-id').val(day.operator_id)
+            $('.assistant1-id').val(day.assistant1_id)
+            $('.assistant2-id').val(day.assistant2_id)
+            $('.assistant3-id').val(day.assistant3_id)
+
+            $('input[name=operator_id]').val(day.operator_id)
+            $('input[name=assistant1_id]').val(day.assistant1_id)
+            $('input[name=assistant2_id]').val(day.assistant2_id)
+            $('input[name=assistant3_id]').val(day.assistant3_id)
+        }
+    });
+</script>

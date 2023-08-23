@@ -16,24 +16,81 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Date</label>
-                                    <input name="issued_at" class="form-control digits" type="date" value="<?= date('Y-m-d') ?>">
+                                    <input name="issued_at" class="form-control digits" type="datetime-local" value="<?= date('Y-m-d h:i:s') ?>">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Shift</label>
+                                    <select required name="shift" class="form-select shift-options">
+                                        <option selected value="day">Day</option>
+                                        <option <?php if (!$has_shift_night) {
+                                                    echo 'disabled';
+                                                } ?> value="night">Night</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Operator</label>
-                                    <select <?php if (auth()->role_id == ROLE_OPERATOR) {
-                                                echo 'disabled';
-                                            } ?> required name="operator_id" class="form-select digits">
+                                    <select disabled <?php if (auth()->role_id == ROLE_OPERATOR) {
+                                                            echo 'disabled';
+                                                        } ?> required class="form-select digits operator-id">
                                         <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($operators as $operator) {
                                         ?>
                                             <option <?php if ($operator['id'] == auth()->id) {
                                                         echo 'selected';
+                                                    } elseif ($shift_day['operator_id'] == $operator['id']) {
+                                                        echo 'selected';
                                                     } ?> value="<?= $operator['id'] ?>"><?= $operator['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="operator_id" value="<?= $shift_day['operator_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 1</label>
+                                    <select disabled required class="form-select clients-input assistant1-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($shift_day['assistant1_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant1_id" value="<?= $shift_day['assistant1_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 2</label>
+                                    <select disabled required class="form-select clients-input assistant2-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($shift_day['assistant2_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant2_id" value="<?= $shift_day['assistant2_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 3</label>
+                                    <select disabled required class="form-select clients-input assistant3-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($shift_day['assistant3_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant3_id" value="<?= $shift_day['assistant3_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Supervisor</label>
@@ -41,7 +98,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Client</label>
-                                    <select required name="client_id" class="form-select digits">
+                                    <select disabled required name="client_id" class="form-select digits">
                                         <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($clients as $client) {
@@ -53,31 +110,38 @@
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="client_id" value="<?= $wire['client_id'] ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Package</label>
-                                    <select required name="package_id" class="form-select digits">
+                                    <select disabled required name="package_id" class="form-select digits">
                                         <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
-                                        foreach ($packages as $package) {
+                                        foreach ($packages as $row) {
                                         ?>
-                                            <option value="<?= $package['id'] ?>"><?= $package['name'] ?></option>
+                                            <option <?php if ($wire['package_id'] == $row['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="package_id" value="<?= $wire['package_id'] ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Drum No</label>
-                                    <select required name="drum_id" class="form-select digits">
+                                    <select disabled required name="drum_id" class="form-select digits">
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>
-                                            <option value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
+                                            <option <?php if ($wire['drum_id'] == $drum['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="drum_id" value="<?= $wire['drum_id'] ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Wrap Test</label>
@@ -89,12 +153,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Pull Test Value</label>
-                                    <select required name="pull_test" class="form-control">
-                                        <option>N/A</option>
-                                        <option>0 - 999 lbs</option>
-                                        <option>1,000 - 1,999 lbs</option>
-                                        <option>2,000 - 2,999 lbs</option>
-                                    </select>
+                                    <input required name="pull_test" value="" class="form-control" type="number" placeholder="Enter pull test value" min="0" max="9999">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">X (inches)</label>
@@ -189,6 +248,7 @@
                                                     <select required name="job_status[]" class="form-select digits">
                                                         <option value="Complete">Complete</option>
                                                         <option value="Rerun">To Rerun</option>
+                                                        <option value="Rerun">Abandoned</option>
                                                     </select>
                                                 </td>
                                                 <td>

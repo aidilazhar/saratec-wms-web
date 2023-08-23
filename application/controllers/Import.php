@@ -23,8 +23,33 @@ class Import extends CI_Controller
         $this->load->model('Company_model');
         $this->load->model('JobType_model');
         $this->load->model('Field_model');
+        $this->load->model('Shift_model');
         $this->load->model('Smart_monitor_model');
         $this->load->model('ThirdPartyData_model');
+
+        $this->reps = 0;
+        $this->representatives = [
+            "Brodie Delatorre",
+            "Wednesday Dollar",
+            "Mason Galbraith",
+            "Damiya Egbert",
+            "Aiven Ogburn",
+            "Teegan Griego",
+            "Italia Doll",
+            "Devion Graybill",
+            "Ihsan Hovis",
+            "Evelina Tharp",
+            "Younis Knisley",
+            "Ashten Orth",
+            "Kameron Deleon",
+            "Angelie Steinmetz",
+            "Zaniya Collazo",
+            "Gabriela Petersen",
+            "Binyomin Ridgway",
+            "Vianney Coffin",
+            "Eliot Diggs",
+            "Benton Moreland",
+        ];
     }
 
     public function index()
@@ -44,16 +69,44 @@ class Import extends CI_Controller
 
         $company_id = $this->company("DELEUM");
         $field_id = $this->field_id("Field A");
-
         foreach ($array as $key => $arr) {
+            if ($key % 4 === 0) {
+                $this->operator($arr['2'], $company_id, true);
+            } else {
+                $this->operator($arr['2'], $company_id);
+            }
+            $this->drum_id($arr[6]);
+        }
+        $drums = $this->Drum_model->list();
+        $drum2_id = $drums[rand(0, count($drums) - 1)]['id'];
+
+        $i = 15;
+        foreach ($array as $key => $arr) {
+            $drum_id = $this->drum_id($arr[6]);
+            $client_id =  $this->client_id($arr[4], $company_id);
+            $package_id = $this->package_id($arr[5], $drum_id, $drum2_id, $client_id);
+            if ($i == 15) {
+                $i = 0;
+                $in_duty = $this->get_in_duty($company_id, $package_id);
+            }
+
+            if ($key % 2 == 0) {
+                $duty = $in_duty['night'];
+            } else {
+                $duty = $in_duty['day'];
+            }
+
             $data = [
                 'created_at' => date('Y-m-d H:i:s', strtotime($arr[0])),
                 'issued_at' => date('Y-m-d H:i:s', strtotime($arr[1])),
-                'operator_id' => $arr[2],
+                'operator_id' => $duty['operator_id'],
+                'assistant1_id' => $duty['assistant1_id'],
+                'assistant2_id' => $duty['assistant2_id'],
+                'assistant3_id' => $duty['assistant3_id'],
                 'supervisor_name' => strtoupper($arr[3]),
-                'client_id' => $arr[4],
-                'package_id' => $arr[5],
-                'drum_id' => $arr[6],
+                'client_id' => $client_id,
+                'package_id' => $package_id,
+                'drum_id' => $drum_id,
                 'wrap_test' => $arr[7],
                 'pull_test' => $arr[8],
                 'x_inch' => $arr[9],
@@ -69,6 +122,7 @@ class Import extends CI_Controller
                 'max_depth' => $arr[19],
             ];
 
+
             if (!is_numeric($data['x_inch'])) {
                 $data['x_inch'] = 0;
             }
@@ -81,10 +135,6 @@ class Import extends CI_Controller
                 $data['max_depth'] = 0;
             }
 
-            $data['operator_id'] = $this->operator($data['operator_id'], $company_id);
-            $data['client_id'] = $this->client_id($data['client_id'], $company_id);
-            $data['package_id'] = $this->package_id($data['package_id']);
-            $data['drum_id'] = $this->drum_id($data['drum_id']);
             $data['well_id'] = $this->well_id($data['well_id'], $field_id);
             $data['job_type_id'] = $this->job_type_id($data['job_type_id']);
 
@@ -93,30 +143,32 @@ class Import extends CI_Controller
             $client_id = $data['client_id'];
             $package_id = $data['package_id'];
             $drum_id = $data['drum_id'];
+
+            $i++;
         }
 
         $wire = [
-            'company_id' => $company_id,
-            'client_id' => $client_id,
             "name" => "CWR-0855",
             "url" => slugify("CWR-0855"),
+            'company_id' => $company_id,
+            'client_id' => $client_id,
             'package_id' => $package_id,
             'drum_id' => $drum_id,
             'size' => 0.108,
-            'brand' => 'SUPA75',
-            'grade' => '-',
-            'manufacturer' => "SUPA75 DWS",
+            'range' => 0.0012,
             'initial_length' => 25918,
-            'first_spooling_at' => date('Y-m-d', strtotime('2021-12-02')),
+            'brand' => 'SUPA75',
+            'grade' => 'Duplex SS',
+            'manufacturer' => "SUPA75 DWS",
         ];
 
         $wire_id = $this->Wire_model->store($wire);
 
-        foreach ($set as $data) {
-            $data['wire_id'] = $wire_id;
-            $data['smart_monitor_id'] = null;
-            $data['job_status'] = '';
-            $result = $this->Trial_model->store($data);
+        foreach ($set as $s) {
+            $s['wire_id'] = $wire_id;
+            $s['smart_monitor_id'] = null;
+            $s['job_status'] = '';
+            $result = $this->Trial_model->store($s);
 
             if ($result != 'success') {
                 print_r($result);
@@ -125,10 +177,16 @@ class Import extends CI_Controller
         }
 
         $this->thirdPartyData($wire_id);
+        $i++;
     }
 
-    public function operator($operator_id, $company_id)
+    public function operator($operator_id, $company_id, $is_operator = false)
     {
+        if ($is_operator == true) {
+            $role_id = ROLE_OPERATOR;
+        } else {
+            $role_id = ROLE_OPERATOR_ASSISTANT;
+        }
         $operator = $this->User_model->search([
             [
                 'value' => $operator_id,
@@ -143,9 +201,9 @@ class Import extends CI_Controller
             $user_data = [
                 "name" => $name,
                 "username" => $this->Utility_model->slugify($name),
-                "contact" => rand(100000000, 999999999),
+                "contact" => '01' . rand(1, 9) . '-' . rand(1000000, 9999999),
                 'email' => $this->Utility_model->slugify($name) . '@yopmail.com',
-                'role_id' => 4,
+                'role_id' => $role_id,
                 'password' => password_hash('12341234', PASSWORD_BCRYPT),
                 'company_id' => $company_id
             ];
@@ -172,8 +230,10 @@ class Import extends CI_Controller
 
             $data = [
                 'name' => $name,
+                'representative' => $this->representatives[$this->reps],
                 'company_id' => 1,
             ];
+            $this->reps++;
             $id = $this->Client_model->store($data);
 
             return $id;
@@ -182,7 +242,7 @@ class Import extends CI_Controller
         }
     }
 
-    public function package_id($package_id)
+    public function package_id($package_id, $drum_id, $drum2_id, $client_id)
     {
         $package = $this->Package_model->search([
             [
@@ -197,6 +257,9 @@ class Import extends CI_Controller
 
             $data = [
                 'name' => $name,
+                'drum1_id' => $drum_id,
+                'drum2_id' => $drum2_id,
+                'client_id' => $client_id,
             ];
 
             $id = $this->Package_model->store($data);
@@ -300,12 +363,24 @@ class Import extends CI_Controller
 
     public function company($name)
     {
-        $data = [
-            "name" => $name,
-            "password" => password_hash($name, PASSWORD_BCRYPT),
-        ];
+        $company = $this->Company_model->search([
+            [
+                'value' => $name,
+                'column' => 'name',
+                'type' => 'and'
+            ]
+        ]);
 
-        return $this->Company_model->store($data);
+        if (is_null($company)) {
+            $data = [
+                "name" => $name,
+                "password" => password_hash($name, PASSWORD_BCRYPT),
+            ];
+
+            return $this->Company_model->store($data);
+        } else {
+            return $company['id'];
+        }
     }
 
     public function thirdPartyData($wire_id)
@@ -379,5 +454,74 @@ class Import extends CI_Controller
             }
         }
         echo "Good";
+    }
+
+    public function get_in_duty($company_id, $package_id)
+    {
+
+        $shifts = [
+            'day',
+            'night',
+        ];
+
+        $days = [];
+        $nights = [];
+
+        foreach ($shifts as $key => $shift) {
+            $operators = $this->User_model->list([$company_id], [ROLE_OPERATOR]);
+            $operator_assistants = $this->User_model->list([$company_id], [ROLE_OPERATOR_ASSISTANT]);
+
+            $operator_id = $operators[rand(0, count($operators) - 1)]['id'];
+
+            if ($shift == 'day') {
+                for ($i = 0; $i < 100; $i++) {
+                    $a = rand(0, count($operator_assistants) - 1);
+                    if (!in_array($a, $days)) {
+                        $days[] = $a;
+                    }
+
+                    if (count($days) == 3) break;
+                }
+
+                $operator_assistant1 = $operator_assistants[$days[0]]['id'];
+                $operator_assistant2 = $operator_assistants[$days[1]]['id'];
+                $operator_assistant3 = $operator_assistants[$days[2]]['id'];
+            } else {
+                for ($i = 0; $i < 100; $i++) {
+                    $a = rand(0, count($operator_assistants) - 1);
+                    if (!in_array($a, $nights) && !in_array($a, $days)) {
+                        $nights[] = $a;
+                    }
+
+                    if (count($nights) == 3) break;
+                }
+
+                $operator_assistant1 = $operator_assistants[$nights[0]]['id'];
+                $operator_assistant2 = $operator_assistants[$nights[1]]['id'];
+                $operator_assistant3 = $operator_assistants[$nights[2]]['id'];
+            }
+
+            $data = [
+                'shift' => $shift,
+                'package_id' => $package_id,
+                'operator_id' => $operator_id,
+                'assistant1_id' => $operator_assistant1,
+                'assistant2_id' => $operator_assistant2,
+                'assistant3_id' => $operator_assistant3,
+            ];
+
+            if ($shift == 'day') {
+                $day_data = $data;
+            } else {
+                $night_data = $data;
+            }
+
+            $this->Shift_model->store($data);
+        }
+
+        return [
+            'day' => $day_data,
+            'night' => $night_data,
+        ];
     }
 }

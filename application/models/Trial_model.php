@@ -163,6 +163,7 @@ class Trial_model extends CI_Model
         if (!isset($data['created_at'])) {
             $data['created_at'] = date('Y-m-d H:i:s');
         }
+        $data['created_by'] = auth()->id;
 
         if (!$this->db->insert('trials', $data)) {
             $error = $this->db->error();
@@ -198,6 +199,7 @@ class Trial_model extends CI_Model
     {
         if (!isset($data['created_at'])) {
             $data['created_at'] = date('Y-m-d H:i:s');
+            $data['created_by'] = auth()->id;
         }
 
         $this->db->insert('trials', $data);
@@ -359,5 +361,22 @@ class Trial_model extends CI_Model
         $results = $this->db->get()->result_array();
 
         return count($results);
+    }
+
+    public function activities($user_id)
+    {
+        $this->db->select('trials.issued_at as datetime, job_types.name as job_type_name, wells.name as well_name, trials.job_status as status');
+        $this->db->from('trials as trials');
+        $this->db->join('job_types as job_types', 'job_types.id = trials.job_type_id');
+        $this->db->join('wells as wells', 'wells.id = trials.well_id');
+        $this->db->where('trials.operator_id', $user_id);
+        $this->db->or_where('trials.assistant1_id', $user_id);
+        $this->db->or_where('trials.assistant2_id', $user_id);
+        $this->db->or_where('trials.assistant3_id', $user_id);
+        $this->db->limit(2);
+        $this->db->order_by('trials.id', 'desc');
+        $results = $this->db->get()->result_array();
+
+        return $results;
     }
 }

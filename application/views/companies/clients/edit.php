@@ -13,6 +13,10 @@
                                     <label class="col-form-label pt-0">Name</label>
                                     <input required name="name" value="<?= $client['name'] ?>" class="form-control" type="text" placeholder="Enter name">
                                 </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Representative</label>
+                                    <input required name="representative" value="<?= $client['representative'] ?>" class="form-control" type="text" placeholder="Enter representative">
+                                </div>
                             </div>
                             <div class="card-footer text-end">
                                 <a href="<?= base_url('companies/' . encode($company_id) . '/clients') ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>

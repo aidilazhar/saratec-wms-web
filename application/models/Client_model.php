@@ -44,11 +44,11 @@ class Client_model extends CI_Model
         return $results;
     }
 
-    public function details($package_id)
+    public function details($client_id)
     {
         $this->db->select('*');
         $this->db->from('clients');
-        $this->db->where('id', $package_id);
+        $this->db->where('id', $client_id);
         $results = $this->db->get()->result_array();
 
         foreach ($results as $key => $result) {
@@ -73,6 +73,7 @@ class Client_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = auth()->id;
         $this->db->insert('clients', $data);
         return $this->db->insert_id();
     }

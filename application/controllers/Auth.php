@@ -52,7 +52,7 @@ class Auth extends CI_Controller
 
             redirect(base_url(''));
         } else {
-            redirect(base_url('login'));
+            redirect(base_url('login?error=1'));
         }
     }
 

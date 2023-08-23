@@ -22,15 +22,42 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Size</label>
-                                    <input required name="size" class="form-control" type="number" placeholder="Enter size">
+                                    <select required class="form-control" name="size">
+                                        <option value="0.092">0.092</option>
+                                        <option value="0.108">0.108</option>
+                                        <option value="0.125">0.125</option>
+                                        <option value="0.140">0.140</option>
+                                        <option value="0.160">0.160</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Drum No</label>
+                                    <select required name="drum_id" class="form-select digits">
+                                        <?php
+                                        foreach ($drums as $drum) {
+                                        ?>
+                                            <option value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Brand</label>
                                     <input required name="brand" class="form-control" type="text" placeholder="Enter brand">
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Initial Length</label>
+                                    <input required name="initial_length" class="form-control" type="text" placeholder="Enter initial length">
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Grade</label>
-                                    <input required name="grade" class="form-control" type="text" placeholder="Enter grade">
+                                    <select required class="form-control" name="grade">
+                                        <option value="Carbon Steel">Carbon Steel</option>
+                                        <option value="Duplex SS">Duplex SS</option>
+                                        <option value="Super Duplex SS">Super Duplex SS</option>
+                                        <option value="High Alloy Austenitic SS">High Alloy Austenitic SS</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Manufacturer</label>
@@ -49,12 +76,12 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Drum</label>
-                                    <select required name="drum_id" class="form-select digits">
+                                    <label class="col-form-label pt-0">Client</label>
+                                    <select required name="client_id" class="form-select clients-input">
                                         <?php
-                                        foreach ($drums as $drum) {
+                                        foreach ($clients as $client) {
                                         ?>
-                                            <option value="<?= $drum['id'] ?>"><?= $drum['name'] ?></option>
+                                            <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -71,26 +98,6 @@
                                         }
                                         ?>
                                     </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Client</label>
-                                    <select required name="client_id" class="form-select clients-input">
-                                        <?php
-                                        foreach ($clients as $client) {
-                                        ?>
-                                            <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">Initial Length</label>
-                                    <input required name="initial_length" class="form-control" type="number" placeholder="Enter Initial Length">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="col-form-label pt-0">First Spooling Date</label>
-                                    <input required name="first_spooling_at" class="form-control" type="date">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Material Certifications (PDF only)</label>

@@ -27,6 +27,8 @@ class Api extends CI_Controller
         $this->load->model('Well_model');
         $this->load->model('LabTest_model');
         $this->load->model('Report_model');
+        $this->load->model('Package_model');
+        $this->load->model('Shift_model');
     }
 
     public function getClients()
@@ -104,7 +106,10 @@ class Api extends CI_Controller
         $user = $this->User_model->details($user_id);
 
         if (!empty($user)) {
-            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user'));
+            $shift = $this->Shift_model->user_assignment($user_id);
+
+            $activities = $this->Trial_model->activities($user_id);
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user', 'activities'));
         } else {
             echo $this->Utility_model->apiReturn();
         }
@@ -386,6 +391,20 @@ class Api extends CI_Controller
         echo json_encode(compact('material_certifications'));
     }
 
+    public function wireEddyCurrent()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $wire = $this->Wire_model->details($wire_id);
+
+        if (!is_null($wire['material_certifications'])) {
+            $material_certifications = base64_encode(file_get_contents(temp_url($wire['material_certifications'])));
+        } else {
+            $material_certifications = null;
+        }
+
+        echo json_encode(compact('material_certifications'));
+    }
+
     public function wireOtherReports()
     {
         $wire_id = $this->input->post('wire_id');
@@ -592,5 +611,22 @@ class Api extends CI_Controller
         $wire_id = 11;
         $url = 'temp/wires/' . $wire_id . '/smart_monitors';
         delete_temporary_files($url);
+    }
+
+    public function wireLabTest()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $wire = $this->Wire_model->details($wire_id);
+
+        $lab_tests = $this->LabTest_model->list([$wire_id]);
+
+        echo json_encode(compact('lab_tests'));
+    }
+
+    public function broadcasts()
+    {
+
+        $broadcasts = $this->Broadcast_model->broadcasts();
+        echo json_encode($broadcasts);
     }
 }

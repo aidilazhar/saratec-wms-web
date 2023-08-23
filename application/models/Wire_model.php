@@ -15,9 +15,9 @@ class Wire_model extends CI_Model
                 'value' => 'company_id'
             ],
             [
-                'name' => 'clients',
+                'name' => 'packages',
                 'column' => 'id',
-                'value' => 'client_id'
+                'value' => 'package_id'
             ],
         ];
         $this->appends = [];
@@ -27,7 +27,7 @@ class Wire_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('wires');
-        if (auth()->role_id == ROLE_CLIENT || auth()->role_id == ROLE_OPERATOR) {
+        if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR) {
             $this->db->where('company_id', auth()->company_id);
         }
         $this->db->where('is_deleted', 0);
@@ -77,6 +77,7 @@ class Wire_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = auth()->id;
         $this->db->insert('wires', $data);
         return $this->db->insert_id();
     }

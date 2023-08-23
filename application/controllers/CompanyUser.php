@@ -79,13 +79,16 @@ class CompanyUser extends CI_Controller
         $company_id = decode($company_id);
         $data = $this->input->post();
 
-        if ($data['password'] == $data['repassword']) {
-            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-            unset($data['repassword']);
-        } else {
-            unset($data['password']);
-            unset($data['repassword']);
+        if ($data['password'] != "") {
+            if ($data['password'] == $data['repassword']) {
+                $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+                unset($data['repassword']);
+            } else {
+                unset($data['password']);
+                unset($data['repassword']);
+            }
         }
+
         $results = $this->User_model->update($user_id, $data);
         redirect(base_url('companies/' . encode($company_id) . '/users'));
     }

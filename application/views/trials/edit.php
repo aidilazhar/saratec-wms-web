@@ -14,21 +14,76 @@
                                     <input required class="form-control digits" id="example-datetime-local-input" type="datetime-local" required name="issued_at" value="<?= date('Y-m-d H:i:s', strtotime($trial['issued_at'])) ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Shift</label>
+                                    <select required name="shift" class="form-select shift-options">
+                                        <option selected value="day">Day</option>
+                                        <option <?php if (!$has_shift_night) {
+                                                    echo 'disabled';
+                                                } ?> value="night">Night</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Operator</label>
-                                    <select <?php if (auth()->role_id == ROLE_OPERATOR) {
-                                                echo 'disabled';
-                                            } ?> required name="operator_id" class="form-select digits">
+                                    <select disabled <?php if (auth()->role_id == ROLE_OPERATOR) {
+                                                            echo 'disabled';
+                                                        } ?> required class="form-select digits operator-id">
                                         <option disabled selected value="">--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($operators as $operator) {
                                         ?>
-                                            <option <?php if ($operator['id'] == $trial['operator_id']) {
+                                            <option <?php if ($selected_shift['operator_id'] == $operator['id']) {
                                                         echo 'selected';
                                                     } ?> value="<?= $operator['id'] ?>"><?= $operator['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="operator_id" value="<?= $selected_shift['operator_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 1</label>
+                                    <select disabled required class="form-select clients-input assistant1-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($selected_shift['assistant1_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant1_id" value="<?= $selected_shift['assistant1_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 2</label>
+                                    <select disabled required class="form-select clients-input assistant2-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($selected_shift['assistant2_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant2_id" value="<?= $selected_shift['assistant2_id'] ?>" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Assistant Operator 3</label>
+                                    <select disabled required class="form-select clients-input assistant3-id">
+                                        <?php
+                                        foreach ($assistants as $assistant) {
+                                        ?>
+                                            <option <?php if ($selected_shift['assistant3_id'] == $assistant['id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="assistant3_id" value="<?= $selected_shift['assistant3_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Supervisor</label>

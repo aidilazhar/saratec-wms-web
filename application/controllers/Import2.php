@@ -25,6 +25,30 @@ class Import2 extends CI_Controller
         $this->load->model('Field_model');
         $this->load->model('Smart_monitor_model');
         $this->load->model('ThirdPartyData_model');
+
+        $this->reps = 0;
+        $this->representatives = [
+            "Brodie Delatorre",
+            "Wednesday Dollar",
+            "Mason Galbraith",
+            "Damiya Egbert",
+            "Aiven Ogburn",
+            "Teegan Griego",
+            "Italia Doll",
+            "Devion Graybill",
+            "Ihsan Hovis",
+            "Evelina Tharp",
+            "Younis Knisley",
+            "Ashten Orth",
+            "Kameron Deleon",
+            "Angelie Steinmetz",
+            "Zaniya Collazo",
+            "Gabriela Petersen",
+            "Binyomin Ridgway",
+            "Vianney Coffin",
+            "Eliot Diggs",
+            "Benton Moreland",
+        ];
     }
 
     public function index()

@@ -65,6 +65,7 @@ class Role_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = auth()->id;
         $this->db->insert('roles', $data);
         return $this->db->insert_id();
     }

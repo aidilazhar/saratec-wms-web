@@ -21,18 +21,6 @@ class Drum_model extends CI_Model
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();
 
-        foreach ($results as $key => $result) {
-            foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
-            }
-        }
-
-        foreach ($results as $key => $result) {
-            foreach ($this->appends as $append) {
-                $results[$key][$append] = call_drum_func(array('Drum_model', 'append_' . $append), $result);
-            }
-        }
-
         return $results;
     }
 
@@ -42,18 +30,6 @@ class Drum_model extends CI_Model
         $this->db->from('drums');
         $this->db->where('id', $drum_id);
         $results = $this->db->get()->result_array();
-
-        foreach ($results as $key => $result) {
-            foreach ($this->with as $with) {
-                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result['role_id']);
-            }
-        }
-
-        foreach ($results as $key => $result) {
-            foreach ($this->appends as $append) {
-                $results[$key][$append] = call_drum_func(array('Drum_model', 'append_' . $append), $result);
-            }
-        }
 
         if (empty($results)) {
             return [];
@@ -65,6 +41,7 @@ class Drum_model extends CI_Model
     public function store($data)
     {
         $data['created_at'] = date('Y-m-d H:i:s');
+        $data['created_by'] = auth()->id;
         $this->db->insert('drums', $data);
         return $this->db->insert_id();
     }
