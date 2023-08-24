@@ -40,6 +40,16 @@
 <script src="<?= base_url("assets/js/datatable/datatables/jquery.dataTables.min.js") ?>"></script>
 
 <script>
+    if (localStorage.getItem("page-wrapper") === null) {
+        localStorage.setItem(
+            "page-wrapper",
+            "compact-sidebar compact-small material-icon"
+        );
+        $(".page-wrapper").addClass("compact-sidebar compact-small material-icon");
+        location.reload();
+    }
+</script>
+<script>
     $('.card :input, .card select').each(function() {
         var attr = $(this).attr('required');
 

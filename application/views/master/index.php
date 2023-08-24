@@ -42,7 +42,7 @@ if ($page['subtitle'] != null) {
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
     <!-- tap on tap ends-->
     <!-- page-wrapper StartMy Currencies-->
-    <div class="page-wrapper compact-sidebar compact-small material-icon" id="pageWrapper">
+    <div class="page-wrapper" id="pageWrapper">
         <!-- Page Header Start-->
         <?= $this->load->view('master/header', '', true) ?>
         <!-- Page Header Ends-->

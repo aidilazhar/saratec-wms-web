@@ -28,6 +28,7 @@ class Wire extends CI_Controller
         $this->load->model('Well_model');
         $this->load->model('ThirdPartyData_model');
         $this->load->model('LabTest_model');
+        $this->load->model('Smart_monitor_model');
     }
 
     public function index()
@@ -403,6 +404,7 @@ class Wire extends CI_Controller
 
         if (count($trials) == 0) {
             $dashboard = [
+                'first_spooling_date' => $this->Trial_model->first_spooling_date($wire['id']),
                 'total_number_run' => count($trials_except),
                 'total_running_number_hours' => $hours,
                 'total_running_number_days' => $days,
@@ -418,6 +420,7 @@ class Wire extends CI_Controller
             ];
         } else {
             $dashboard = [
+                'first_spooling_date' => $this->Trial_model->first_spooling_date($wire['id']),
                 'total_number_run' => count($trials_except),
                 'total_running_number_hours' => $hours,
                 'total_running_number_days' => $days,
@@ -508,6 +511,8 @@ class Wire extends CI_Controller
             'back' => $back,
             'scripts' => 'wires/dashboards/scripts2'
         ];
+
+        $smart_monitors = $this->Smart_monitor_model->list($wire_id);
 
         $wire = $this->Wire_model->details($wire_id);
         $third_party_data = $this->ThirdPartyData_model->list($wire_id);

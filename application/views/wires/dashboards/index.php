@@ -23,159 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="card small-widget">
-                <div class="card-body primary">
-                    <span class="">Current Cut-Off Rate</span>
-                    <small class="d-block f-light">Exclude Spooling</small>
-                    <div class="d-flex align-items-end gap-1">
-                        <h4><?= number_format($dashboard['current_cut_off_rate'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>FT/Run</span></span>
-                    </div>
-                    <div class="bg-gradient">
-                        <i style="font-size: 30px; font-weight: 100;" class="icon-pulse"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card small-widget">
-                <div class="card-body warning">
-                    <span class="">Average Run Duration</span>
-                    <small class="d-block f-light">Exclude Spooling</small>
-                    <div class="d-flex align-items-end gap-1">
-                        <h4><?= number_format($dashboard['average_run_duration'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>Hour/Run</span></span>
-                    </div>
-                    <div class="bg-gradient">
-                        <i style="font-size: 30px; font-weight: 100;" class="icon-timer"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card small-widget">
-                <div class="card-body secondary">
-                    <span class="">Average Tension</span>
-                    <small class="d-block f-light">Exclude Spooling</small>
-                    <div class="d-flex align-items-end gap-1">
-                        <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
-                    </div>
-                    <div class="bg-gradient">
-                        <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card small-widget">
-                <div class="card-body success">
-                    <span class="">% of Max Tension Applied</span>
-                    <small class="d-block f-light">exceeds 1000lbs</small>
-                    <div class="d-flex align-items-end gap-1">
-                        <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
-                    </div>
-                    <div class="bg-gradient">
-                        <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card course-box widget-course">
-                <div class="card-body">
-                    <div class="course-widget">
-                        <div class="course-icon warning">
-                            <h4 class="mb-0"><?= $dashboard['total_number_run'] ?></h4>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Total number run</h6><span class="f-light">Exclude spooling</span>
-                        </div>
-                    </div>
-                </div>
-                <ul class="square-group">
-                    <li class="square-1 warning"></li>
-                    <li class="square-1 primary"></li>
-                    <li class="square-2 warning1"></li>
-                    <li class="square-3 danger"></li>
-                    <li class="square-4 light"></li>
-                    <li class="square-5 warning"></li>
-                    <li class="square-6 success"></li>
-                    <li class="square-7 success"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card course-box widget-course">
-                <div class="card-body">
-                    <div class="course-widget">
-                        <div class="course-icon warning">
-                            <i style="font-size: 30px; font-weight: 100; fill: none" data-feather="users"></i>
-                        </div>
-                        <div>
-                            <li class="d-flex">
-                                <div>
-                                    <?php
-                                    $names = '';
-                                    foreach ($clients as $key => $client) {
-                                        $names .= $client['name'] . "(" . $client['percent'] . ")" . ', ';
-                                    }
-                                    $names = substr($names, 0, -1);
-                                    ?>
-                                    <h6 class="mb-0">Clients</h6><span class="f-light"><?= $names ?></span>
-                                </div>
-                            </li>
-                        </div>
-                    </div>
-                </div>
-                <ul class="square-group">
-                    <li class="square-1 warning"></li>
-                    <li class="square-1 primary"></li>
-                    <li class="square-2 warning1"></li>
-                    <li class="square-3 danger"></li>
-                    <li class="square-4 light"></li>
-                    <li class="square-5 warning"></li>
-                    <li class="square-6 success"></li>
-                    <li class="square-7 success"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card course-box widget-course">
-                <div class="card-body d-flex justify-content-between">
-                    <div class="course-widget">
-                        <div class="course-icon warning">
-                            <h4 class="mb-0"><?= $dashboard['total_running_number_hours'] ?></h4>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Total Running</h6><span class="f-light">hours</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h1 style="font-weight: 100;">
-                            /
-                        </h1>
-                    </div>
-                    <div class="course-widget">
-                        <div class="course-icon warning">
-                            <h4 class="mb-0"><?= $dashboard['total_running_number_days'] ?></h4>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Total Running</h6><span class="f-light">days</span>
-                        </div>
-                    </div>
-                </div>
-                <ul class="square-group">
-                    <li class="square-1 warning"></li>
-                    <li class="square-1 primary"></li>
-                    <li class="square-2 warning1"></li>
-                    <li class="square-3 danger"></li>
-                    <li class="square-4 light"></li>
-                    <li class="square-5 warning"></li>
-                    <li class="square-6 success"></li>
-                    <li class="square-7 success"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-6">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-header card-no-border">
                     <div class="header-top">
@@ -184,44 +32,138 @@
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-7">
                             <div class="recent-chart">
                                 <div id="wire-on-drum"></div>
                             </div>
                         </div>
-                        <div class="col-sm-12 row">
-                            <div class="balance-profile">
-                                <ul>
-                                    <li>
-                                        <div class="balance-item success">
-                                            <div class="balance-icon-wrap">
-                                                <i data-feather="hash"></i>
-                                            </div>
-                                            <div>
-                                                <span class="f-12 f-light">Wire Balance(ft)</span>
-                                                <h5><?= number_format($dashboard['wire_balances']) ?></h5>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="balance-item success">
-                                            <div class="balance-icon-wrap">
-                                                <i data-feather="clock"></i>
-                                            </div>
-                                            <div>
-                                                <span class="f-12 f-light">Not Expose to Well Cond.</span>
-                                                <h5><?= number_format($dashboard['not_exposed_to_well_cond']) ?> ft</h5>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                        <div class="col-md-5 d-block">
+                            <div class="light-card balance-card widget-hover mb-3">
+                                <div>
+                                    <span class="d-block">First Spooling Date</span>
+                                    <span class="f-light mt-1 mb-0"><?= $dashboard['first_spooling_date'] ?></span>
+                                </div>
+                            </div>
+                            <div class="light-card balance-card widget-hover mb-3">
+                                <div>
+                                    <span class="d-block">Drum & Package</span>
+                                    <span class="f-light mt-1 mb-0"><?= $wire['drums']['name'] ?>, <?= $wire['packages']['name'] ?></span>
+                                </div>
+                            </div>
+                            <div class="light-card balance-card widget-hover mb-3">
+                                <div>
+                                    <span class="d-block">Description</span>
+                                    <span class="f-light mt-1 mb-0">
+                                        Size: <?= number_format($wire['size'], 4) ?>"<br>
+                                        <?= $wire['brand'] ?><br>
+                                        New Length <?= number_format($wire['initial_length']) ?>ft
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-5 row">
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body primary">
+                        <span class="">Current Cut-Off Rate</span>
+                        <small class="d-block f-light">Exclude Spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= number_format($dashboard['current_cut_off_rate'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>FT/Run</span></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-pulse"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body warning">
+                        <span class="">Average Run Duration</span>
+                        <small class="d-block f-light">Exclude Spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= number_format($dashboard['average_run_duration'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>Hour/Run</span></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-timer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body secondary">
+                        <span class="">Average Tension</span>
+                        <small class="d-block f-light">Exclude Spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body success">
+                        <span class="">% of Max Tension Applied</span>
+                        <small class="d-block f-light">exceeds 1000lbs</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body success">
+                        <span class="">Total number run</span>
+                        <small class="d-block f-light">Exclude spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= $dashboard['total_number_run'] ?></h4></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body success">
+                        <span class="">Total Running</span>
+                        <small class="d-block f-light">Exclude spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= $dashboard['total_running_number_days'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
+                        </div>
+                        <div class="bg-gradient">
+                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header card-no-border">
+                    <div class="header-top">
+                        <h5 class="m-0">Clients</h5>
+                    </div>
+                </div>
+                <div class="card-body apex-chart">
+                    <div id="client-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-header card-no-border">
                     <div class="header-top">
@@ -256,7 +198,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Type of Jobs</h5>
@@ -266,7 +208,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <div class=" card">
                 <div class="card-header">
                     <h5>Cut Off (ft) & Max Pull (lbs) & Number of Jar</h5>
@@ -276,7 +218,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5>On-site OD Check </h5>
@@ -326,7 +268,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Latest Data Entries</h5>

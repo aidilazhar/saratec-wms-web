@@ -15,6 +15,7 @@ class Broadcast extends CI_Controller
         $this->load->model('Authentication_model');
         $this->load->model('Utility_model');
         $this->load->model('Broadcast_model');
+        $this->load->model('Trial_model');
     }
 
     public function index()

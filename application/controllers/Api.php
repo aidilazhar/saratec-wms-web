@@ -249,14 +249,11 @@ class Api extends CI_Controller
             $data[] = [
                 'id' => $wire['id'],
                 'name' => $wire['name'],
-                'brand' => $wire['brand'],
-                'wire_od' => $wire['size'],
+                'package_name' => $wire['packages']['name'],
+                'drum_name' => $wire['drums']['name'],
                 'length' => $wire['initial_length'],
-                'spooling_date' => $spooling_date,
                 'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
                 'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
-                'last_entry' => $this->Trial_model->last_entry($wire['id']),
-                'total_running_number_hours' => $hours,
             ];
         }
 

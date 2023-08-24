@@ -19,6 +19,11 @@ class Wire_model extends CI_Model
                 'column' => 'id',
                 'value' => 'package_id'
             ],
+            [
+                'name' => 'drums',
+                'column' => 'id',
+                'value' => 'drum_id'
+            ],
         ];
         $this->appends = [];
     }
@@ -27,9 +32,12 @@ class Wire_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('wires');
-        if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR) {
-            $this->db->where('company_id', auth()->company_id);
+        if (!empty(auth())) {
+            if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR) {
+                $this->db->where('company_id', auth()->company_id);
+            }
         }
+
         $this->db->where('is_deleted', 0);
         $results = $this->db->get()->result_array();
 

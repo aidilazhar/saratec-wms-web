@@ -111,13 +111,13 @@ class Trial_model extends CI_Model
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
         if (!empty($wire_id)) {
-            $this->db->where_in('wire_id', $wire_id);
+            $this->db->where_in('trials.wire_id', $wire_id);
         }
         if (!empty($job_type_except)) {
             $this->db->where_not_in('job_type_id', $job_type_except);
         }
         $this->db->where('trials.is_deleted', 0);
-        $this->db->order_by('issued_at');
+        $this->db->order_by('trials.issued_at');
         if (!is_null($group_by)) {
             $this->db->group_by($group_by);
         }
@@ -144,10 +144,10 @@ class Trial_model extends CI_Model
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
         if (!empty($wire_id)) {
-            $this->db->where_in('wire_id', $wire_id);
+            $this->db->where_in('trials.wire_id', $wire_id);
         }
         if (!empty($job_type_except)) {
-            $this->db->where_not_in('job_type_id', $job_type_except);
+            $this->db->where_not_in('trials.job_type_id', $job_type_except);
         }
         $results = $this->db->get()->result_array();
 
@@ -231,7 +231,7 @@ class Trial_model extends CI_Model
         }
         $this->db->select('trials.*, ' . $select);
         $this->db->from('trials as trials');
-        $this->db->where('wire_id', $wire_id);
+        $this->db->where('trials.wire_id', $wire_id);
         foreach ($this->appends as $key => $append) {
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
@@ -288,10 +288,10 @@ class Trial_model extends CI_Model
             $this->db->join($append['name'] . ' as ' .  $append['as'], ($append['as'] . '.' . $append['self_column']) . ' = ' . $append['from_name'] . '.' . $append['relation_column'], $append['type']);
         }
         if (!empty($wire_id)) {
-            $this->db->where_in('wire_id', $wire_id);
+            $this->db->where_in('trials.wire_id', $wire_id);
         }
         if (!empty($job_type_except)) {
-            $this->db->where_not_in('job_type_id', $job_type_except);
+            $this->db->where_not_in('trials.job_type_id', $job_type_except);
         }
         if (!is_null($search)) {
             $this->db->group_start();

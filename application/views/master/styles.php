@@ -132,4 +132,31 @@
     .page-title h3 {
         padding-left: 10px !important;
     }
+
+    /* .progress-bar {
+        max-width: 100%;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        position: relative;
+        padding-bottom: 100%;
+    } */
+
+    .circle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Adjust the height to your preference */
+    }
+
+    .progress-bar {
+        width: 200px;
+        height: 200px;
+        color: black !important;
+        border-radius: 50%;
+        background-color: #007bff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
