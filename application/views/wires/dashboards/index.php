@@ -176,6 +176,7 @@
                             <thead>
                                 <tr>
                                     <th class="f-light">Well Name</th>
+                                    <th class="f-light">Schematic</th>
                                     <th class="f-light"># of Run</th>
                                 </tr>
                             </thead>
@@ -186,6 +187,17 @@
                                     <tr>
                                         <td>
                                             <?= $well['name'] ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if ($well['schematic']  != '-' && $well['schematic']  != '' && $well['schematic']  != null) {
+                                            ?>
+                                                <a target="_blank" href="<?= temp_url($well['schematic']) ?>"><i style="color: #FFAA05;" class="icon-files"></i></a>
+                                            <?php
+                                            } else {
+                                                echo "-";
+                                            }
+                                            ?>
                                         </td>
                                         <td><?= $well['total'] ?></td>
                                     </tr>

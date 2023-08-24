@@ -109,7 +109,7 @@ class Api extends CI_Controller
             $shift = $this->Shift_model->user_assignment($user_id);
 
             $activities = $this->Trial_model->activities($user_id);
-            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user', 'activities'));
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', compact('user', 'activities', 'shift'));
         } else {
             echo $this->Utility_model->apiReturn();
         }

@@ -19,7 +19,13 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Category</label>
-                                    <input required name="category" class="form-control" type="text" placeholder="Enter category">
+                                    <select name="category" class="form-control">
+                                        <option value="Inspection Report">Inspection Report</option>
+                                        <option value="Problem Report">Problem Report</option>
+                                        <option value="Investigation Report">Investigation Report</option>
+                                        <option value="Lab Test">Lab Test</option>
+                                        <option value="Others">Others</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Issued By</label>

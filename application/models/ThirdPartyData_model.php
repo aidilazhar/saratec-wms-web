@@ -10,12 +10,12 @@ class ThirdPartyData_model extends CI_Model
         $this->load->helper('form');
     }
 
-    public function list($wire_id)
+    public function list($smart_monitor_id)
     {
         $this->db->select("*");
         $this->db->from('third_party_datas');
         $this->db->where('is_deleted', 0);
-        $this->db->where('wire_id', $wire_id);
+        $this->db->where('smart_monitor_id', $smart_monitor_id);
         $this->db->order_by('issued_at');
         $results = $this->db->get()->result_array();
 

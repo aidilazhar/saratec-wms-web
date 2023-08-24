@@ -210,7 +210,7 @@ class Wire extends CI_Controller
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
-            $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+            $config['allowed_types'] = 'application/pdf|pdf|png|jpg|jpeg';
             $config['file_name'] = 'tech-sheet';
             $config['max_size'] = 10000000;
             $config['overwrite'] = TRUE;
@@ -497,6 +497,12 @@ class Wire extends CI_Controller
 
     public function thirdPartyData($wire_id, $prefix, $from = 'wire')
     {
+        if ($this->input->get('smart_monitor')) {
+            $smart_monitor_id = decode($this->input->get('smart_monitor'));
+        } else {
+            $smart_monitor_id = null;
+        }
+
         if ($from == 'wire') {
             $back = base_url('wires');
         } else {
@@ -514,30 +520,42 @@ class Wire extends CI_Controller
 
         $smart_monitors = $this->Smart_monitor_model->list($wire_id);
 
+        foreach ($smart_monitors as $key => $smart_monitor) {
+            $smart_monitors[$key]['trial'] = $this->Trial_model->details($smart_monitor['id']);
+        }
+
         $wire = $this->Wire_model->details($wire_id);
-        $third_party_data = $this->ThirdPartyData_model->list($wire_id);
 
-        $tension = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "tension"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $tension = array_values($tension);
+        if (!is_null($smart_monitor_id)) {
+            $third_party_data = $this->ThirdPartyData_model->list($smart_monitor_id);
 
-        $speed = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "speed"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $speed = array_values($speed);
+            $tension = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "tension"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $tension = array_values($tension);
 
-        $depth = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "depth"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $depth = array_values($depth);
+            $speed = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "speed"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $speed = array_values($speed);
 
-        $this->load->view('master/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix', 'from'));
+            $depth = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "depth"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $depth = array_values($depth);
+        } else {
+            $third_party_data = null;
+            $tension = [];
+            $speed = [];
+            $depth = [];
+        }
+
+        $this->load->view('master/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix', 'from', 'smart_monitors', 'smart_monitor_id'));
     }
 }
