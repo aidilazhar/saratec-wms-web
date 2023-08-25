@@ -46,6 +46,11 @@
                                                     <li class="view"><a target="_blank" href=" <?= temp_url($report['url']) ?>"><i class="icon-eye"></i></a></li>
                                                 <?php
                                                 }
+                                                if (permission('Edit Documents')) {
+                                                ?>
+                                                    <li class="edit"><a href="<?= base_url('wires/' . encode($report['wire_id']) . '/reports/edit/' . encode($report['id'])) ?>"><i class="icofont icofont-ui-edit"></i></a></li>
+                                                <?php
+                                                }
                                                 if (permission('Delete Documents')) {
                                                 ?>
                                                     <li class="delete"><a href="<?= base_url('wires/' . encode($report['wire_id']) . '/reports/delete/' . encode($report['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>

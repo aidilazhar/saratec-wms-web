@@ -407,6 +407,15 @@ class Api extends CI_Controller
         $wire_id = $this->input->post('wire_id');
         $reports = $this->Report_model->list([$wire_id]);
 
+        foreach ($reports as $key => $report) {
+            if (file_exists('temp/' . $report['url'])) {
+                $base64_data = base64_encode(file_get_contents(temp_url($report['url'])));
+                $reports[$key]['base64'] = $base64_data;
+            } else {
+                $reports[$key]['base64'] = "";
+            }
+        }
+
         echo json_encode(compact('reports'));
     }
 

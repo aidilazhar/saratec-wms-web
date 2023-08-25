@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 150px;">
     <div class="row">
         <?php
         $this->load->view('dashboards/header', compact('wire_name'))

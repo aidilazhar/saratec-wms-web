@@ -1,4 +1,27 @@
 <script>
+    let colorPallete = [
+        '#B266B2',
+        '#FF5733',
+        '#FFC300',
+        '#36A2EB',
+        '#4BC0C0',
+        '#9966FF',
+        '#FF6384',
+        '#FF9F40',
+        '#FFCE56',
+        '#47D147',
+        '#FF00BF',
+        '#40E0D0',
+        '#FFD700',
+        '#00FF7F',
+        '#8A2BE2',
+        '#FF4500',
+        '#32CD32',
+        '#9370DB',
+        '#FF69B4',
+        '#1E90FF'
+    ];
+
     $('.well-name').DataTable({
         searching: false,
         paging: true,
@@ -141,7 +164,6 @@
     var recentoptions = {
         series: [<?= $dashboard['wire_balances_percent'] ?>],
         chart: {
-            height: 290,
             type: "radialBar",
             toolbar: {
                 show: false,
@@ -149,166 +171,136 @@
         },
         plotOptions: {
             radialBar: {
-                hollow: {
-                    margin: 0,
-                    size: "60%",
-                    background: "var(--recent-chart-bg)",
-                    image: undefined,
-                    imageOffsetX: 0,
-                    imageOffsetY: 0,
-                    position: "front",
-                    dropShadow: {
-                        enabled: true,
-                        top: 3,
-                        left: 0,
-                        blur: 4,
-                        opacity: 0.05,
-                    },
-                },
-                track: {
-                    background: "#F4F4F4",
-                    strokeWidth: "67%",
-                    margin: 0,
-                    dropShadow: {
-                        enabled: true,
-                        top: 0,
-                        left: 0,
-                        blur: 10,
-                        color: "#ddd",
-                        opacity: 1,
-                    },
-                },
-
                 dataLabels: {
-                    show: true,
                     name: {
-                        offsetY: 30,
-                        show: true,
-                        color: "#888",
-                        fontSize: "17px",
-                        fontWeight: "500",
-                        fontFamily: "Rubik, sans-serif",
+                        offsetY: 20,
+                        color: "var(--chart-text-color)",
+                        fontFamily: 'Rubik, sans-serif',
+                        fontWeight: 500,
                     },
                     value: {
-                        formatter: function(val) {
-                            return parseFloat(val) + "%";
-                        },
-                        offsetY: -8,
-                        color: "#111",
-                        fontSize: "36px",
+                        fontSize: '22px',
+                        offsetY: -16,
+                        label: 'Wire Balance',
+                        fontFamily: 'Rubik, sans-serif',
+                        fontWeight: 500,
+                    },
+                    total: {
                         show: true,
-                    },
+                        label: '<?= number_format($dashboard['wire_balances']) ?> ft',
+                        fontSize: '12px',
+                        formatter: function() {
+                            return "89%"
+                        }
+                    }
                 },
-            },
+                hollow: {
+                    margin: 5,
+                    size: '70%',
+                    image: '../assets/images/dashboard-3/round.png',
+                    imageWidth: 115,
+                    imageHeight: 115,
+                    imageClipped: false,
+                },
+                track: {
+                    background: 'transparent',
+                }
+            }
         },
-        fill: {
-            type: "gradient",
-            gradient: {
-                shade: "dark",
-                type: "horizontal",
-                shadeIntensity: 0.5,
-                opacityFrom: 1,
-                opacityTo: 1,
-                colorStops: [{
-                        offset: 0,
-                        color: "#7366FF",
-                        opacity: 1,
-                    },
-                    {
-                        offset: 20,
-                        color: "#3EA4F1",
-                        opacity: 1,
-                    },
-                    {
-                        offset: 100,
-                        color: "#FFFFFF",
-                        opacity: 1,
-                    },
-                ],
-            },
-        },
+        colors: ["#FFA941"],
+        labels: ['Wire Balance'],
         stroke: {
-            lineCap: "round",
+            lineCap: 'round'
         },
-        labels: [""],
+        legend: {
+            show: true,
+            position: "bottom",
+            horizontalAlign: 'center',
+            offsetY: -15,
+            fontSize: '14px',
+            fontFamily: 'Rubik, sans-serif',
+            fontWeight: 500,
+            labels: {
+                colors: "var(--chart-text-color)",
+            },
+            markers: {
+                width: 6,
+                height: 6,
+            }
+        },
         responsive: [{
-                breakpoint: 1840,
+                breakpoint: 1830,
                 options: {
                     chart: {
-                        height: 260,
-                    },
-                },
+                        offsetX: -40,
+                    }
+                }
             },
             {
-                breakpoint: 1700,
+                breakpoint: 1750,
                 options: {
                     chart: {
-                        height: 250,
-                    },
-                },
+                        offsetX: -50,
+                    }
+                }
             },
             {
-                breakpoint: 1660,
+                breakpoint: 1661,
                 options: {
                     chart: {
-                        height: 230,
-                        dataLabels: {
-                            name: {
-                                fontSize: "15px",
-                            },
-                        },
-                    },
-                },
+                        offsetX: -10,
+                    }
+                }
             },
             {
-                breakpoint: 1561,
+                breakpoint: 1530,
                 options: {
                     chart: {
-                        height: 275,
-                    },
-                },
+                        offsetX: -25,
+                    }
+                }
             },
             {
                 breakpoint: 1400,
                 options: {
                     chart: {
-                        height: 360,
-                    },
-                },
+                        offsetX: 10,
+                    }
+                }
             },
             {
-                breakpoint: 1361,
+                breakpoint: 1300,
                 options: {
                     chart: {
-                        height: 300,
-                    },
-                },
+                        offsetX: -10,
+                    }
+                }
             },
             {
                 breakpoint: 1200,
                 options: {
                     chart: {
-                        height: 230,
-                    },
-                },
+                        width: 255,
+                    }
+                }
             },
             {
-                breakpoint: 1007,
+                breakpoint: 992,
                 options: {
                     chart: {
-                        height: 240,
-                    },
-                },
+                        width: 245,
+                    }
+                }
             },
             {
                 breakpoint: 600,
                 options: {
                     chart: {
-                        height: 230,
-                    },
-                },
+                        width: 225,
+                    }
+                }
             },
-        ],
+        ]
     };
 
     var recentchart = new ApexCharts(
@@ -379,64 +371,6 @@
     );
 
     cut_off.render();
-</script>
-<script>
-    var onsite_od_check_options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: true
-            },
-            animation: false,
-        },
-        markers: {
-            size: 0,
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            curve: 'straight',
-            lineCap: 'butt',
-            width: 1,
-            dashArray: 0,
-        },
-        series: [{
-            name: 'X (Inch)',
-            data: <?= json_encode(array_column($trials, 'x_inch')) ?>
-        }, {
-            name: 'Y (Inch)',
-            data: <?= json_encode(array_column($trials, 'y_inch')) ?>
-        }],
-        xaxis: {
-            type: 'date',
-            categories: [
-                <?php
-                foreach ($trials as $trial) {
-                    echo "'" . date('d-m-Y', strtotime($trial['issued_at'])) . "', ";
-                }
-                ?>
-            ],
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
-            },
-        },
-        colors: ["#7366ff", "#bd7ebe", "#51bb25"],
-        legend: {
-            horizontalAlign: 'left'
-        },
-    }
-
-    var onsite_od_check = new ApexCharts(
-        document.querySelector("#onsite-od-check-chart"),
-        onsite_od_check_options
-    );
-
-    onsite_od_check.render();
 </script>
 <script>
     var length = [10, 25, 50, 100];
@@ -630,11 +564,7 @@
     Highcharts.chart('container', {
         chart: {
             type: 'scatter',
-            zoomType: 'x',
-            style: {
-                color: "#FFFFFF",
-                'background-color': 'transparent'
-            }
+            zoomType: 'x'
         },
         title: {
             text: ' ',
@@ -690,4 +620,33 @@
         },
         series
     });
+</script>
+<script>
+    var clientOptions = {
+        chart: {
+            width: 440,
+            type: 'pie',
+        },
+        labels: <?= json_encode(array_column($clients, 'name')) ?>,
+        series: <?= json_encode(array_map('floatval', array_column($clients, 'percent'))) ?>,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 300
+                },
+                legend: {
+                    show: false
+                }
+            }
+        }],
+        colors: colorPallete
+    }
+
+    var chart8 = new ApexCharts(
+        document.querySelector("#client-chart"),
+        clientOptions
+    );
+
+    chart8.render();
 </script>

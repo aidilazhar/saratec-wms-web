@@ -117,6 +117,18 @@ class Wire_model extends CI_Model
         $this->db->where('url', $url);
         $results = $this->db->get()->result_array();
 
+        foreach ($results as $key => $result) {
+            foreach ($this->with as $with) {
+                $results[$key][$with['name']] = $this->Utility_model->relation($with['name'], $with['column'], $result[$with['value']]);
+            }
+        }
+
+        foreach ($results as $key => $result) {
+            foreach ($this->appends as $append) {
+                $results[$key][$append] = call_package_func(array('Wire_model', 'append_' . $append), $result);
+            }
+        }
+
         if (empty($results)) {
             return [];
         } else {

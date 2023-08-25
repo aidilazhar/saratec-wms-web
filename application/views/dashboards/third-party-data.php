@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 150px;">
     <div class="row">
         <div class="col-md-12 project-list">
             <?php
@@ -33,10 +33,61 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
-                        </figure>
-                        <!-- <div id="third-party-data-chart"></div> -->
+                        <?php
+                        if (!is_null($smart_monitor_id)) {
+                        ?>
+                            <figure class="highcharts-figure">
+                                <div id="container"></div>
+                            </figure>
+                        <?php
+                        }
+                        ?>
+                        <table class="data-table" id="data-source-1" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Well</th>
+                                    <th>Client</th>
+                                    <th>Operator</th>
+                                    <th>Type of Job</th>
+                                    <th>Cut off (ft)</th>
+                                    <th># of Jar</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($smart_monitors as $key => $smart_monitor) {
+                                ?>
+                                    <tr>
+                                        <td><?= $key + 1 ?></td>
+                                        <td><?= date('d M Y, h:i A', strtotime($smart_monitor['trial']['issued_at'])) ?></td>
+                                        <td><?= $smart_monitor['trial']['well_name'] ?></td>
+                                        <td><?= $smart_monitor['trial']['client_name'] ?></td>
+                                        <td>
+                                            <?= $smart_monitor['trial']['operator_name'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $smart_monitor['trial']['job_type_name'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $smart_monitor['trial']['cut_off'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $smart_monitor['trial']['jar_number'] ?>
+                                        </td>
+                                        <td>
+                                            <ul class="action d-flex justify-content-around w-50 text-center mx-auto">
+                                                <li class="view"><a href="<?= base_url($wire_name . '/third-party-data/') . '/mhsi_' ?>?smart_monitor=<?= encode($smart_monitor['id']) ?>"><i class="icon-bar-chart"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ class General extends CI_Controller
         $this->load->model('Report_model');
         $this->load->model('Well_model');
         $this->load->model('ThirdPartyData_model');
+        $this->load->model('Smart_monitor_model');
         $this->load->model('LabTest_model');
         $this->title = 'Dashboard';
     }
@@ -115,11 +116,19 @@ class General extends CI_Controller
             'id' => $w
         ]);
 
+        $client_count = array_count_values($clients);
+
+        $total_client = count($clients);
+
         $clients = array_unique($clients);
 
         $clients = $this->Client_model->list(null, [
             'id' => $clients
         ]);
+
+        foreach ($clients as $key => $client) {
+            $clients[$key]['percent'] = number_format(($client_count[$client['id']] / $total_client) * 100, 2);
+        }
 
         foreach ($job_types as $key => $job_type) {
             $job_types[$key]['total'] = $jobs[$job_type['id']] ?? 0;
@@ -168,6 +177,7 @@ class General extends CI_Controller
 
         if (count($trials) == 0) {
             $dashboard = [
+                'first_spooling_date' => $this->Trial_model->first_spooling_date($wire['id']),
                 'total_number_run' => count($trials_except),
                 'total_running_number_hours' => $hours,
                 'total_running_number_days' => $days,
@@ -183,6 +193,7 @@ class General extends CI_Controller
             ];
         } else {
             $dashboard = [
+                'first_spooling_date' => $this->Trial_model->first_spooling_date($wire['id']),
                 'total_number_run' => count($trials_except),
                 'total_running_number_hours' => $hours,
                 'total_running_number_days' => $days,
@@ -256,6 +267,12 @@ class General extends CI_Controller
 
     public function thirdPartyData($wire_name, $prefix = "mhsi_")
     {
+        if ($this->input->get('smart_monitor')) {
+            $smart_monitor_id = decode($this->input->get('smart_monitor'));
+        } else {
+            $smart_monitor_id = null;
+        }
+
         if (is_authed() == false) {
             go_to_auth(base_url($wire_name . "/login"));
             redirect(base_url(LOGIN_URL));
@@ -270,30 +287,44 @@ class General extends CI_Controller
             'scripts' => 'dashboards/scripts2'
         ];
 
+        $smart_monitors = $this->Smart_monitor_model->list($wire_id);
+
+        foreach ($smart_monitors as $key => $smart_monitor) {
+            $smart_monitors[$key]['trial'] = $this->Trial_model->details($smart_monitor['id']);
+        }
+
         $wire = $this->Wire_model->details($wire_id);
-        $third_party_data = $this->ThirdPartyData_model->list($wire_id);
 
-        $tension = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "tension"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $tension = array_values($tension);
+        if (!is_null($smart_monitor_id)) {
+            $third_party_data = $this->ThirdPartyData_model->list($smart_monitor_id);
 
-        $speed = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "speed"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $speed = array_values($speed);
+            $tension = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "tension"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $tension = array_values($tension);
 
-        $depth = array_map(function ($entry) use ($prefix) {
-            $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
-            $value = floatval($entry[$prefix . "depth"]);
-            return [$issued_at, $value];
-        }, $third_party_data);
-        $depth = array_values($depth);
+            $speed = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "speed"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $speed = array_values($speed);
 
-        $this->load->view('general/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'wire_name', 'prefix'));
+            $depth = array_map(function ($entry) use ($prefix) {
+                $issued_at = strtotime(date('Y-m-d H:i:s', strtotime($entry['issued_at']))) * 1000;
+                $value = floatval($entry[$prefix . "depth"]);
+                return [$issued_at, $value];
+            }, $third_party_data);
+            $depth = array_values($depth);
+        } else {
+            $third_party_data = null;
+            $tension = [];
+            $speed = [];
+            $depth = [];
+        }
+
+        $this->load->view('general/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix', 'smart_monitors', 'smart_monitor_id', 'wire_name'));
     }
 }

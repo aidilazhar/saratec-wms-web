@@ -93,6 +93,60 @@ class Report extends CI_Controller
         redirect(base_url("wires/" . encode($wire_id) . "/reports"));
     }
 
+    public function edit($wire_id, $report_id)
+    {
+        $wire_id = decode($wire_id);
+        $report_id = decode($report_id);
+        $page = [
+            'title' => $this->title,
+            'subtitle' => "Edit Report",
+            'view' => 'wires/reports/edit',
+            'back' => base_url("wires/" . encode($wire_id) . '/reports'),
+        ];
+
+        $report = $this->Report_model->details($report_id);
+
+        $this->load->view('master/index', compact('page', 'report', 'wire_id', 'report_id'));
+    }
+
+    public function update($wire_id, $report_id)
+    {
+        $wire_id = decode($wire_id);
+        $report_id = decode($report_id);
+        $data = $this->input->post();
+
+        if (isset($_FILES['report']) && !empty($_FILES['report'])) {
+            $path = 'wires/' . $wire_id . '/reports';
+            $file_name = strtotime("now");
+            $file_ext = pathinfo($_FILES["report"]["name"], PATHINFO_EXTENSION);
+
+            $this->Utility_model->mkdir($path);
+            $config['upload_path'] = 'temp/' . $path;
+            $config['allowed_types'] = '*';
+            $config['file_name'] = $file_name;
+            $config['max_size'] = 10000000;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('report')) {
+                $error = array('error' => $this->upload->display_errors());
+            } else {
+                $upload_data = array('upload_data' => $this->upload->data());
+
+                $report_data = [
+                    'name' => $upload_data['upload_data']['file_name'],
+                    'url' => $path . '/' . $file_name . '.' . $file_ext,
+                ];
+            }
+        }
+
+        $data['wire_id'] = $wire_id;
+        $data['url'] = $report_data['url'];
+
+        $res = $this->Report_model->update($report_id, $data);
+        redirect(base_url("wires/" . encode($wire_id) . "/reports"));
+    }
+
     public function delete($wire_id, $report_id)
     {
         $report_id = decode($report_id);
