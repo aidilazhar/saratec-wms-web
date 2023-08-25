@@ -248,8 +248,10 @@ if (!function_exists('profile()')) {
         $user_id = $user->id;
         $shift = $ci->Shift_model->user_assignment($user_id);
 
+        $jobs = $ci->Trial_model->jobs();
+
         $activities = $ci->Trial_model->activities($user_id);
 
-        return compact('shift', 'activities');
+        return compact('shift', 'activities', 'jobs');
     }
 }

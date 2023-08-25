@@ -349,7 +349,7 @@ class Wire extends CI_Controller
 
         $clients = array_unique($clients);
 
-        $clients = $this->Client_model->list(null, [
+        $clients = $this->Client_model->list($wire['company_id'], [
             'id' => $clients
         ]);
 

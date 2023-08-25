@@ -159,4 +159,28 @@
         justify-content: center;
         align-items: center;
     }
+
+    @media only screen and (min-width: 768px) {
+
+        .page-wrapper.material-icon::before {
+            background: #6a7d94 !important;
+        }
+    }
+
+    .advertisement {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        animation: slideToLeft 20s linear infinite;
+    }
+
+    @keyframes slideToLeft {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
 </style>

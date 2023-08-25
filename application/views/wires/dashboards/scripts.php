@@ -190,7 +190,7 @@
                         label: '<?= number_format($dashboard['wire_balances']) ?> ft',
                         fontSize: '12px',
                         formatter: function() {
-                            return "89%"
+                            return <?= number_format($dashboard['wire_balances_percent']) ?> + "%"
                         }
                     }
                 },

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="page-title">
         <div class="row">
-            <div class="col-6 d-flex">
+            <div class="col-12 d-flex">
                 <?php
                 if (!is_null($page['back'])) {
                 ?>
@@ -11,8 +11,27 @@
                 <?php
                 }
                 ?>
-                <h3><?= $page['title'] ?></h3>
+                <h3>
+
+                    <?= $page['title'] ?>
+                </h3>
             </div>
+            <!-- <div class="col-12">
+                <div class="w-100" style="position: relative; display: inline-block">
+                    <div class="advertisement">
+                        <?php
+                        $profile = profile();
+                        foreach ($profile['jobs'] as $key => $job) {
+                        ?>
+                            <span style="display: inline-block">
+                                Out new update has been release.
+                            </span>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
 </div>

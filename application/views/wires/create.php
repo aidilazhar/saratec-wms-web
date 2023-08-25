@@ -31,6 +31,10 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Range</label>
+                                    <input required name="range" class="form-control" type="text" placeholder="Enter initial length">
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Drum No</label>
                                     <select required name="drum_id" class="form-select digits">
                                         <?php

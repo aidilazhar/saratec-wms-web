@@ -373,4 +373,17 @@ class Trial_model extends CI_Model
 
         return $results;
     }
+
+    public function jobs()
+    {
+        $this->db->select('trials.issued_at as datetime, job_types.name as job_type_name, wells.name as well_name, trials.job_status as status');
+        $this->db->from('trials as trials');
+        $this->db->join('job_types as job_types', 'job_types.id = trials.job_type_id');
+        $this->db->join('wells as wells', 'wells.id = trials.well_id');
+        $this->db->limit(10);
+        $this->db->order_by('trials.id', 'desc');
+        $results = $this->db->get()->result_array();
+
+        return $results;
+    }
 }

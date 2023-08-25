@@ -18,26 +18,20 @@
                                         <h5><?= $wire['name'] ?></h5>
                                     </div>
                                     <div class="recent-chart text-center">
-                                        <?php
-                                        foreach ($wires as $key => $wire) {
-                                        ?>
-                                            <div class="circle-container">
-                                                <div class="progress-bar" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(hotpink <?= $wire['wire_balances_percent'] ?>%, pink 0);">
-                                                    <label>
-                                                        <?= $wire['initial_length'] ?>
-                                                    </label>
-                                                    <label>
-                                                        <?= $wire['drums']['name'] ?>
-                                                    </label>
-                                                    <label>
-                                                        <?= $wire['packages']['name'] ?>
-                                                    </label>
-                                                    <progress value="<?= $wire['wire_balances_percent'] ?>" min="0" max="100" style="visibility:hidden;height:0;width:0;"></progress>
-                                                </div>
+                                        <div class="circle-container">
+                                            <div class="progress-bar" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(hotpink <?= $wire['wire_balances_percent'] ?>%, pink 0);">
+                                                <label>
+                                                    <?= $wire['initial_length'] ?>
+                                                </label>
+                                                <label>
+                                                    <?= $wire['drums']['name'] ?>
+                                                </label>
+                                                <label>
+                                                    <?= $wire['packages']['name'] ?>
+                                                </label>
+                                                <progress value="<?= $wire['wire_balances_percent'] ?>" min="0" max="100" style="visibility:hidden;height:0;width:0;"></progress>
                                             </div>
-                                        <?php
-                                        }
-                                        ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

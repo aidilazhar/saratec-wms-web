@@ -21,6 +21,8 @@ class Client_model extends CI_Model
         foreach ($filters as $key => $filter) {
             if (!empty($filter)) {
                 $this->db->where_in($key, $filter);
+            } else {
+                $this->db->where($key, 0);
             }
         }
         $this->db->where('is_deleted', 0);
