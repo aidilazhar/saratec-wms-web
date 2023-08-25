@@ -270,7 +270,7 @@ class Api extends CI_Controller
         $lab_tests = $this->LabTest_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 
-        $jobs = $wlls = $tj = $w = [];
+        $clients = $jobs = $wlls = $tj = $w = [];
         $current_not_exposed_to_well_cond = $sum_cut_off = 0;
         foreach ($trials as $key => $row) {
             if (isset($jobs[$row['job_type_id']])) {
@@ -316,18 +316,33 @@ class Api extends CI_Controller
             'id' => $w
         ]);
 
+        $client_count = array_count_values($clients);
+
+        $total_client = count($clients);
+
         $clients = array_unique($clients);
 
-        $clients = $this->Client_model->list(null, [
+        $clients = $this->Client_model->list($wire['company_id'], [
             'id' => $clients
         ]);
 
+        foreach ($clients as $key => $client) {
+            $clients[$key]['percent'] = number_format(($client_count[$client['id']] / $total_client) * 100, 2);
+        }
+
         foreach ($job_types as $key => $job_type) {
-            $job_types[$key]['total'] = $jobs[$job_type['id']] ? $jobs[$job_type['id']] : 0;
+            $job_types[$key]['total'] = $jobs[$job_type['id']] ?? 0;
         }
 
         foreach ($wells as $key => $well) {
-            $wells[$key]['total'] = $wlls[$well['id']] ? $wlls[$well['id']] : 0;
+            $wells[$key]['total'] = $wlls[$well['id']] ?? 0;
+
+            if (file_exists('temp/' . $well['schematic'])) {
+                $base64_data = base64_encode(file_get_contents(temp_url($well['schematic'])));
+                $wells[$key]['base64'] = $base64_data;
+            } else {
+                $wells[$key]['base64'] = "";
+            }
         }
 
         usort($wells, function ($a, $b) {
@@ -349,27 +364,51 @@ class Api extends CI_Controller
         $hours = intdiv($mins, 60);
         $days = round($hours / 24);
 
-        $data = [
-            'wire_id' => $wire['name'],
-            'brand' => $wire['brand'],
-            'wire_od' => $wire['size'],
-            'length' => $wire['initial_length'],
-            'current_cut_off_rate' => number_format((array_sum(array_column($trials, 'cut_off')) / count($trials)), 2),
-            'average_run_duration' => number_format(($hours / count($trials)), 2),
-            'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials)), 2),
-            'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
-            'total_number_run' => count($trials_except),
-            'clients' => $clients,
-            'total_running_hours' => $hours,
-            'total_running_days' => $days,
-            'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
-            'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
-            'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
-            'wells' => $wells,
-            'job_types' => $job_types,
-            'wire_records' => $trials,
-            'lab_tests' => $lab_tests
-        ];
+        if (count($trials) == 0) {
+            $data = [
+                'wire_id' => $wire['name'],
+                'brand' => $wire['brand'],
+                'wire_od' => $wire['size'],
+                'length' => $wire['initial_length'],
+                'current_cut_off_rate' => number_format(0, 2),
+                'average_run_duration' => number_format(0, 2),
+                'average_tension' => number_format(0, 2),
+                'max_tension_applied' => number_format(0, 2),
+                'total_number_run' => count($trials_except),
+                'clients' => $clients,
+                'total_running_hours' => $hours,
+                'total_running_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'wells' => $wells,
+                'job_types' => $job_types,
+                'wire_records' => $trials,
+                'lab_tests' => $lab_tests
+            ];
+        } else {
+            $data = [
+                'wire_id' => $wire['name'],
+                'brand' => $wire['brand'],
+                'wire_od' => $wire['size'],
+                'length' => $wire['initial_length'],
+                'current_cut_off_rate' => number_format((array_sum(array_column($trials, 'cut_off')) / count($trials)), 2),
+                'average_run_duration' => number_format(($hours / count($trials)), 2),
+                'average_tension' => number_format((array_sum(array_column($trials, 'max_pull')) / count($trials)), 2),
+                'max_tension_applied' => number_format(($this->Trial_model->max_tension() / count($trials)) * 100, 2),
+                'total_number_run' => count($trials_except),
+                'clients' => $clients,
+                'total_running_hours' => $hours,
+                'total_running_days' => $days,
+                'wire_balances' => $wire['initial_length'] - array_sum(array_column($trials, 'cut_off')),
+                'wire_balances_percent' => round((($wire['initial_length'] - array_sum(array_column($trials, 'cut_off'))) / $wire['initial_length']) * 100),
+                'not_exposed_to_well_cond' => $current_not_exposed_to_well_cond,
+                'wells' => $wells,
+                'job_types' => $job_types,
+                'wire_records' => $trials,
+                'lab_tests' => $lab_tests
+            ];
+        }
 
         echo json_encode(compact('data'));
     }
