@@ -24,6 +24,7 @@ class Trial extends CI_Controller
         $this->load->model('Smart_monitor_model');
         $this->load->model('Well_model');
         $this->load->model('Shift_model');
+        $this->load->model('ThirdPartyData_model');
     }
 
     public function index($wire_id)
@@ -168,12 +169,17 @@ class Trial extends CI_Controller
                     $smart_monitor_data = [
                         'name' => $upload_data['upload_data']['file_name'],
                         'url' => $path . '/' . $upload_data['upload_data']['file_name'],
+                        'wire_id' => $wire_id,
                     ];
 
                     $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
                     $inputs['smart_monitor_id'] = $smart_monitor_id;
 
+                    $auth = auth();
+                    $created_by = $auth->id;
+
                     $csvFilePath = $path . '/' . $upload_data['upload_data']['file_name'];
+                    $this->thirdPartyStore(temp_url($csvFilePath), $smart_monitor_id, $wire_id, $created_by);
                 } else {
                     $error[] = array('error' => $this->upload->display_errors());
                 }
@@ -439,5 +445,37 @@ class Trial extends CI_Controller
 
         echo json_encode($json_data);
         die;
+    }
+
+    public function thirdPartyStore($path, $smart_monitor_id, $wire_id, $created_by)
+    {
+        $open = fopen($path, "r");
+
+        while (($data = fgetcsv($open, 0, ",")) !== FALSE) {
+            $array[] = $data;
+        }
+
+        fclose($open);
+        unset($array[0]);
+
+        foreach ($array as $key => $arr) {
+            $dateTime = DateTime::createFromFormat("d-m-Y-H:i:s", $arr[0]);
+            $date = $dateTime->format("Y-m-d H:i:s");
+
+            $data = [
+                'wire_id' => $wire_id,
+                'smart_monitor_id' => $smart_monitor_id,
+                'created_by' => $created_by,
+                'issued_at' => $date,
+                'mhsi_tension' => $arr[1],
+                'mhsi_depth' => $arr[3],
+                'mhsi_speed' => $arr[5],
+                'mhi_tension' => $arr[2],
+                'mhi_depth' => $arr[4],
+                'mhi_speed' => $arr[6],
+            ];
+
+            $this->ThirdPartyData_model->store($data);
+        }
     }
 }

@@ -75,7 +75,7 @@ if (!function_exists('auth')) {
         if ($auth_data !== NULL) {
             return (object)$auth_data;
         } else {
-            return FALSE;
+            return false;
         }
     }
 }

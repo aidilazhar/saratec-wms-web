@@ -193,7 +193,6 @@ class Trial_model extends CI_Model
     {
         if (!isset($data['created_at'])) {
             $data['created_at'] = date('Y-m-d H:i:s');
-            $data['created_by'] = auth()->id;
         }
 
         $this->db->insert('trials', $data);

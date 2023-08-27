@@ -29,6 +29,7 @@ class Api extends CI_Controller
         $this->load->model('Report_model');
         $this->load->model('Package_model');
         $this->load->model('Shift_model');
+        $this->load->model('ThirdPartyData_model');
     }
 
     public function getClients()
@@ -125,34 +126,37 @@ class Api extends CI_Controller
     public function wireStore()
     {
         $data = $this->input->post();
-
+        $created_by = $data['created_by'];
         $is_smart_monitor = $data['is_smart_monitor'];
         unset($data['is_smart_monitor']);
 
         if ($is_smart_monitor == 1) {
+            $base64_input = $this->input->post('smart_monitor_file');
+            $file_extension = $this->input->post('file_extension');
+            unset($data['smart_monitor_file']);
+            unset($data['file_extension']);
             $path = 'wires/' . $data['wire_id'] . '/smart_monitors';
+            $file_path = 'temp/' . $path;
+            $decoded_data = base64_decode($base64_input);
+            $file_name = $this->Smart_monitor_model->lastEntry() + 1 . $file_extension;
+            $full_file_path = $file_path . $file_name;
 
-            $this->Utility_model->mkdir($path);
-            $config['upload_path']          = 'temp/' . $path;
-            $config['allowed_types']        = 'csv';
-            $config['file_name']        = $this->Smart_monitor_model->lastEntry() + 1;
-            $config['max_size']             = 10000000;
-
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('smart_monitor_file')) {
-                $error = array('error' => $this->upload->display_errors());
-                echo $this->Utility_model->apiReturn(0, $error);
-                return;
-            } else {
-                $upload_data = array('upload_data' => $this->upload->data());
+            // Save the decoded data to the file
+            if (file_put_contents($full_file_path, $decoded_data)) {
                 $smart_monitor_data = [
-                    'name' => $upload_data['upload_data']['file_name'],
-                    'url' => $path . '/' . $upload_data['upload_data']['file_name'] . $upload_data['upload_data']['file_ext'],
+                    'name' => $file_name,
+                    'url' => $path . '/' . $file_name,
+                    'wire_id' => $data['wire_id'],
+                    'created_by' => $created_by
                 ];
 
                 $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
                 $data['smart_monitor_id'] = $smart_monitor_id;
+
+                $path = temp_url($path . $smart_monitor_data['name']);
+                $this->thirdPartyStore($path, $smart_monitor_id, $data['wire_id'], $created_by);
+            } else {
+                $data['smart_monitor_id'] = null;
             }
         }
 
@@ -673,5 +677,37 @@ class Api extends CI_Controller
 
         $broadcasts = $this->Broadcast_model->broadcasts();
         echo json_encode($broadcasts);
+    }
+
+    public function thirdPartyStore($path, $smart_monitor_id, $wire_id, $created_by)
+    {
+        $open = fopen($path, "r");
+
+        while (($data = fgetcsv($open, 0, ",")) !== FALSE) {
+            $array[] = $data;
+        }
+
+        fclose($open);
+        unset($array[0]);
+
+        foreach ($array as $key => $arr) {
+            $dateTime = DateTime::createFromFormat("d-m-Y-H:i:s", $arr[0]);
+            $date = $dateTime->format("Y-m-d H:i:s");
+
+            $data = [
+                'wire_id' => $wire_id,
+                'smart_monitor_id' => $smart_monitor_id,
+                'created_by' => $created_by,
+                'issued_at' => $date,
+                'mhsi_tension' => $arr[1],
+                'mhsi_depth' => $arr[3],
+                'mhsi_speed' => $arr[5],
+                'mhi_tension' => $arr[2],
+                'mhi_depth' => $arr[4],
+                'mhi_speed' => $arr[6],
+            ];
+
+            $this->ThirdPartyData_model->store($data);
+        }
     }
 }
