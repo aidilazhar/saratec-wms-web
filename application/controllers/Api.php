@@ -464,9 +464,17 @@ class Api extends CI_Controller
 
     public function wireThirdPartyData()
     {
-        $wire_id = $this->input->post('wire_id');
+        $trial_id = $this->input->post('trial_id');
 
-        echo json_encode(compact('wire_id'));
+        $trial = $this->Trial_model->details($trial_id);
+
+        if (!is_null($trial) && !is_null($trial['smart_monitor_id'])) {
+            $third_party_datas = $this->ThirdPartyData_model->list($trial['smart_monitor_id']);
+        } else {
+            $third_party_datas = [];
+        }
+
+        echo json_encode(compact('third_party_datas'));
     }
 
     public function wireTechSheet()
