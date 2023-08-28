@@ -141,22 +141,32 @@ class Api extends CI_Controller
             $file_name = $this->Smart_monitor_model->lastEntry() + 1 . $file_extension;
             $full_file_path = $file_path . $file_name;
 
-            // Save the decoded data to the file
-            if (file_put_contents($full_file_path, $decoded_data)) {
-                $smart_monitor_data = [
-                    'name' => $file_name,
-                    'url' => $path . '/' . $file_name,
-                    'wire_id' => $data['wire_id'],
-                    'created_by' => $created_by
-                ];
+            $validation = $this->mobileValidateCsv($decoded_data, $path, $file_name);
 
-                $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
-                $data['smart_monitor_id'] = $smart_monitor_id;
+            if ($validation['status'] == true) {
+                if (file_put_contents($full_file_path, $decoded_data)) {
+                    $smart_monitor_data = [
+                        'name' => $file_name,
+                        'url' => $path . '/' . $file_name,
+                        'wire_id' => $data['wire_id'],
+                        'created_by' => $created_by
+                    ];
 
-                $path = temp_url($path . $smart_monitor_data['name']);
-                $this->thirdPartyStore($path, $smart_monitor_id, $data['wire_id'], $created_by);
+                    $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
+                    $data['smart_monitor_id'] = $smart_monitor_id;
+
+                    $path = temp_url($path . $smart_monitor_data['name']);
+                    $this->thirdPartyStore($path, $smart_monitor_id, $data['wire_id'], $created_by);
+                } else {
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Failed to upload the file',
+                    ]);
+                    return;
+                }
             } else {
-                $data['smart_monitor_id'] = null;
+                echo json_encode($validation);
+                return;
             }
         }
 
@@ -725,5 +735,32 @@ class Api extends CI_Controller
         $trials = $this->Trial_model->list([$wire_id]);
 
         echo json_encode($trials);
+    }
+
+    public function mobileValidateCsv($decoded_data, $file_path, $file_name)
+    {
+        $name = explode(".", $file_name);
+
+        if (!isset($name[1])) {
+            return [
+                'status' => false,
+                'message' => 'File Extension not found',
+            ];
+        }
+
+
+        $full_file_path = $file_path . '/' . strtotime("now") . '.' . $name[1];
+
+        if (file_put_contents('temp/' . $full_file_path, $decoded_data)) {
+            $path = temp_url($full_file_path);
+            $result = validateCSV($path);
+
+            return $result;
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Error duing upload file',
+            ];
+        }
     }
 }
