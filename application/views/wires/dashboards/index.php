@@ -3,26 +3,6 @@
         <?php
         $this->load->view('wires/dashboards/header', compact('wire'))
         ?>
-        <div class="col-sm-12">
-            <div class="card course-box widget-course">
-                <div class="card-body">
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <h6 class="mb-0">Wire ID: </h6><span class="f-light"><?= $wire['name'] ?></span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Brand</h6><span class="f-light"><?= $wire['brand'] ?></span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?> "</span>
-                        </div>
-                        <div>
-                            <h6 class="mb-0">Length</h6><span class="f-light"><?= number_format($wire['initial_length'], 2) ?></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-md-7">
             <div class="card">
                 <div class="card-header card-no-border">
@@ -74,9 +54,6 @@
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= number_format($dashboard['current_cut_off_rate'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>FT/Run</span></span>
                         </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-pulse"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -87,37 +64,6 @@
                         <small class="d-block f-light">Exclude Spooling</small>
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= number_format($dashboard['average_run_duration'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>Hour/Run</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-timer"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card small-widget">
-                    <div class="card-body secondary">
-                        <span class="">Average Tension</span>
-                        <small class="d-block f-light">Exclude Spooling</small>
-                        <div class="d-flex align-items-end gap-1">
-                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card small-widget">
-                    <div class="card-body success">
-                        <span class="">% of Max Tension Applied</span>
-                        <small class="d-block f-light">exceeds 1000lbs</small>
-                        <div class="d-flex align-items-end gap-1">
-                            <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
                         </div>
                     </div>
                 </div>
@@ -130,8 +76,27 @@
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= $dashboard['total_number_run'] ?></h4></span>
                         </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body secondary">
+                        <span class="">Average Tension</span>
+                        <small class="d-block f-light">Exclude Spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body success">
+                        <span class="">% of Max Tension Applied</span>
+                        <small class="d-block f-light">exceeds 1000lbs</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
                         </div>
                     </div>
                 </div>
@@ -142,10 +107,9 @@
                         <span class="">Total Running</span>
                         <small class="d-block f-light">Exclude spooling</small>
                         <div class="d-flex align-items-end gap-1">
-                            <h4><?= $dashboard['total_running_number_days'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                            <h4><?= $dashboard['total_running_number_hours'] ?></h4><span class="font-primary f-12 f-w-500"><span>hours</span></span>
+                            |
+                            <h4><?= $dashboard['total_running_number_days'] ?></h4><span class="font-primary f-12 f-w-500"><span>days</span></span>
                         </div>
                     </div>
                 </div>

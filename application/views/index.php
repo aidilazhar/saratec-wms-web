@@ -7,6 +7,13 @@
     <div class="row">
         <?php
         foreach ($wires as $key => $wire) {
+            if ($wire['wire_balances'] < 15999) {
+                $color = "#dc3545";
+            } elseif ($wire['wire_balances'] >= 16000 && $wire['wire_balances'] < 20000) {
+                $color = "#ffc107";
+            } else {
+                $color = "#198754";
+            }
         ?>
             <div class="col-lg-4 col-sm-6">
                 <a href="<?= base_url('wires/dashboard/' . encode($wire['id'])) ?>/index">
@@ -19,9 +26,9 @@
                                     </div>
                                     <div class="recent-chart text-center">
                                         <div class="circle-container">
-                                            <div class="progress-bar" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(hotpink <?= $wire['wire_balances_percent'] ?>%, pink 0);">
+                                            <div class="progress-bar" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(<?= $color ?> <?= $wire['wire_balances_percent'] ?>%, pink 0);">
                                                 <label>
-                                                    <?= $wire['initial_length'] ?>
+                                                    <?= number_format($wire['initial_length'], 2) ?> ft
                                                 </label>
                                                 <label>
                                                     <?= $wire['drums']['name'] ?>

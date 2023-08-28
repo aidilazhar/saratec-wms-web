@@ -51,6 +51,7 @@
             enabled: false
         },
         series: [{
+            name: "Number of run",
             data: [
                 <?php
                 foreach ($job_types as $job_type) {

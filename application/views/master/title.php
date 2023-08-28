@@ -16,22 +16,22 @@
                     <?= $page['title'] ?>
                 </h3>
             </div>
-            <!-- <div class="col-12">
-                <div class="w-100" style="position: relative; display: inline-block">
-                    <div class="advertisement">
+            <div class="col-12">
+                <div>
+                    <div class="job-container">
                         <?php
                         $profile = profile();
                         foreach ($profile['jobs'] as $key => $job) {
                         ?>
-                            <span style="display: inline-block">
-                                Out new update has been release.
+                            <span class="job-span">
+                                <?= $job['package_name'] ?>: <?= date('d/m/Y, h:i A', strtotime($job['datetime'])) ?> <?= $job['well_name'] ?> - <?= $job['job_type_name'] ?>
                             </span>
                         <?php
                         }
                         ?>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

@@ -167,11 +167,16 @@
         }
     }
 
-    .advertisement {
+    .job-container {
         width: 100%;
         position: relative;
         overflow: hidden;
-        animation: slideToLeft 20s linear infinite;
+        white-space: nowrap;
+        animation: slideToLeft 30s linear infinite;
+    }
+
+    .job-span {
+        margin-right: 100px;
     }
 
     @keyframes slideToLeft {
@@ -182,5 +187,10 @@
         100% {
             transform: translateX(-100%);
         }
+    }
+
+    .custom-tooltip {
+        padding: 5px;
+        font-size: 13px;
     }
 </style>
