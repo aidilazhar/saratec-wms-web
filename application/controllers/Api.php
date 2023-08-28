@@ -171,6 +171,7 @@ class Api extends CI_Controller
         }
 
         $results = $this->Trial_model->storeApi($data);
+        delete_temporary_files('temp/wires/' . $data['wire_id'] . '/smart_monitors');
 
         echo json_encode($results);
     }
@@ -749,7 +750,7 @@ class Api extends CI_Controller
         }
 
 
-        $full_file_path = $file_path . '/' . strtotime("now") . '.' . $name[1];
+        $full_file_path = $file_path . '/' . strtotime("now") . '-temporary.' . $name[1];
 
         if (file_put_contents('temp/' . $full_file_path, $decoded_data)) {
             $path = temp_url($full_file_path);
