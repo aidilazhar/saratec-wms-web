@@ -139,7 +139,7 @@ class Api extends CI_Controller
             $file_path = 'temp/' . $path;
             $decoded_data = base64_decode($base64_input);
             $file_name = $this->Smart_monitor_model->lastEntry() + 1 . $file_extension;
-            $full_file_path = $file_path . $file_name;
+            $full_file_path = $file_path . '/' . $file_name;
 
             $validation = $this->mobileValidateCsv($decoded_data, $path, $file_name, $file_extension);
 
@@ -155,7 +155,7 @@ class Api extends CI_Controller
                     $smart_monitor_id = $this->Smart_monitor_model->store($smart_monitor_data);
                     $data['smart_monitor_id'] = $smart_monitor_id;
 
-                    $path = temp_url($path . $smart_monitor_data['name']);
+                    $path = temp_url($path . '/' . $smart_monitor_data['name']);
                     $this->thirdPartyStore($path, $smart_monitor_id, $data['wire_id'], $created_by);
                 } else {
                     echo json_encode([
@@ -710,14 +710,15 @@ class Api extends CI_Controller
         unset($array[0]);
 
         foreach ($array as $key => $arr) {
-            $dateTime = DateTime::createFromFormat("d-m-Y-H:i:s", $arr[0]);
-            $date = $dateTime->format("Y-m-d H:i:s");
+            $date = explode('-', $arr[0]);
+            list($day, $month, $year, $time) = $date;
+            $dateTime = date('Y-m-d H:i:s', strtotime($year . '-' . sprintf('%02d', $month) . '-' . sprintf('%02d', $day) . ' ' . $time));
 
             $data = [
                 'wire_id' => $wire_id,
                 'smart_monitor_id' => $smart_monitor_id,
                 'created_by' => $created_by,
-                'issued_at' => $date,
+                'issued_at' => $dateTime,
                 'mhsi_tension' => $arr[1],
                 'mhsi_depth' => $arr[3],
                 'mhsi_speed' => $arr[5],
@@ -740,7 +741,7 @@ class Api extends CI_Controller
 
     public function mobileValidateCsv($decoded_data, $file_path, $file_name, $file_extension)
     {
-        $full_file_path = $file_path . '/' . strtotime("now") . '-temporary.' . $file_extension;
+        $full_file_path = $file_path . '/' . strtotime("now") . '-temporary' . $file_extension;
 
         if (file_put_contents('temp/' . $full_file_path, $decoded_data)) {
             $path = temp_url($full_file_path);
