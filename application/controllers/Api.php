@@ -718,4 +718,12 @@ class Api extends CI_Controller
             $this->ThirdPartyData_model->store($data);
         }
     }
+
+    public function trials()
+    {
+        $wire_id = $this->input->post('wire_id');
+        $trials = $this->Trial_model->list([$wire_id]);
+
+        echo json_encode($trials);
+    }
 }
