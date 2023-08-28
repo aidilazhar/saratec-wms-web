@@ -141,7 +141,7 @@ class Api extends CI_Controller
             $file_name = $this->Smart_monitor_model->lastEntry() + 1 . $file_extension;
             $full_file_path = $file_path . $file_name;
 
-            $validation = $this->mobileValidateCsv($decoded_data, $path, $file_name);
+            $validation = $this->mobileValidateCsv($decoded_data, $path, $file_name, $file_extension);
 
             if ($validation['status'] == true) {
                 if (file_put_contents($full_file_path, $decoded_data)) {
@@ -738,19 +738,9 @@ class Api extends CI_Controller
         echo json_encode($trials);
     }
 
-    public function mobileValidateCsv($decoded_data, $file_path, $file_name)
+    public function mobileValidateCsv($decoded_data, $file_path, $file_name, $file_extension)
     {
-        $name = explode(".", $file_name);
-
-        if (!isset($name[1])) {
-            return [
-                'status' => false,
-                'message' => 'File Extension not found',
-            ];
-        }
-
-
-        $full_file_path = $file_path . '/' . strtotime("now") . '-temporary.' . $name[1];
+        $full_file_path = $file_path . '/' . strtotime("now") . '-temporary.' . $file_extension;
 
         if (file_put_contents('temp/' . $full_file_path, $decoded_data)) {
             $path = temp_url($full_file_path);
