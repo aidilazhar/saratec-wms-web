@@ -580,14 +580,20 @@
         yAxis: {
             tickInterval: 0.0002, // 1000 milliseconds = 1 second
             minRange: 0.0002,
-            max: 0.1092,
-            min: 0.1068,
+            max: <?= $wire['size'] + $wire['range'] ?>,
             plotLines: [{
-                value: 0.1080, // y-axis value where the line will be positioned
-                width: 2, // Line width
-                color: 'black', // Line color
-                dashStyle: 'dash' // Line style (optional)
-            }]
+                    value: <?= $wire['size'] ?>, // y-axis value where the line will be positioned
+                    width: 2, // Line width
+                    color: 'black', // Line color
+                    dashStyle: 'dash' // Line style (optional)
+                },
+                {
+                    value: <?= $wire['size'] - $wire['range'] ?>, // y-axis value where the line will be positioned
+                    width: 2, // Line width
+                    color: 'red', // Line color
+                    dashStyle: 'dash' // Line style (optional)
+                }
+            ]
         },
         legend: {
             enabled: true
