@@ -194,14 +194,6 @@
                         }
                     }
                 },
-                hollow: {
-                    margin: 5,
-                    size: '70%',
-                    image: '../assets/images/dashboard-3/round.png',
-                    imageWidth: 115,
-                    imageHeight: 115,
-                    imageClipped: false,
-                },
                 track: {
                     background: 'transparent',
                 }
@@ -384,7 +376,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            url: "<?php echo base_url('trials/ajax/' . encode($wire['id'])) ?>",
+            url: "<?php echo base_url('trials-ajax/' . encode($wire['id'])) ?>",
             dataType: "json",
             type: "POST",
         },
@@ -412,51 +404,56 @@
             },
             {
                 "targets": 3,
-                "data": "supervisor_name",
+                "data": "assistant1_name",
                 "orderable": true,
             },
             {
                 "targets": 4,
-                "data": "client_name",
+                "data": "assistant2_name",
                 "orderable": true,
             },
             {
                 "targets": 5,
-                "data": "package_name",
+                "data": "assistant3_name",
                 "orderable": true,
             },
             {
                 "targets": 6,
-                "data": "drum_name",
+                "data": "supervisor_name",
                 "orderable": true,
             },
             {
                 "targets": 7,
-                "data": "job_type_name",
+                "data": "client_name",
                 "orderable": true,
             },
             {
                 "targets": 8,
-                "data": "wrap_test",
+                "data": "package_name",
                 "orderable": true,
             },
             {
                 "targets": 9,
-                "data": "pull_test",
+                "data": "drum_name",
                 "orderable": true,
             },
             {
                 "targets": 10,
-                "render": function(data, type, row, meta) {
-                    if (row.x_inch != null) {
-                        return row.x_inch
-                    }
-                    return '-'
-                },
+                "data": "job_type_name",
                 "orderable": true,
             },
             {
                 "targets": 11,
+                "data": "wrap_test",
+                "orderable": true,
+            },
+            {
+                "targets": 12,
+                "data": "pull_test",
+                "orderable": true,
+            },
+            {
+                "targets": 13,
                 "render": function(data, type, row, meta) {
                     if (row.x_inch != null) {
                         return row.x_inch
@@ -466,42 +463,47 @@
                 "orderable": true,
             },
             {
-                "targets": 12,
-                "data": "cut_off",
-                "orderable": true,
-            },
-            {
-                "targets": 13,
-                "data": "well_name",
-                "orderable": true,
-            },
-            {
                 "targets": 14,
-                "data": "jar_number",
+                "render": function(data, type, row, meta) {
+                    if (row.y_inch != null) {
+                        return row.y_inch
+                    }
+                    return '-'
+                },
                 "orderable": true,
             },
             {
                 "targets": 15,
-                "data": "max_pull",
+                "data": "cut_off",
                 "orderable": true,
             },
             {
                 "targets": 16,
-                "data": "max_depth",
+                "data": "well_name",
                 "orderable": true,
             },
             {
                 "targets": 17,
-                "data": "duration",
+                "data": "jar_number",
                 "orderable": true,
             },
             {
                 "targets": 18,
-                "data": "smart_monitor_name",
+                "data": "max_pull",
                 "orderable": true,
             },
             {
                 "targets": 19,
+                "data": "max_depth",
+                "orderable": true,
+            },
+            {
+                "targets": 20,
+                "data": "duration",
+                "orderable": true,
+            },
+            {
+                "targets": 21,
                 "render": function(data, type, row, meta) {
                     if (row.smart_monitor_name != null) {
                         return '<a href="<?= temp_url() ?>" ' + row.smart_monitor_url + '>' + row.smart_monitor_name + '</a>'
@@ -511,12 +513,12 @@
                 "orderable": true,
             },
             {
-                "targets": 20,
+                "targets": 22,
                 "data": "remarks",
                 "orderable": true,
             },
             {
-                "targets": 21,
+                "targets": 23,
                 "data": "job_status",
                 "orderable": true,
             },
@@ -579,14 +581,20 @@
         yAxis: {
             tickInterval: 0.0002, // 1000 milliseconds = 1 second
             minRange: 0.0002,
-            max: 0.1092,
-            min: 0.1068,
+            max: <?= $wire['size'] + $wire['range'] ?>,
             plotLines: [{
-                value: 0.1080, // y-axis value where the line will be positioned
-                width: 2, // Line width
-                color: 'black', // Line color
-                dashStyle: 'dash' // Line style (optional)
-            }]
+                    value: <?= $wire['size'] ?>, // y-axis value where the line will be positioned
+                    width: 2, // Line width
+                    color: 'black', // Line color
+                    dashStyle: 'dash' // Line style (optional)
+                },
+                {
+                    value: <?= $wire['size'] - $wire['range'] ?>, // y-axis value where the line will be positioned
+                    width: 2, // Line width
+                    color: 'red', // Line color
+                    dashStyle: 'dash' // Line style (optional)
+                }
+            ]
         },
         legend: {
             enabled: true

@@ -387,6 +387,9 @@ class Trial extends CI_Controller
         $columns = [
             'issued_at' => 'trials.issued_at',
             'operator_name' => 'operators.name',
+            'assistant1_name' => 'assistant1.name',
+            'assistant2_name' => 'assistant1.name',
+            'assistant3_name' => 'assistant1.name',
             'supervisor_name' => 'trials.supervisor_name',
             'client_name' => 'clients.name',
             'package_name' => 'packages.name',

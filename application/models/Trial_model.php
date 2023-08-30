@@ -71,6 +71,36 @@ class Trial_model extends CI_Model
                 'type' => 'left'
             ],
             [
+                'from_name' => 'trials',
+                'name' => 'users',
+                'as' => 'assistant1',
+                'prefix' => 'assistant1',
+                'self_column' => 'id',
+                'relation_column' => 'assistant1_id',
+                'get' => 'name',
+                'type' => 'left'
+            ],
+            [
+                'from_name' => 'trials',
+                'name' => 'users',
+                'as' => 'assistant2',
+                'prefix' => 'assistant2',
+                'self_column' => 'id',
+                'relation_column' => 'assistant2_id',
+                'get' => 'name',
+                'type' => 'left'
+            ],
+            [
+                'from_name' => 'trials',
+                'name' => 'users',
+                'as' => 'assistant3',
+                'prefix' => 'assistant3',
+                'self_column' => 'id',
+                'relation_column' => 'assistant3_id',
+                'get' => 'name',
+                'type' => 'left'
+            ],
+            [
                 'from_name' => 'clients',
                 'name' => 'companies',
                 'as' => 'companies',

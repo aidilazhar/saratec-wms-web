@@ -17,7 +17,7 @@
                             <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?> "</span>
                         </div>
                         <div>
-                            <h6 class="mb-0">Length</h6><span class="f-light"><?= number_format($wire['initial_length'], 2) ?></span>
+                            <h6 class="mb-0">Length</h6><span class="f-light"><?= number_format($wire['initial_length'], 2) ?> ft</span>
                         </div>
                     </div>
                 </div>
@@ -74,9 +74,6 @@
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= number_format($dashboard['current_cut_off_rate'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>FT/Run</span></span>
                         </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-pulse"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -87,37 +84,6 @@
                         <small class="d-block f-light">Exclude Spooling</small>
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= number_format($dashboard['average_run_duration'], 2) ?></h4><span class="font-primary f-12 f-w-500"><span>Hour/Run</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-timer"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card small-widget">
-                    <div class="card-body secondary">
-                        <span class="">Average Tension</span>
-                        <small class="d-block f-light">Exclude Spooling</small>
-                        <div class="d-flex align-items-end gap-1">
-                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-signal"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card small-widget">
-                    <div class="card-body success">
-                        <span class="">% of Max Tension Applied</span>
-                        <small class="d-block f-light">exceeds 1000lbs</small>
-                        <div class="d-flex align-items-end gap-1">
-                            <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
                         </div>
                     </div>
                 </div>
@@ -130,8 +96,27 @@
                         <div class="d-flex align-items-end gap-1">
                             <h4><?= $dashboard['total_number_run'] ?></h4></span>
                         </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body secondary">
+                        <span class="">Average Tension</span>
+                        <small class="d-block f-light">Exclude Spooling</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card small-widget">
+                    <div class="card-body success">
+                        <span class="">% of Max Tension Applied</span>
+                        <small class="d-block f-light">exceeds 1000lbs</small>
+                        <div class="d-flex align-items-end gap-1">
+                            <h4><?= $dashboard['max_tension_applied'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
                         </div>
                     </div>
                 </div>
@@ -142,10 +127,9 @@
                         <span class="">Total Running</span>
                         <small class="d-block f-light">Exclude spooling</small>
                         <div class="d-flex align-items-end gap-1">
-                            <h4><?= $dashboard['total_running_number_days'] ?></h4><span class="font-primary f-12 f-w-500"><span>%</span></span>
-                        </div>
-                        <div class="bg-gradient">
-                            <i style="font-size: 30px; font-weight: 100;" class="icon-dashboard"></i>
+                            <h4><?= $dashboard['total_running_number_hours'] ?></h4><span class="font-primary f-12 f-w-500"><span>hours</span></span>
+                            |
+                            <h4><?= $dashboard['total_running_number_days'] ?></h4><span class="font-primary f-12 f-w-500"><span>days</span></span>
                         </div>
                     </div>
                 </div>
@@ -293,6 +277,9 @@
                                     <th>#</th>
                                     <th>Create At</th>
                                     <th>Operator</th>
+                                    <th>Assistant 1</th>
+                                    <th>Assistant 2</th>
+                                    <th>Assistant 3</th>
                                     <th>Supervisor</th>
                                     <th>Client</th>
                                     <th>Package</th>
@@ -311,7 +298,6 @@
                                     <th>Smart Monitor</th>
                                     <th>Remarks</th>
                                     <th>Job Status</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                         </table>
@@ -347,7 +333,7 @@
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="3" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Supervisor</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Assistant 1</label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -355,7 +341,7 @@
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="4" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Client</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Assistant 2</label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -363,23 +349,23 @@
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="5" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Package</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Assistant 3</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="6" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="6" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Drum</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Supervisor</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="7" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="7" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Type of Job</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Client</label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -387,23 +373,23 @@
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="8" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Wrap Test</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Package</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="9" aria-label="Checkbox for following text input">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="9" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Pull Test</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Drum</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="10" aria-label="Checkbox for following text input">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="10" aria-label="Checkbox for following text input">
                         </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">X inches</label>
+                        <label class="form-check-label mt-2" style="color: black !important;">Type of Job</label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -411,31 +397,31 @@
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="11" aria-label="Checkbox for following text input">
                         </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Wrap Test</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="12" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Pull Test</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="13" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">X inches</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="14" aria-label="Checkbox for following text input">
+                        </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Y inches</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group rounded-0 border-0 shadow-none">
-                        <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="12" aria-label="Checkbox for following text input">
-                        </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Cut Off</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group rounded-0 border-0 shadow-none">
-                        <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="13" aria-label="Checkbox for following text input">
-                        </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Well Name</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group rounded-0 border-0 shadow-none">
-                        <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="14" aria-label="Checkbox for following text input">
-                        </div>
-                        <label class="form-check-label mt-2" style="color: black !important;">Jar Number</label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -443,13 +429,37 @@
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="15" aria-label="Checkbox for following text input">
                         </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Cut Off</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="16" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Well Name</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="17" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Jar Number</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="18" aria-label="Checkbox for following text input">
+                        </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Max Pull</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="16" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="19" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Max Depth</label>
                     </div>
@@ -457,7 +467,7 @@
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="17" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="20" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Duration</label>
                     </div>
@@ -465,7 +475,7 @@
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="18" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="21" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Smart Monitor</label>
                     </div>
@@ -473,7 +483,7 @@
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="19" aria-label="Checkbox for following text input">
+                            <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="22" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Remarks</label>
                     </div>
@@ -481,7 +491,7 @@
                 <div class="col-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
-                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="20" aria-label="Checkbox for following text input">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="23" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Job Status</label>
                     </div>

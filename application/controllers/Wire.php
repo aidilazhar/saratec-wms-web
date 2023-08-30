@@ -355,6 +355,7 @@ class Wire extends CI_Controller
 
         foreach ($clients as $key => $client) {
             $clients[$key]['percent'] = number_format(($client_count[$client['id']] / $total_client) * 100, 2);
+            $clients[$key]['total_client'] = number_format(($client_count[$client['id']]), 2);
         }
 
         foreach ($job_types as $key => $job_type) {

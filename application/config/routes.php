@@ -80,6 +80,7 @@ $route['(:any)/other-reports'] = 'General/otherReports/$1';
 $route['(:any)/third-party-data'] = 'General/thirdPartyData/$1';
 $route['(:any)/third-party-data/(:any)'] = 'General/thirdPartyData/$1/$2';
 $route['(:any)/tech-sheets'] = 'General/techSheet/$1';
+$route['trials-ajax/(:any)'] = 'General/ajax/$1';
 
 //testing routes
 $route['test'] = 'Home/test';

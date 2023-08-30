@@ -128,6 +128,7 @@ class General extends CI_Controller
 
         foreach ($clients as $key => $client) {
             $clients[$key]['percent'] = number_format(($client_count[$client['id']] / $total_client) * 100, 2);
+            $clients[$key]['total_client'] = number_format(($client_count[$client['id']]), 2);
         }
 
         foreach ($job_types as $key => $job_type) {
@@ -326,5 +327,75 @@ class General extends CI_Controller
         }
 
         $this->load->view('general/index', compact('page', 'wire', 'tension', 'speed', 'depth', 'third_party_data', 'prefix', 'smart_monitors', 'smart_monitor_id', 'wire_name'));
+    }
+
+    public function ajax($wire_id)
+    {
+        $wire_id = decode($wire_id);
+
+        $columns = [
+            'issued_at' => 'trials.issued_at',
+            'operator_name' => 'operators.name',
+            'assistant1_name' => 'assistant1.name',
+            'assistant2_name' => 'assistant1.name',
+            'assistant3_name' => 'assistant1.name',
+            'supervisor_name' => 'trials.supervisor_name',
+            'client_name' => 'clients.name',
+            'package_name' => 'packages.name',
+            'drum_name' => 'drums.name',
+            'job_type_name' => 'job_types.name',
+            'wrap_test' => 'trials.wrap_test',
+            'pull_test' => 'trials.pull_test',
+            'x_inch' => 'trials.x_inch',
+            'y_inch' => 'trials.y_inch',
+            'cut_off' => 'trials.cut_off',
+            'well_name' => 'wells.name',
+            'jar_number' => 'trials.jar_number',
+            'max_pull' => 'trials.max_pull',
+            'max_depth' => 'trials.max_depth',
+            'duration' => 'trials.duration',
+            'smart_monitor_name' => 'smart_monitors.name',
+            'smart_monitor_url' => 'smart_monitors.url',
+            'remarks' => 'trials.remarks',
+            'job_status' => 'trials.job_status',
+        ];
+
+        // $results = $this->Trial_model->list_ajax([$wire_id], null, $columns, null, 1000, 0, 'trials.id', 'ASC');
+        // echo '<script>console.table(' . json_encode($results) . ')</script>';
+        // return;
+
+        $valuesArray = array_values($columns);
+
+        $limit = $this->input->post('length');
+        $start = $this->input->post('start');
+        $direction = $this->input->post('order')[0]['dir'];
+        $search = $this->input->post('search')['value'];
+        if ($this->input->post('order')[0]['column'] != 0) {
+            $order = $valuesArray[$this->input->post('order')[0]['column']];
+            $direction = $this->input->post('order')[0]['dir'];
+        } else {
+            $order = 'trials.id';
+            $direction = 'desc';
+        }
+
+        $results = $this->Trial_model->list_ajax([$wire_id], null, $columns, $search, $limit, $start, $order, $direction);
+
+        $count = $this->Trial_model->list_ajax_count([$wire_id], $columns, $search);
+
+        foreach ($results as $key => $result) {
+            $results[$key]['hash_id'] = encode($result['id']);
+            $results[$key]['issued_at'] = date('d M Y', strtotime($result['issued_at']));
+            $results[$key]['actions'] = '<a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/' . encode($result['id'])) . '" class="view mx-2">View</a><a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/edit/' . encode($result['id'])) . '" class="edit mx-2">Edit</a>';
+        }
+
+        $json_data = array(
+            "draw"            => intval($this->input->post('draw')),
+            "recordsTotal"    => $count,
+            "recordsFiltered" => $count,
+            "data"            => $results,
+        );
+
+        echo json_encode($json_data);
+        die;
     }
 }
