@@ -383,6 +383,7 @@ class Api extends CI_Controller
             $data = [
                 'wire_id' => $wire['name'],
                 'brand' => $wire['brand'],
+                'range' => $wire['range'],
                 'wire_od' => $wire['size'],
                 'length' => $wire['initial_length'],
                 'current_cut_off_rate' => number_format(0, 2),

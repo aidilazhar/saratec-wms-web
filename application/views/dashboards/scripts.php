@@ -194,6 +194,10 @@
                         }
                     }
                 },
+                hollow: {
+                    margin: 5,
+                    size: '70%',
+                },
                 track: {
                     background: 'transparent',
                 }
