@@ -4,20 +4,27 @@
         $this->load->view('dashboards/header', compact('wire'))
 
         ?>
+        <style>
+            @media (max-width: 576px) {
+                .margin-bottom-2 {
+                    margin-bottom: 0.5rem !important;
+                }
+            }
+        </style>
         <div class="col-lg-12">
             <div class="card course-box widget-course">
                 <div class="card-body">
-                    <div class="d-flex justify-content-around">
-                        <div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 text-center margin-bottom-2">
                             <h6 class="mb-0">Wire ID: </h6><span class="f-light"><?= $wire['name'] ?></span>
                         </div>
-                        <div>
+                        <div class="col-md-3 col-sm-6 text-center margin-bottom-2">
                             <h6 class="mb-0">Brand</h6><span class="f-light"><?= $wire['brand'] ?></span>
                         </div>
-                        <div>
+                        <div class="col-md-3 col-sm-6 text-center margin-bottom-2">
                             <h6 class="mb-0">Wire OD</h6><span class="f-light"><?= $wire['size'] ?> "</span>
                         </div>
-                        <div>
+                        <div class="col-md-3 col-sm-6 text-center margin-bottom-2">
                             <h6 class="mb-0">Length</h6><span class="f-light"><?= number_format($wire['initial_length'], 2) ?> ft</span>
                         </div>
                     </div>

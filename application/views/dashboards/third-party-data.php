@@ -65,8 +65,13 @@
                                 <tbody>
                                     <?php
                                     foreach ($smart_monitors as $key => $smart_monitor) {
+                                        if ($smart_monitor_id == $smart_monitor['id']) {
+                                            $bg = 'bg-dark';
+                                        } else {
+                                            $bg = '';
+                                        }
                                     ?>
-                                        <tr>
+                                        <tr class="<?= $bg ?>">
                                             <td><?= $key + 1 ?></td>
                                             <td><?= date('d M Y, h:i A', strtotime($smart_monitor['trial']['issued_at'])) ?></td>
                                             <td><?= $smart_monitor['trial']['well_name'] ?></td>
