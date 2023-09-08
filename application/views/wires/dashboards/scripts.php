@@ -205,6 +205,7 @@
             }
         },
         colors: ["#FFA941"],
+        margin: 'auto',
         labels: ['Wire Balance'],
         stroke: {
             lineCap: 'round'
@@ -229,15 +230,17 @@
                 breakpoint: 1830,
                 options: {
                     chart: {
-                        offsetX: -40,
-                    }
+                        height: 270,
+                        width: 270,
+                    },
                 }
             },
             {
                 breakpoint: 1750,
                 options: {
                     chart: {
-                        offsetX: -50,
+                        height: 270,
+                        width: 270,
                     }
                 }
             },
@@ -245,7 +248,8 @@
                 breakpoint: 1661,
                 options: {
                     chart: {
-                        offsetX: -10,
+                        height: 270,
+                        width: 270,
                     }
                 }
             },
@@ -253,7 +257,8 @@
                 breakpoint: 1530,
                 options: {
                     chart: {
-                        offsetX: -25,
+                        height: 270,
+                        width: 270,
                     }
                 }
             },
@@ -261,7 +266,8 @@
                 breakpoint: 1400,
                 options: {
                     chart: {
-                        offsetX: 10,
+                        height: 270,
+                        width: 270,
                     }
                 }
             },
@@ -269,7 +275,8 @@
                 breakpoint: 1300,
                 options: {
                     chart: {
-                        offsetX: -10,
+                        height: 260,
+                        width: 260,
                     }
                 }
             },
@@ -277,6 +284,7 @@
                 breakpoint: 1200,
                 options: {
                     chart: {
+                        height: 255,
                         width: 255,
                     }
                 }
@@ -285,6 +293,7 @@
                 breakpoint: 992,
                 options: {
                     chart: {
+                        height: 245,
                         width: 245,
                     }
                 }
@@ -293,6 +302,7 @@
                 breakpoint: 600,
                 options: {
                     chart: {
+                        height: 225,
                         width: 225,
                     }
                 }

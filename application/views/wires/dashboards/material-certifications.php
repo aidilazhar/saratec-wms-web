@@ -12,15 +12,19 @@
                     <?php
                     if (!is_null($base64_material_ceritification)) {
                     ?>
-                        <div class="d-flex justify-content-between">
-                            <button style="width: 200px" class="btn btn-square btn-primary btn-lg mb-2" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_material_ceritification ?>', -1, 'pdfview_material_certifications')">Prev</button>
+                        <div class="d-flex justify-content-between mb-2">
+                            <button class="btn btn-square btn-primary" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_material_ceritification ?>', -1, 'pdfview_material_certifications')">
+                                <i class="icon-arrow-left"></i>
+                            </button>
                             <div>
                                 Page
                                 <span id="pageNum" class="mt-2">1</span>
                                 /
                                 <span id="pageLength" class="mt-2">1</span>
                             </div>
-                            <button style="width: 200px" class="btn btn-square btn-primary btn-lg mb-2" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_material_ceritification ?>', 1, 'pdfview_material_certifications')">Next</button>
+                            <button class="btn btn-square btn-primary" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_material_ceritification ?>', 1, 'pdfview_material_certifications')">
+                                <i class="icon-arrow-right"></i>
+                            </button>
                         </div>
                         <canvas style="width: 100%;" id="pdfview_material_certifications"></canvas>
                     <?php
@@ -43,15 +47,19 @@
                     <?php
                     if (!is_null($base64_eddy_current)) {
                     ?>
-                        <div class="d-flex justify-content-between">
-                            <button style="width: 200px" class="btn btn-square btn-primary btn-lg mb-2" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_eddy_current ?>', -1, 'pdfview_eddy_current')">Prev</button>
+                        <div class="d-flex justify-content-between mb-2">
+                            <button class="btn btn-square btn-primary" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_eddy_current ?>', -1, 'pdfview_eddy_current')">
+                                <i class="icon-arrow-left"></i>
+                            </button>
                             <div>
                                 Page
                                 <span id="pageNum" class="mt-2">1</span>
                                 /
                                 <span id="pageLength" class="mt-2">1</span>
                             </div>
-                            <button style="width: 200px" class="btn btn-square btn-primary btn-lg mb-2" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_eddy_current ?>', 1, 'pdfview_eddy_current')">Next</button>
+                            <button class="btn btn-square btn-primary" type="button" title="" data-bs-original-title="btn btn-square btn-primary btn-lg" onclick="RenderPDF('<?= $base64_eddy_current ?>', 1, 'pdfview_eddy_current')">
+                                <i class="icon-arrow-right"></i>
+                            </button>
                         </div>
                         <canvas style="width: 100%;" id="pdfview_eddy_current"></canvas>
                     <?php

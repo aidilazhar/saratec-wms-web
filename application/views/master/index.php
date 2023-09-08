@@ -63,9 +63,9 @@ if ($page['subtitle'] != null) {
                 </div>
             </div>
             <!-- Container-fluid Ends-->
+            <!-- footer start-->
+            <?= $this->load->view('master/footer', '', true) ?>
         </div>
-        <!-- footer start-->
-        <?= $this->load->view('master/footer', '', true) ?>
     </div>
     </div>
     <?= $this->load->view('master/scripts.php', '', true) ?>

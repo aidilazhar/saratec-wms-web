@@ -2,6 +2,7 @@
     <div class="row">
         <?php
         $this->load->view('dashboards/header', compact('wire'))
+
         ?>
         <div class="col-lg-12">
             <div class="card course-box widget-course">
@@ -33,7 +34,7 @@
                 <div class="card-body pt-0">
                     <div class="row">
                         <div class="col-md-7">
-                            <div class="recent-chart">
+                            <div class="recent-chart mx-auto text-center" style="display: flex; justify-content: center; align-items: center;">
                                 <div id="wire-on-drum"></div>
                             </div>
                         </div>
@@ -65,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-5 row">
+        <div class="col-md-5 row">
             <div class="col-md-6">
                 <div class="card small-widget">
                     <div class="card-body primary">
@@ -312,7 +313,7 @@
         <button class="btn btn-outline-light dropdown-toggle txt-dark" type="button" data-bs-toggle="dropdown" aria-expanded="true">Filter</button>
         <div class="dropdown-menu dropdown-block text-start" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-200px, 37px); font-size: 14px; width: 500px">
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column checkbox-solid-dark" type="checkbox" checked value="1" aria-label="Checkbox for following text input">
@@ -320,7 +321,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Date</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="2" aria-label="Checkbox for following text input">
@@ -328,7 +329,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Operator</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="3" aria-label="Checkbox for following text input">
@@ -336,7 +337,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Assistant 1</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="4" aria-label="Checkbox for following text input">
@@ -344,7 +345,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Assistant 2</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="5" aria-label="Checkbox for following text input">
@@ -352,7 +353,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Assistant 3</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="6" aria-label="Checkbox for following text input">
@@ -360,7 +361,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Supervisor</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="7" aria-label="Checkbox for following text input">
@@ -368,7 +369,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Client</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="8" aria-label="Checkbox for following text input">
@@ -376,7 +377,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Package</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="9" aria-label="Checkbox for following text input">
@@ -384,7 +385,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Drum</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="10" aria-label="Checkbox for following text input">
@@ -392,7 +393,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Type of Job</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="11" aria-label="Checkbox for following text input">
@@ -400,7 +401,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Wrap Test</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="12" aria-label="Checkbox for following text input">
@@ -408,7 +409,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Pull Test</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="13" aria-label="Checkbox for following text input">
@@ -416,7 +417,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">X inches</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="14" aria-label="Checkbox for following text input">
@@ -424,7 +425,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Y inches</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="15" aria-label="Checkbox for following text input">
@@ -432,7 +433,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Cut Off</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="16" aria-label="Checkbox for following text input">
@@ -440,7 +441,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Well Name</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="17" aria-label="Checkbox for following text input">
@@ -448,7 +449,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Jar Number</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="18" aria-label="Checkbox for following text input">
@@ -456,7 +457,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Max Pull</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="19" aria-label="Checkbox for following text input">
@@ -464,7 +465,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Max Depth</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="20" aria-label="Checkbox for following text input">
@@ -472,7 +473,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Duration</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="21" aria-label="Checkbox for following text input">
@@ -480,7 +481,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Smart Monitor</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input checked class="form-check-input mt-0 filter-column" type="checkbox" value="22" aria-label="Checkbox for following text input">
@@ -488,7 +489,7 @@
                         <label class="form-check-label mt-2" style="color: black !important;">Remarks</label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="input-group rounded-0 border-0 shadow-none">
                         <div class="input-group-text">
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="23" aria-label="Checkbox for following text input">

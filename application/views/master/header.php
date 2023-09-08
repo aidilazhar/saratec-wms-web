@@ -10,7 +10,7 @@
                 <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
             </div>
         </div>
-        <div class="nav-right col-xxl-11 col-xl-11 col-md-11 col-11 pull-right right-header p-0 ms-auto">
+        <div class="nav-right col-xxl-10 col-xl-10 col-md-10 col-10 pull-right right-header p-0 ms-auto">
             <ul class="nav-menus">
                 <img style="height: 50px;" class=" mx-auto text-center" src="<?= base_url("assets/images/logo/logo.png") ?>" alt="">
                 <li class="profile-nav onhover-dropdown pe-0 py-0">

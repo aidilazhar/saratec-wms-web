@@ -42,8 +42,11 @@
                 <div class="login-card login-dark" style="background-size: contain;">
                     <div>
                         <div>
-                            <a class="logo" href="#"><img style="max-width: 450px" class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage"><img style="max-width: 200px;" class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo_dark.png') ?>" alt="looginpage"></a>
+                            <a class="logo" href="index.html"><img class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage">
+                                <img class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage">
+                            </a>
                         </div>
+
                         <div class="login-main">
                             <?php
                             if ($this->input->get('error') && $this->input->get('error') == 1) {
