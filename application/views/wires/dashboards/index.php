@@ -223,7 +223,18 @@
                     <figure class="highcharts-figure">
                         <div id="container"></div>
                     </figure>
-                    <!-- <div id="onsite-od-check-chart"></div> -->
+                    <div class="d-inline-block text-center mx-auto w-100">
+                        <div class="d-inline-block mx-auto" style="margin-left: 20px; margin-right: 20px; width: 100px">
+                            <div class="text-center mx-auto" style="border: none; border-top: 1px dashed black; background-color: #fff; height: 2px; width: 50px; margin-bottom: 3px;">
+                            </div>
+                            <div class="text-center">Baseline</div>
+                        </div>
+                        <div class="d-inline-block text-center" style="margin-left: 20px; margin-right: 20px; width: 100px">
+                            <div class="text-center mx-auto" style="border: none; border-top: 1px dashed red; background-color: #fff; height: 2px; width: 50px; margin-bottom: 3px;">
+                            </div>
+                            <div class="text-center">Min Tolerance</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
