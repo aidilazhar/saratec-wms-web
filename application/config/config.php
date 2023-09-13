@@ -49,7 +49,7 @@ if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
