@@ -50,9 +50,9 @@ class Auth extends CI_Controller
             $this->session->set_userdata('auth', $this->User_model->details($user['id']));
             add_cookies(encode($user['id']));
 
-            redirect(base_url(''));
+            redirect('');
         } else {
-            redirect(base_url('login?error=1'));
+            redirect('login?error=1');
         }
     }
 

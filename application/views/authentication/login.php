@@ -64,7 +64,7 @@
                                 <p>Enter your email & password to login</p>
                                 <div class="form-group">
                                     <label class="col-form-label">Email Address</label>
-                                    <input name="email" class="form-control" type="email" required="" placeholder="Test@gmail.com">
+                                    <input name="email" class="form-control" type="email" required="" placeholder="test@gmail.com">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Password</label>
