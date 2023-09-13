@@ -9,7 +9,7 @@ class Well extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -85,7 +85,7 @@ class Well extends CI_Controller
         $data['schematic'] = $schematic['url'];
         $results = $this->Well_model->update($well_id, $data);
 
-        redirect(base_url("wells"));
+        redirect("wells");
     }
 
     public function edit($well_id)
@@ -141,7 +141,7 @@ class Well extends CI_Controller
 
         $results = $this->Well_model->update($well_id, $data);
 
-        redirect(base_url("wells"));
+        redirect("wells");
     }
 
     public function show($well_id)
@@ -165,6 +165,6 @@ class Well extends CI_Controller
     {
         $well_id = decode($well_id);
         $this->Well_model->delete($well_id);
-        redirect(base_url("wells"));
+        redirect("wells");
     }
 }

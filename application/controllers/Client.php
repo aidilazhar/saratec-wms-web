@@ -9,7 +9,7 @@ class Client extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Client_model');
@@ -52,7 +52,7 @@ class Client extends CI_Controller
         $data['company_id'] = $company_id;
         $results = $this->Client_model->store($data);
 
-        redirect(base_url('companies/' . encode($company_id) . '/clients'));
+        redirect('companies/' . encode($company_id) . '/clients');
     }
 
     public function edit($company_id, $client_id)
@@ -76,7 +76,7 @@ class Client extends CI_Controller
         $client_id = decode($client_id);
         $data = $this->input->post();
         $results = $this->Client_model->update($client_id, $data);
-        redirect(base_url('companies/' . encode($company_id) . '/clients'));
+        redirect('companies/' . encode($company_id) . '/clients');
     }
 
     public function show($company_id, $client_id)
@@ -100,6 +100,6 @@ class Client extends CI_Controller
         $client_id = decode($client_id);
         $this->Client_model->delete($client_id);
 
-        redirect(base_url('companies/' . encode($company_id) . '/clients'));
+        redirect('companies/' . encode($company_id) . '/clients');
     }
 }

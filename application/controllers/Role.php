@@ -9,7 +9,7 @@ class Role extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -45,7 +45,7 @@ class Role extends CI_Controller
 
     public function store()
     {
-        redirect(base_url("roles"));
+        redirect("roles");
     }
 
     public function edit($user_id)
@@ -65,7 +65,7 @@ class Role extends CI_Controller
 
     public function update()
     {
-        redirect(base_url("roles"));
+        redirect("roles");
     }
 
     public function show($role_id)
@@ -100,7 +100,7 @@ class Role extends CI_Controller
 
     public function delete()
     {
-        redirect(base_url("roles"));
+        redirect("roles");
     }
 
     public function permissionUpdate($role_id)

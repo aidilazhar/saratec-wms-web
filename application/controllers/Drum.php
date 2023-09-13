@@ -9,7 +9,7 @@ class Drum extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -47,7 +47,7 @@ class Drum extends CI_Controller
         $data = $this->input->post();
         $results = $this->Drum_model->store($data);
 
-        redirect(base_url("drums"));
+        redirect("drums");
     }
 
     public function edit($drum_id)
@@ -70,7 +70,7 @@ class Drum extends CI_Controller
         $drum_id = decode($drum_id);
         $data = $this->input->post();
         $results = $this->Drum_model->update($drum_id, $data);
-        redirect(base_url("drums"));
+        redirect("drums");
     }
 
     public function show($drum_id)
@@ -92,6 +92,6 @@ class Drum extends CI_Controller
     {
         $drum_id = decode($drum_id);
         $this->Drum_model->delete($drum_id);
-        redirect(base_url("drums"));
+        redirect("drums");
     }
 }

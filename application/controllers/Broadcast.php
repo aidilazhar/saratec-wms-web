@@ -9,7 +9,7 @@ class Broadcast extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -48,7 +48,7 @@ class Broadcast extends CI_Controller
     {
         $data = $this->input->post();
         $results = $this->Broadcast_model->store($data);
-        redirect(base_url("broadcasts"));
+        redirect('broadcasts');
     }
 
     public function edit($broadcast_id)
@@ -77,7 +77,7 @@ class Broadcast extends CI_Controller
             $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         }
         $this->Broadcast_model->update($broadcast_id, $data);
-        redirect(base_url("broadcasts"));
+        redirect('broadcasts');
     }
 
     public function show($broadcast_id)
@@ -99,6 +99,6 @@ class Broadcast extends CI_Controller
     {
         $broadcast_id = decode($broadcast_id);
         $this->Broadcast_model->delete($broadcast_id);
-        redirect(base_url("broadcasts"));
+        redirect('broadcasts');
     }
 }

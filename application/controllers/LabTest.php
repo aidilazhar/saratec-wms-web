@@ -9,7 +9,7 @@ class LabTest extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Wire_model');
@@ -62,7 +62,7 @@ class LabTest extends CI_Controller
         $data = $this->input->post();
         $data['wire_id'] = $wire_id;
         $this->LabTest_model->store($data);
-        redirect(base_url("wires/" . encode($wire_id) . "/lab-tests"));
+        redirect("wires/" . encode($wire_id) . "/lab-tests");
     }
 
     public function edit($wire_id, $lab_test_id)
@@ -87,7 +87,7 @@ class LabTest extends CI_Controller
         $wire_id = decode($wire_id);
         $data = $this->input->post();
         $this->LabTest_model->update($lab_test_id, $data);
-        redirect(base_url("wires/" . encode($wire_id) . "/lab-tests"));
+        redirect("wires/" . encode($wire_id) . "/lab-tests");
     }
 
     public function delete($wire_id, $report_id)
@@ -95,6 +95,6 @@ class LabTest extends CI_Controller
         $report_id = decode($report_id);
         $wire_id = decode($wire_id);
         $this->LabTest_model->delete($report_id);
-        redirect(base_url("wires/" . encode($wire_id) . "/lab-tests"));
+        redirect("wires/" . encode($wire_id) . "/lab-tests");
     }
 }

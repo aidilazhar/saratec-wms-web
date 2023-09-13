@@ -59,6 +59,6 @@ class Auth extends CI_Controller
     public function logout()
     {
         logout();
-        redirect(base_url('login'));
+        redirect('login');
     }
 }

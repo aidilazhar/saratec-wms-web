@@ -9,7 +9,7 @@ class Company extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -48,7 +48,7 @@ class Company extends CI_Controller
         $data = $this->input->post();
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $results = $this->Company_model->store($data);
-        redirect(base_url("companies"));
+        redirect('companies');
     }
 
     public function edit($company_id)
@@ -77,7 +77,7 @@ class Company extends CI_Controller
             $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         }
         $this->Company_model->update($company_id, $data);
-        redirect(base_url("companies"));
+        redirect('companies');
     }
 
     public function show($company_id)
@@ -99,6 +99,6 @@ class Company extends CI_Controller
     {
         $company_id = decode($company_id);
         $this->Company_model->delete($company_id);
-        redirect(base_url("companies"));
+        redirect('companies');
     }
 }

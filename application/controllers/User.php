@@ -9,7 +9,7 @@ class User extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('User_model');
@@ -51,7 +51,7 @@ class User extends CI_Controller
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $results = $this->User_model->store($data);
 
-        redirect(base_url("users"));
+        redirect("users");
     }
 
     public function edit($user_id)
@@ -85,7 +85,7 @@ class User extends CI_Controller
         }
         $results = $this->User_model->update($user_id, $data);
 
-        redirect(base_url("users"));
+        redirect("users");
     }
 
     public function show($user_id)
@@ -107,6 +107,6 @@ class User extends CI_Controller
     {
         $user_id = decode($user_id);
         $this->User_model->delete($user_id);
-        redirect(base_url("users"));
+        redirect("users");
     }
 }

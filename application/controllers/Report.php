@@ -9,7 +9,7 @@ class Report extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Wire_model');
@@ -90,7 +90,7 @@ class Report extends CI_Controller
         $data['url'] = $report_data['url'];
 
         $res = $this->Report_model->store($data);
-        redirect(base_url("wires/" . encode($wire_id) . "/reports"));
+        redirect("wires/" . encode($wire_id) . "/reports");
     }
 
     public function edit($wire_id, $report_id)
@@ -144,7 +144,7 @@ class Report extends CI_Controller
         $data['url'] = $report_data['url'];
 
         $res = $this->Report_model->update($report_id, $data);
-        redirect(base_url("wires/" . encode($wire_id) . "/reports"));
+        redirect("wires/" . encode($wire_id) . "/reports");
     }
 
     public function delete($wire_id, $report_id)
@@ -152,6 +152,6 @@ class Report extends CI_Controller
         $report_id = decode($report_id);
         $wire_id = decode($wire_id);
         $this->Report_model->delete($report_id);
-        redirect(base_url("wires/" . encode($wire_id) . "/reports"));
+        redirect("wires/" . encode($wire_id) . "/reports");
     }
 }

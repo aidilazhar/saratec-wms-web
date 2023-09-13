@@ -10,7 +10,7 @@ class Home extends CI_Controller
         $this->title = "Dashboard";
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Wire_model');

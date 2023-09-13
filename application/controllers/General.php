@@ -44,9 +44,9 @@ class General extends CI_Controller
         if ($matched == true) {
             $this->session->set_userdata('dashboard_logged', $company);
 
-            redirect(base_url($wire_name . '/dashboard'));
+            redirect($wire_name . '/dashboard');
         } else {
-            redirect(base_url($wire_name . '/login'));
+            redirect($wire_name . '/login');
         }
     }
 
@@ -54,7 +54,7 @@ class General extends CI_Controller
     {
         if (is_authed() == false) {
             go_to_auth(base_url($wire_name . "/login"));
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $wire = $this->Wire_model->dashboard($wire_name);
@@ -217,7 +217,7 @@ class General extends CI_Controller
     {
         if (is_authed() == false) {
             go_to_auth(base_url($wire_name . "/login"));
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
         $wire = $this->Wire_model->dashboard($wire_name);
         $wire_id = $wire['id'];
@@ -249,7 +249,7 @@ class General extends CI_Controller
     {
         if (is_authed() == false) {
             go_to_auth(base_url($wire_name . "/login"));
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $wire = $this->Wire_model->dashboard($wire_name);
@@ -276,7 +276,7 @@ class General extends CI_Controller
 
         if (is_authed() == false) {
             go_to_auth(base_url($wire_name . "/login"));
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $wire = $this->Wire_model->dashboard($wire_name);

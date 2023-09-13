@@ -11,7 +11,7 @@ class Wire extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -148,7 +148,7 @@ class Wire extends CI_Controller
 
         $results = $this->Wire_model->update($wire_id, $data);
 
-        redirect(base_url("wires"));
+        redirect("wires");
     }
 
     public function edit($wire_id)
@@ -243,7 +243,7 @@ class Wire extends CI_Controller
 
         $results = $this->Wire_model->update($wire_id, $data);
 
-        redirect(base_url("wires"));
+        redirect("wires");
     }
 
     public function show($wire_id)
@@ -269,7 +269,7 @@ class Wire extends CI_Controller
     {
         $wire_id = decode($wire_id);
         $this->Wire_model->delete($wire_id);
-        redirect(base_url("wires"));
+        redirect("wires");
     }
 
     public function dashboard($wire_id, $from = 'wire')

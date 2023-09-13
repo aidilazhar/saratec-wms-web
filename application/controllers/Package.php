@@ -9,7 +9,7 @@ class Package extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -83,7 +83,7 @@ class Package extends CI_Controller
             $this->Shift_model->store($night);
         }
 
-        redirect(base_url("packages"));
+        redirect("packages");
     }
 
     public function edit($package_id)
@@ -156,7 +156,7 @@ class Package extends CI_Controller
             $this->Shift_model->store($night);
         }
 
-        redirect(base_url("packages"));
+        redirect("packages");
     }
 
     public function show($package_id)
@@ -178,6 +178,6 @@ class Package extends CI_Controller
     {
         $package_id = decode($package_id);
         $this->Package_model->delete($package_id);
-        redirect(base_url("packages"));
+        redirect("packages");
     }
 }

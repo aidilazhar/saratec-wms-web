@@ -9,7 +9,7 @@ class Trial extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Wire_model');
@@ -202,7 +202,7 @@ class Trial extends CI_Controller
 
         delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
-        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
+        redirect("wires/" . encode($wire_id) . "/trials");
     }
 
     public function store_old($wire_id)
@@ -247,7 +247,7 @@ class Trial extends CI_Controller
 
         $res = $this->Trial_model->store($data);
 
-        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
+        redirect("wires/" . encode($wire_id) . "/trials");
     }
 
     public function edit($wire_id, $trial_id)
@@ -345,7 +345,7 @@ class Trial extends CI_Controller
         $res = $this->Trial_model->update($trial_id, $data);
 
 
-        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
+        redirect("wires/" . encode($wire_id) . "/trials");
     }
 
     public function show($wire_id, $trial_id)
@@ -377,7 +377,7 @@ class Trial extends CI_Controller
         $trial_id = decode($trial_id);
         $wire_id = decode($wire_id);
         $this->Trial_model->delete($trial_id);
-        redirect(base_url("wires/" . encode($wire_id) . "/trials"));
+        redirect("wires/" . encode($wire_id) . "/trials");
     }
 
     public function ajax($wire_id)

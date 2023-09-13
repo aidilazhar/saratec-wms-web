@@ -9,7 +9,7 @@ class Field extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -47,7 +47,7 @@ class Field extends CI_Controller
         $data = $this->input->post();
         $results = $this->Field_model->store($data);
 
-        redirect(base_url("fields"));
+        redirect('fields');
     }
 
     public function edit($field_id)
@@ -71,7 +71,7 @@ class Field extends CI_Controller
         $data = $this->input->post();
         $results = $this->Field_model->update($field_id, $data);
 
-        redirect(base_url("fields"));
+        redirect('fields');
     }
 
     public function show($field_id)
@@ -93,6 +93,6 @@ class Field extends CI_Controller
     {
         $field_id = decode($field_id);
         $this->Field_model->delete($field_id);
-        redirect(base_url("fields"));
+        redirect('fields');
     }
 }

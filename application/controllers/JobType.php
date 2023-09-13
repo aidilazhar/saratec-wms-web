@@ -9,7 +9,7 @@ class JobType extends CI_Controller
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
-            redirect(base_url(LOGIN_URL));
+            redirect(LOGIN_URL);
         }
 
         $this->load->model('Authentication_model');
@@ -47,7 +47,7 @@ class JobType extends CI_Controller
         $data = $this->input->post();
         $results = $this->JobType_model->store($data);
 
-        redirect(base_url("job-types"));
+        redirect('job-types');
     }
 
     public function edit($job_type_id)
@@ -71,7 +71,7 @@ class JobType extends CI_Controller
         $data = $this->input->post();
         $results = $this->JobType_model->update($job_type_id, $data);
 
-        redirect(base_url("job-types"));
+        redirect('job-types');
     }
 
     public function show($job_type_id)
@@ -93,6 +93,6 @@ class JobType extends CI_Controller
     {
         $job_type_id = decode($job_type_id);
         $this->JobType_model->delete($job_type_id);
-        redirect(base_url("job-types"));
+        redirect('job-types');
     }
 }
