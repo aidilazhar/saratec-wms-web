@@ -1,3 +1,12 @@
+<style>
+    @media only screen and (max-width: 768px) {
+        .small-section>.col-md-6 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <?php
@@ -65,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 row">
+        <div class="col-md-5 row mx-auto small-section">
             <div class="col-md-6">
                 <div class="card small-widget">
                     <div class="card-body primary">

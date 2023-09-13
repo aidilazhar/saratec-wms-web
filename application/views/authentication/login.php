@@ -8,30 +8,30 @@
     <meta name="description" content=" A WMS helps businesses manage their warehouse operations with greater efficiency and accuracy. Keep track of data, and save time with real-time visibility. Discover how a WMS can benefit your business.">
     <meta name="keywords" content="wms, saratec, system">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="<?= base_url('assets/images/favicon.png'); ?>" type="image/x-icon">
-    <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png'); ?>" type="image/x-icon">
+    <link rel="icon" href="<?= asset_url('images/favicon.png'); ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?= asset_url('images/favicon.png'); ?>" type="image/x-icon">
     <title>SARATEC | LOGIN</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/font-awesome.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/font-awesome.css'); ?>">
     <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/vendors/icofont.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/vendors/icofont.css'); ?>">
     <!-- Themify icon-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/vendors/themify.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/vendors/themify.css'); ?>">
     <!-- Flag icon-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/vendors/flag-icon.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/vendors/flag-icon.css'); ?>">
     <!-- Feather icon-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/vendors/feather-icon.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/vendors/feather-icon.css'); ?>">
     <!-- Plugins css start-->
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/vendors/bootstrap.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/vendors/bootstrap.css'); ?>">
     <!-- App css-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/style.css'); ?>">
-    <link id="color" rel="stylesheet" href="<?= base_url('assets/css/color-1.css'); ?>" media="screen">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/style.css'); ?>">
+    <link id="color" rel="stylesheet" href="<?= asset_url('css/color-1.css'); ?>" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/responsive.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('css/responsive.css'); ?>">
 </head>
 
 <body>
@@ -42,8 +42,8 @@
                 <div class="login-card login-dark" style="background-size: contain;">
                     <div>
                         <div>
-                            <a class="logo" href="index.html"><img class="img-fluid for-light" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage">
-                                <img class="img-fluid for-dark" src="<?= base_url('assets/images/logo/logo.png') ?>" alt="looginpage">
+                            <a class="logo" href="index.html"><img class="img-fluid for-light" src="<?= asset_url('images/logo/logo.png') ?>" alt="looginpage">
+                                <img class="img-fluid for-dark" src="<?= asset_url('images/logo/logo.png') ?>" alt="looginpage">
                             </a>
                         </div>
 
@@ -87,17 +87,17 @@
         <!-- latest jquery-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- Bootstrap js-->
-        <script src="<?= base_url('assets/js/bootstrap/bootstrap.bundle.min.js') ?>"></script>
+        <script src="<?= asset_url('js/bootstrap/bootstrap.bundle.min.js') ?>"></script>
         <!-- feather icon js-->
-        <script src="<?= base_url('assets/js/icons/feather-icon/feather.min.js') ?>"></script>
-        <script src="<?= base_url('assets/js/icons/feather-icon/feather-icon.js') ?>"></script>
+        <script src="<?= asset_url('js/icons/feather-icon/feather.min.js') ?>"></script>
+        <script src="<?= asset_url('js/icons/feather-icon/feather-icon.js') ?>"></script>
         <!-- scrollbar js-->
         <!-- Sidebar jquery-->
-        <script src="<?= base_url('assets/js/config.js') ?>"></script>
+        <script src="<?= asset_url('js/config.js') ?>"></script>
         <!-- Plugins JS start-->
         <!-- Plugins JS Ends-->
         <!-- Theme js-->
-        <script src="<?= base_url('assets/js/script.js') ?>"></script>
+        <script src="<?= asset_url('js/script.js') ?>"></script>
         <!-- Plugin used-->
     </div>
 </body>

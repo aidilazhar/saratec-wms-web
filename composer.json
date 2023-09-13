@@ -13,7 +13,8 @@
   "require": {
     "php": ">=5.3.7",
     "vinkla/hashids": "^10.0",
-    "phpoffice/phpspreadsheet": "1.25.0"
+    "phpoffice/phpspreadsheet": "1.25.0",
+    "seunmatt/codeigniter-log-viewer": "*"
   },
   "suggest": {
     "paragonie/random_compat": "Provides better randomness in PHP 5.x"
