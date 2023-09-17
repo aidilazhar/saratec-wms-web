@@ -8,7 +8,7 @@
                     <?php
                     if (permission('Add Lab Tests')) {
                     ?>
-                        <a href="<?= base_url('wires/' . encode($wire['id']) . '/lab-tests/create') ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Add Lab Test</button></a>
+                        <a href="<?= base_url('wires/' . encode($wire['id']) . '/lab-tests/create') ?>"><button class="btn btn-primary pull-right" type="button" data-bs-toggle="tooltip" title="" data-bs-original-title="btn btn-primary">Add Task Planning</button></a>
                     <?php
                     }
                     ?>
@@ -46,7 +46,7 @@
                                                 }
                                                 if (permission('Delete Lab Tests')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('wires/' . encode($lab_test['wire_id']) . '/lab-tests/delete/' . encode($lab_test['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('wires/' . encode($lab_test['wire_id']) . '/lab-tests/delete/' . encode($lab_test['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

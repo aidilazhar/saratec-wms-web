@@ -69,7 +69,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Password</label>
                                     <div class="form-input position-relative">
-                                        <input name="password" class="form-control" type="password" name="login[password]" required="" placeholder="*********">
+                                        <input name="password" class="form-control" type="password" required="" placeholder="*********">
                                         <div class="show-hide"><span class="show"> </span></div>
                                     </div>
                                 </div>

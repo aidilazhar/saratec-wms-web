@@ -45,7 +45,7 @@
                                                 }
                                                 if (permission('Delete Drums')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('drums/delete/' . encode($drum['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('drums/delete/' . encode($drum['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

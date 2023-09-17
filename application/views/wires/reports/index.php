@@ -53,7 +53,7 @@
                                                 }
                                                 if (permission('Delete Documents')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('wires/' . encode($report['wire_id']) . '/reports/delete/' . encode($report['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('wires/' . encode($report['wire_id']) . '/reports/delete/' . encode($report['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

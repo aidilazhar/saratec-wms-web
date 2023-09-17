@@ -45,7 +45,7 @@
                                                 }
                                                 if (permission('Delete Broadcasts')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('broadcasts/delete/' . encode($broadcast['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('broadcasts/delete/' . encode($broadcast['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

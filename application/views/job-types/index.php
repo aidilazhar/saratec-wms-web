@@ -45,7 +45,7 @@
                                                 }
                                                 if (permission('Delete Job Types')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('job-types/delete/' . encode($job_type['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('job-types/delete/' . encode($job_type['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

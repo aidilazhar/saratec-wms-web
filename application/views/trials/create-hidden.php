@@ -54,7 +54,7 @@
                 </select>
             </td>
             <td>
-
+                <button class="btn btn-danger delete-entry">-</button>
             </td>
         </tr>
     </tbody>

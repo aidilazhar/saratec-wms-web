@@ -189,6 +189,10 @@ class Wire extends CI_Controller
             $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('material_certifications')) {
+                $material_certifications_data = [
+                    'name' => null,
+                    'url' => null,
+                ];
             } else {
                 $upload_data = array('upload_data' => $this->upload->data());
                 $material_certifications_data = [
@@ -219,6 +223,10 @@ class Wire extends CI_Controller
             $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('tech_sheet')) {
+                $tech_sheet_data = [
+                    'name' => null,
+                    'url' => null,
+                ];
             } else {
                 $upload_data = array('upload_data' => $this->upload->data());
                 $tech_sheet_data = [
@@ -241,7 +249,7 @@ class Wire extends CI_Controller
             $data['tech_sheet'] = $tech_sheet_data['url'];
         }
 
-        $results = $this->Wire_model->update($wire_id, $data);
+        $this->Wire_model->update($wire_id, $data);
 
         redirect("wires");
     }

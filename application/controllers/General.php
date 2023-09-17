@@ -371,7 +371,7 @@ class General extends CI_Controller
         $direction = $this->input->post('order')[0]['dir'];
         $search = $this->input->post('search')['value'];
         if ($this->input->post('order')[0]['column'] != 0) {
-            $order = $valuesArray[$this->input->post('order')[0]['column']];
+            $order = $valuesArray[$this->input->post('order')[0]['column'] - 1];
             $direction = $this->input->post('order')[0]['dir'];
         } else {
             $order = 'trials.id';
@@ -384,7 +384,7 @@ class General extends CI_Controller
 
         foreach ($results as $key => $result) {
             $results[$key]['hash_id'] = encode($result['id']);
-            $results[$key]['issued_at'] = date('d M Y', strtotime($result['issued_at']));
+            //$results[$key]['issued_at'] = date('d M Y', strtotime($result['issued_at']));
             $results[$key]['actions'] = '<a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/' . encode($result['id'])) . '" class="view mx-2">View</a><a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/edit/' . encode($result['id'])) . '" class="edit mx-2">Edit</a>';
         }
 

@@ -69,7 +69,7 @@
                                                 }
                                                 if (permission('Delete Wires')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('wires/delete/' . encode($wire['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('wires/delete/' . encode($wire['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

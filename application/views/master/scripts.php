@@ -76,14 +76,13 @@ if (isset($page['scripts'])) {
 
         $('.card :input, .card select').each(function() {
             var text = $(this).prev().text().replace('*', '');
-            console.log(text)
             var element = $(this);
             var required = element.attr('required');
             var type = element.attr('type');
-
+            console.log(text, 'value: ' + element.val())
             if (type == 'file') return;
 
-            if (element.val() == "" && element.prop('required')) {
+            if ((element.val() == "" || element.val() == null) && element.prop('required')) {
                 sweetAlert('error', 'Error!', text + ' cannot be empty', null);
                 no_error = false;
                 return false;
@@ -96,6 +95,7 @@ if (isset($page['scripts'])) {
                 }
             }
         });
+        return false;
         return no_error;
     }
 
@@ -182,3 +182,24 @@ if (isset($base64_eddy_current)) {
 <?php
 }
 ?>
+
+<script>
+    $('.icofont-trash').click(function() {
+        let url = $(this).parent().data('href');
+
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete this record?",
+            icon: "warning",
+            buttons: [
+                'Cancel',
+                'Yes'
+            ],
+            dangerMode: true,
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                window.location = url
+            }
+        })
+    });
+</script>

@@ -411,10 +411,6 @@ class Trial extends CI_Controller
             'job_status' => 'trials.job_status',
         ];
 
-        // $results = $this->Trial_model->list_ajax([$wire_id], null, $columns, null, 1000, 0, 'trials.id', 'ASC');
-        // echo '<script>console.table(' . json_encode($results) . ')</script>';
-        // return;
-
         $valuesArray = array_values($columns);
 
         $limit = $this->input->post('length');
@@ -422,10 +418,10 @@ class Trial extends CI_Controller
         $direction = $this->input->post('order')[0]['dir'];
         $search = $this->input->post('search')['value'];
         if ($this->input->post('order')[0]['column'] != 0) {
-            $order = $valuesArray[$this->input->post('order')[0]['column']];
+            $order = $valuesArray[$this->input->post('order')[0]['column'] - 1];
             $direction = $this->input->post('order')[0]['dir'];
         } else {
-            $order = 'trials.id';
+            $order = 'trials.issued_at';
             $direction = 'desc';
         }
 

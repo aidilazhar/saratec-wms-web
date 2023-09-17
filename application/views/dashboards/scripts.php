@@ -399,6 +399,7 @@
             {
                 "targets": 1,
                 "data": "issued_at",
+                "type": "datetime",
                 "orderable": true,
             },
             {

@@ -26,6 +26,7 @@ class Shift_model extends CI_Model
         $this->db->select('*');
         $this->db->from('shifts');
         $this->db->where('package_id', $package_id);
+        $this->db->where('is_deleted', 0);
         if (!is_null($shift)) {
             $this->db->where('shift', $shift);
         }

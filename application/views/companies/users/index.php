@@ -49,7 +49,7 @@
                                                 }
                                                 if (permission('Delete Company\'s Users')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('companies/' . encode($company_id) . '/users/delete/' . encode($user['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('companies/' . encode($company_id) . '/users/delete/' . encode($user['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

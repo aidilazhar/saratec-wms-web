@@ -45,7 +45,7 @@
                                                 }
                                                 if (permission('Delete Wells')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('wells/delete/' . encode($well['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('wells/delete/' . encode($well['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

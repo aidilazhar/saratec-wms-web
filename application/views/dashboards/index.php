@@ -257,7 +257,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Wire Laser OD and Lab Test Status</h5>
+                    <h5>Task Planning</h5>
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive">
@@ -302,7 +302,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Create At</th>
+                                    <th>Job Date</th>
                                     <th>Operator</th>
                                     <th>Assistant 1</th>
                                     <th>Assistant 2</th>

@@ -14,10 +14,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Date</th>
                                     <th>Description</th>
                                     <th>Category</th>
-                                    <th>Issued At</th>
+                                    <th>Issued By</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -27,11 +27,11 @@
                                 ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
-                                        <td><?= $report['name'] ?></td>
+                                        <td><?= date('d M Y', strtotime($report['issued_at'])) ?></td>
                                         <td><?= $report['description'] ?></td>
                                         <td><?= $report['category'] ?></td>
                                         <td>
-                                            <?= date('d M Y, h:i A', strtotime($report['issued_at'])) ?>
+                                            <?= $report['issued_by'] ?>
                                         </td>
                                         <td>
                                             <ul class="action d-flex justify-content-around w-50 text-center mx-auto">

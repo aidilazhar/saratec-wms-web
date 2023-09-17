@@ -32,9 +32,10 @@
                 clients = JSON.parse(data.data)
 
                 let options = '';
-                $('.clients-input').html('');
+                $('.clients-input').html('<option value="" selected disabled>--PLEASE SELECT--</option>');
                 for (let i in clients) {
                     let row = clients[i];
+
                     $('.clients-input').append('<option value="' + row.id + '">' + row.name + '</option>');
                 }
             },

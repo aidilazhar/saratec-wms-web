@@ -72,7 +72,7 @@
                                                 if (permission('Delete Companies')) {
                                                 ?>
                                                     <li class="delete">
-                                                        <a href="<?= base_url('companies/delete/' . encode($company['id'])) ?>">
+                                                        <a href="#" data-href="<?= base_url('companies/delete/' . encode($company['id'])) ?>">
                                                             <i class="icofont icofont-trash"></i>
                                                         </a>
                                                     </li>

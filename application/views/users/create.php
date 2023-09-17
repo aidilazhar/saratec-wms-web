@@ -39,7 +39,10 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Password</label>
-                                    <input required name="password" class="form-control" type="password" placeholder="Password">
+                                    <div class="form-input position-relative">
+                                        <input name="password" class="form-control" type="password" name="password" required="" placeholder="*********">
+                                        <div class="show-hide" style="top: 17px;"><span class="show"> </span></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer text-end">
@@ -53,3 +56,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    /*----------------------------------------
+     passward show hide
+     ----------------------------------------*/
+    $(".show-hide").show();
+    $(".show-hide span").addClass("show");
+
+    $(".show-hide span").click(function() {
+        if ($(this).hasClass("show")) {
+            $('input[name="password"]').attr("type", "text");
+            $(this).removeClass("show");
+        } else {
+            $('input[name="password"]').attr("type", "password");
+            $(this).addClass("show");
+        }
+    });
+    $('form button[type="submit"]').on("click", function() {
+        $(".show-hide span").addClass("show");
+        $(".show-hide")
+            .parent()
+            .find('input[name="password"]')
+            .attr("type", "password");
+    });
+</script>

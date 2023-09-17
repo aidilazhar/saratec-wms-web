@@ -23,6 +23,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Size</label>
                                     <select required class="form-control" name="size">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <option value="0.092">0.092</option>
                                         <option value="0.108">0.108</option>
                                         <option value="0.125">0.125</option>
@@ -37,6 +38,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Drum No</label>
                                     <select required name="drum_id" class="form-select digits">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($drums as $drum) {
                                         ?>
@@ -57,6 +59,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Grade</label>
                                     <select required class="form-control" name="grade">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <option value="Carbon Steel">Carbon Steel</option>
                                         <option value="Duplex SS">Duplex SS</option>
                                         <option value="Super Duplex SS">Super Duplex SS</option>
@@ -70,6 +73,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Company</label>
                                     <select required name="company_id" class="form-select digits company-input">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($companies as $company) {
                                         ?>
@@ -82,6 +86,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Client</label>
                                     <select required name="client_id" class="form-select clients-input">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($clients as $client) {
                                         ?>
@@ -94,6 +99,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Package</label>
                                     <select required name="package_id" class="form-select digits">
+                                        <option value="" disabled selected>--PLEASE SELECT--</option>
                                         <?php
                                         foreach ($packages as $package) {
                                         ?>

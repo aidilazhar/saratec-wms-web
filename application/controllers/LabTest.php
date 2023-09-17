@@ -5,7 +5,7 @@ class LabTest extends CI_Controller
 {
     function __construct()
     {
-        $this->title = "Lab Test";
+        $this->title = "Task Planning";
         parent::__construct();
         if (is_logged_in() == false) {
             logout();
@@ -32,7 +32,7 @@ class LabTest extends CI_Controller
         $wire = $this->Wire_model->details($wire_id);
         $page = [
             'title' => $this->title . " (" . $wire['name'] . ")",
-            'subtitle' => "Lab Test Listing",
+            'subtitle' => "Task Planning Listing",
             'view' => 'wires/lab-tests/index',
             'back' => base_url("wires"),
         ];
@@ -48,7 +48,7 @@ class LabTest extends CI_Controller
         $wire = $this->Wire_model->details($wire_id);
         $page = [
             'title' => $this->title . " (" . $wire['name'] . ")",
-            'subtitle' => "Create Lab Test",
+            'subtitle' => "Create Task Planning",
             'view' => 'wires/lab-tests/create',
             'back' => base_url("wires/" . encode($wire_id) . "/lab-tests"),
         ];
@@ -71,7 +71,7 @@ class LabTest extends CI_Controller
         $wire_id = decode($wire_id);
         $page = [
             'title' => $this->title,
-            'subtitle' => "Edit Lab Test",
+            'subtitle' => "Edit Task Planning",
             'view' => 'wires/lab-tests/edit',
             'back' => base_url("wires/" . encode($lab_test_id) . "/lab-tests"),
         ];

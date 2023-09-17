@@ -47,7 +47,7 @@
                                                 }
                                                 if (permission('Delete Clients')) {
                                                 ?>
-                                                    <li class="delete"><a href="<?= base_url('companies/' . encode($company_id) . '/clients/delete/' . encode($client['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
+                                                    <li class="delete"><a href="#" data-href="<?= base_url('companies/' . encode($company_id) . '/clients/delete/' . encode($client['id'])) ?>"><i class="icofont icofont-trash"></i></a></li>
                                                 <?php
                                                 }
                                                 ?>

@@ -663,6 +663,13 @@
                 }
             }
         }],
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + ' No of runs'; // Add ' units' to the value
+                },
+            },
+        },
         colors: colorPallete
     }
 
