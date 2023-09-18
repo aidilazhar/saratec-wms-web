@@ -121,7 +121,7 @@ if (isset($page['scripts'])) {
 
         $.ajax({
             type: 'post',
-            url: window.location.origin + '/<?= LOCALHOST_PROJECT_NAME ?>' + '/api/get-clients',
+            url: window.location.origin + '/api/get-clients',
             cache: false,
             data: data,
             dataType: 'json',
