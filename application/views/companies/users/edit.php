@@ -22,6 +22,21 @@
                                     <input required name="contact" value="<?= $user['contact'] ?>" class="form-control" type="text" placeholder="Enter email">
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label class="col-form-label pt-0">Role</label>
+                                    <select required name="role_id" class="form-select digits">
+                                        <?php
+                                        foreach ($roles as $role) {
+                                            if (in_array($role['id'], [1, 2, 4])) continue
+                                        ?>
+                                            <option <?php if ($role['id'] == $user['role_id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Email address</label>
                                     <input required name="email" value="<?= $user['email'] ?>" class="form-control" type="email" placeholder="Enter email">
                                 </div>

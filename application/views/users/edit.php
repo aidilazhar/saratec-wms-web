@@ -25,24 +25,12 @@
                                     <label class="col-form-label pt-0">Role</label>
                                     <select required name="role_id" class="form-select digits">
                                         <?php
-                                        if ($user['role_id'] == 1) {
+                                        foreach ($roles as $role) {
+                                            if (in_array($role['id'], [3, 4, 5, 6])) continue
                                         ?>
-                                            <option selected value="1">Superadmin</option>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <option value="1">Superadmin</option>
-                                        <?php
-                                        }
-                                        ?>
-                                        <?php
-                                        if ($user['role_id'] == 1) {
-                                        ?>
-                                            <option selected value="2">Admin</option>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <option value="2">Admin</option>
+                                            <option <?php if ($role['id'] == $user['role_id']) {
+                                                        echo 'selected';
+                                                    } ?> value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
                                         <?php
                                         }
                                         ?>

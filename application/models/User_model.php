@@ -28,6 +28,8 @@ class User_model extends CI_Model
         $this->db->where('is_deleted', 0);
         if (!empty($company_id)) {
             $this->db->where_in('company_id', $company_id);
+        } else {
+            $this->db->where('company_id', null);
         }
         if (!empty($role_id)) {
             $this->db->where_in('role_id', $role_id);
