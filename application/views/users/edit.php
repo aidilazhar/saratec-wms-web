@@ -25,17 +25,24 @@
                                     <label class="col-form-label pt-0">Role</label>
                                     <select required name="role_id" class="form-select digits">
                                         <?php
-                                        foreach ($roles as $role) {
-                                            if ($role['id'] == $user['role_id']) {
+                                        if ($user['role_id'] == 1) {
                                         ?>
-                                                <option selected value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
-                                            <?php
-                                            }
-                                            ?>
+                                            <option selected value="1">Superadmin</option>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <option value="1">Superadmin</option>
+                                        <?php
+                                        }
+                                        ?>
+                                        <?php
+                                        if ($user['role_id'] == 1) {
+                                        ?>
+                                            <option selected value="2">Admin</option>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <option value="2">Admin</option>
                                         <?php
                                         }
                                         ?>
