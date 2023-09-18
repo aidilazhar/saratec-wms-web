@@ -24,13 +24,8 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Role</label>
                                     <select required name="role_id" class="form-select digits">
-                                        <?php
-                                        foreach ($roles as $role) {
-                                        ?>
-                                            <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                        <option value="1">Superadmin</option>
+                                        <option value="2">Admin</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
