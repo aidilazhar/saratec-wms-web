@@ -50,7 +50,6 @@
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <input type="hidden" value="<?= ROLE_COMPANY ?>" name="role_id" />
                                 <a href="<?= base_url('companies/' . encode($company_id) . '/users') ?>"><button type="button" class="btn btn-secondary">Cancel</button></a>
                                 <button class="btn btn-primary">Submit</button>
                             </div>
