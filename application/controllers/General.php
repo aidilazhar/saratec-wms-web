@@ -66,7 +66,7 @@ class General extends CI_Controller
             'scripts' => 'dashboards/scripts'
         ];
 
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $operators = $this->User_model->list([$wire['company_id']], [ROLE_OPERATOR]);
         $trials = $this->Trial_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 

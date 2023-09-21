@@ -291,8 +291,6 @@ class Wire extends CI_Controller
         $wire_id = decode($wire_id);
         $wire = $this->Wire_model->details($wire_id);
 
-        // print_r($wire);
-        // return;
         $page = [
             'title' => $this->title,
             'subtitle' => "Wire Details",
@@ -301,7 +299,7 @@ class Wire extends CI_Controller
             'scripts' => 'wires/dashboards/scripts'
         ];
 
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+        $operators = $this->User_model->list([$wire['company_id']], [ROLE_OPERATOR]);
         $trials = $this->Trial_model->list([$wire_id]);
         $drums = $this->Drum_model->list();
 
