@@ -16,7 +16,7 @@
                             <div class="card-body row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Date</label>
-                                    <input name="issued_at" class="form-control digits" type="datetime-local" value="<?= date('Y-m-d h:i:s') ?>">
+                                    <input name="issued_at" class="form-control digits" type="datetime-local" value="<?= date('Y-m-d h:i') ?>">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Shift</label>
