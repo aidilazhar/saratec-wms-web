@@ -106,8 +106,13 @@ class Package extends CI_Controller
         $package = $this->Package_model->details($package_id);
         $client = $this->Client_model->details($package['client_id']);
 
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
-        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
+        if (!is_null($client)) {
+            $operators = $this->User_model->list([$client['company_id']], [ROLE_OPERATOR]);
+            $assistants = $this->User_model->list([$client['company_id']], [ROLE_OPERATOR_ASSISTANT]);
+        } else {
+            $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+            $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
+        }
 
         $shift_day = $this->Shift_model->details($package_id, 'day');
         $shift_night = $this->Shift_model->details($package_id, 'night');

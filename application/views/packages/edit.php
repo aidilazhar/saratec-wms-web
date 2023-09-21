@@ -83,7 +83,7 @@
                                                     <div class="flex-grow-1 row">
                                                         <div class="mb-3 col-md-12">
                                                             <label class="col-form-label pt-0">Operator</label>
-                                                            <select required name="day[operator_id]" class="form-select clients-input">
+                                                            <select required name="day[operator_id]" class="form-select operators-input">
                                                                 <?php
                                                                 foreach ($operators as $operator) {
                                                                 ?>
@@ -97,7 +97,7 @@
                                                         </div>
                                                         <div class="mb-3 col-md-12">
                                                             <label class="col-form-label pt-0">Assistant Operator 1</label>
-                                                            <select required name="day[assistant1_id]" class="form-select clients-input">
+                                                            <select required name="day[assistant1_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
@@ -111,7 +111,7 @@
                                                         </div>
                                                         <div class="mb-3 col-md-12">
                                                             <label class="col-form-label pt-0">Assistant Operator 2</label>
-                                                            <select required name="day[assistant2_id]" class="form-select clients-input">
+                                                            <select required name="day[assistant2_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
@@ -125,7 +125,7 @@
                                                         </div>
                                                         <div class="mb-3 col-md-12">
                                                             <label class="col-form-label pt-0">Assistant Operator 3</label>
-                                                            <select required name="day[assistant3_id]" class="form-select clients-input">
+                                                            <select required name="day[assistant3_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
@@ -162,7 +162,7 @@
                                                             <label class="col-form-label pt-0">Operator</label>
                                                             <select <?php if (!$has_shift_night) {
                                                                         echo 'disabled';
-                                                                    } ?> required name="night[operator_id]" class="form-select clients-input">
+                                                                    } ?> required name="night[operator_id]" class="form-select operators-input">
                                                                 <?php
                                                                 foreach ($operators as $operator) {
                                                                 ?>
@@ -178,7 +178,7 @@
                                                             <label class="col-form-label pt-0">Assistant Operator 1</label>
                                                             <select <?php if (!$has_shift_night) {
                                                                         echo 'disabled';
-                                                                    } ?> required name="night[assistant1_id]" class="form-select clients-input">
+                                                                    } ?> required name="night[assistant1_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
@@ -194,7 +194,7 @@
                                                             <label class="col-form-label pt-0">Assistant Operator 2</label>
                                                             <select <?php if (!$has_shift_night) {
                                                                         echo 'disabled';
-                                                                    } ?> required name="night[assistant2_id]" class="form-select clients-input">
+                                                                    } ?> required name="night[assistant2_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
@@ -210,7 +210,7 @@
                                                             <label class="col-form-label pt-0">Assistant Operator 3</label>
                                                             <select <?php if (!$has_shift_night) {
                                                                         echo 'disabled';
-                                                                    } ?> required name="night[assistant3_id]" class="form-select clients-input">
+                                                                    } ?> required name="night[assistant3_id]" class="form-select assistants-input">
                                                                 <?php
                                                                 foreach ($assistants as $assistant) {
                                                                 ?>
