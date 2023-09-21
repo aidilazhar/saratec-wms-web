@@ -95,7 +95,7 @@ class Package extends CI_Controller
             'title' => $this->title,
             'subtitle' => "Edit Package",
             'view' => 'packages/edit',
-            'back' => base_url("users"),
+            'back' => base_url("packages"),
             'scripts' => 'packages/scripts'
         ];
 
@@ -129,7 +129,7 @@ class Package extends CI_Controller
         }
 
         if (!empty($companies)) {
-            $clients = $this->Client_model->list($companies[0]['id']);
+            $clients = $this->Client_model->list($client['company_id']);
         } else {
             $clients = $this->Client_model->list();
         }

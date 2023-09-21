@@ -64,14 +64,14 @@ class Trial extends CI_Controller
             $last_supervisor = "";
         }
 
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
-        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
         $company = $this->Company_model->details($wire['company_id']);
         $clients = $this->Client_model->list($company['id']);
         $packages = $this->Package_model->list();
         $wells = $this->Well_model->list();
         $job_types = $this->JobType_model->list();
         $drums = $this->Drum_model->list();
+        $operators = $this->User_model->list([$company['id']], [ROLE_OPERATOR]);
+        $assistants = $this->User_model->list([$company['id']], [ROLE_OPERATOR_ASSISTANT]);
 
         $package = $this->Package_model->details($wire['package_id']);
         $shift = $this->Package_model->details($wire['package_id']);
