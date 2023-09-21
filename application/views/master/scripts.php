@@ -95,7 +95,6 @@ if (isset($page['scripts'])) {
                 }
             }
         });
-        return false;
         return no_error;
     }
 

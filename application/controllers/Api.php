@@ -758,4 +758,19 @@ class Api extends CI_Controller
             ];
         }
     }
+
+    public function getOperators()
+    {
+        try {
+            $company_id = $this->input->post('company_id');
+            $operators = $this->User_model->list([$company_id], [ROLE_OPERATOR]);
+            $assistants = $this->User_model->list([$company_id], [ROLE_OPERATOR_ASSISTANT]);
+
+            echo $this->Utility_model->apiReturn(1, 'Data fetch successfully', json_encode(compact('operators', 'assistants')));
+            return;
+        } catch (Exception $e) {
+            echo $this->Utility_model->apiReturn(0, $e->getMessage());
+            return;
+        }
+    }
 }

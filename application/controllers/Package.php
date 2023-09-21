@@ -48,13 +48,15 @@ class Package extends CI_Controller
         $drums = $this->Drum_model->list();
         $packages = $this->Package_model->list();
         $companies = $this->Company_model->list();
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
-        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
 
         if (!empty($companies)) {
             $clients = $this->Client_model->list($companies[0]['id']);
+            $operators = $this->User_model->list([$companies[0]['id']], [ROLE_OPERATOR]);
+            $assistants = $this->User_model->list([$companies[0]['id']], [ROLE_OPERATOR_ASSISTANT]);
         } else {
             $clients = $this->Client_model->list();
+            $operators = $this->User_model->list([], [ROLE_OPERATOR]);
+            $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
         }
 
         $this->load->view('master/index', compact('page', 'packages', 'drums', 'companies', 'clients', 'operators', 'assistants'));

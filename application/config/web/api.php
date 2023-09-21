@@ -4,6 +4,7 @@ $route['api/login'] = 'Api/login';
 $route['api/profile'] = 'Api/profile';
 
 $route['api/get-clients'] = 'Api/getClients';
+$route['api/get-operators'] = 'Api/getOperators';
 $route['api/store'] = 'Api/wireStore';
 $route['api/store-multiple'] = 'Api/wireStoreMultiple';
 $route['api/options'] = 'Api/options';

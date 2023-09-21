@@ -24,7 +24,7 @@
 
         $.ajax({
             type: 'post',
-            url: window.location.origin + '/api/get-clients',
+            url: '<?= base_url() ?>/api/get-clients',
             cache: false,
             data: data,
             dataType: 'json',
