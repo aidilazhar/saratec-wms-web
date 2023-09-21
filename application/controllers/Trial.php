@@ -202,7 +202,7 @@ class Trial extends CI_Controller
 
         delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
-        redirect("wires/" . encode($wire_id) . "/trials");
+        //redirect("wires/" . encode($wire_id) . "/trials");
     }
 
     public function store_old($wire_id)

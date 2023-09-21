@@ -213,6 +213,8 @@ if (!function_exists('delete_temporary_files()')) {
     {
         $files = directory_map($folder_path);
 
+        if ($files == false) return true;
+
         foreach ($files as $file) {
             if ($file === '.' || $file === '..') {
                 continue;
