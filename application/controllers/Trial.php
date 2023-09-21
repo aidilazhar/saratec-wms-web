@@ -263,8 +263,8 @@ class Trial extends CI_Controller
             'scripts' => 'trials/scripts'
         ];
 
-        $operators = $this->User_model->list([], [ROLE_OPERATOR]);
-        $assistants = $this->User_model->list([], [ROLE_OPERATOR_ASSISTANT]);
+        $operators = $this->User_model->list([$wire['company_id']], [ROLE_OPERATOR]);
+        $assistants = $this->User_model->list([$wire['company_id']], [ROLE_OPERATOR_ASSISTANT]);
         $clients = $this->Client_model->list($wire['company_id']);
         $packages = $this->Package_model->list();
         $job_types = $this->JobType_model->list();
