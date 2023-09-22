@@ -210,16 +210,16 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input required name="jar_number[]" value="" class="form-control" type="number">
+                                                    <input required name="jar_number[]" value="" class="form-control" type="number" min="0">
                                                 </td>
                                                 <td>
-                                                    <input required name="max_pull[]" value="" class="form-control" type="number">
+                                                    <input required name="max_pull[]" value="" class="form-control" type="number" min="0">
                                                 </td>
                                                 <td>
-                                                    <input required name="max_depth[]" value="" class="form-control" type="number">
+                                                    <input required name="max_depth[]" value="" class="form-control" type="number" min="0">
                                                 </td>
                                                 <td>
-                                                    <input required name="duration[]" value="" class="form-control" type="number">
+                                                    <input required name="duration[]" value="" class="form-control" type="number" min="0">
                                                 </td>
                                                 <td class="sm-csv">
                                                     <div class="media-body switch-md">

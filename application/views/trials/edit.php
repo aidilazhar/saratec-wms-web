@@ -212,19 +212,19 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">No of Jar</label>
-                                    <input required name="jar_number" value="<?= $trial['jar_number'] ?>" class="form-control" type="text" placeholder="Enter No of Jar">
+                                    <input required name="jar_number" value="<?= $trial['jar_number'] ?>" class="form-control" type="number" placeholder="Enter No of Jar" min="0">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Max Pull (lbs)</label>
-                                    <input required name="max_pull" value="<?= $trial['max_pull'] ?>" class="form-control" type="text" placeholder="Enter Max Pull (lbs)">
+                                    <input required name="max_pull" value="<?= $trial['max_pull'] ?>" class="form-control" type="number" placeholder="Enter Max Pull (lbs)" min="0">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Max Depth (ft)</label>
-                                    <input required name="max_depth" value="<?= $trial['max_depth'] ?>" class="form-control" type="text" placeholder="Enter Pull Test">
+                                    <input required name="max_depth" value="<?= $trial['max_depth'] ?>" class="form-control" type="number" placeholder="Enter Pull Test" min="0">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Duration (mins)</label>
-                                    <input required name="duration" value="<?= $trial['duration'] ?>" class="form-control" type="number" placeholder="Enter Duration (mins)">
+                                    <input required name="duration" value="<?= $trial['duration'] ?>" class="form-control" type="number" placeholder="Enter Duration (mins)" min="0">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Smart Monitor Logged</label>
