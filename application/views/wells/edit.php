@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Schematic </label>
-                                    <input required name="schematic" class="form-control" type="file">
+                                    <input name="schematic" class="form-control" type="file">
                                     <?php
                                     if ($well['schematic']  != '-' && $well['schematic']  != '' && $well['schematic']  != null) {
                                     ?>
