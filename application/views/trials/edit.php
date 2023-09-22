@@ -16,9 +16,14 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Shift</label>
                                     <select required name="shift" class="form-select shift-options">
-                                        <option selected value="day">Day</option>
-                                        <option <?php if (!$has_shift_night) {
+                                        <option <?php if ($trial['shift'] == 'day') {
                                                     echo 'disabled';
+                                                } ?> selected value="day">Day</option>
+                                        <option <?php if (!$has_shift_night) {
+                                                    echo 'disabled ';
+                                                }
+                                                if ($trial['shift'] == 'night' && $has_shift_night) {
+                                                    echo 'selected';
                                                 } ?> value="night">Night</option>
                                     </select>
                                 </div>

@@ -99,7 +99,8 @@ class Trial extends CI_Controller
         $data = $this->input->post();
         $error = [];
 
-        $issued_at = $data['issued_at'];
+        $issued_at = date('Y-m-d H:i:s', strtotime($data['issued_at']));
+        $shift = $data['shift'];
         $operator_id = $data['operator_id'];
         $assistant1_id = $data['operator_id'];
         $assistant2_id = $data['assistant2_id'];
@@ -133,7 +134,7 @@ class Trial extends CI_Controller
         $i = 0;
 
         foreach ($data['job_type_id'] as $key => $job_type_id) {
-            $inputs = compact('issued_at', 'operator_id', 'supervisor_name', 'client_id', 'package_id', 'drum_id', 'wrap_test', 'pull_test', 'x_inch', 'y_inch', 'cut_off', 'well_id', 'assistant1_id', 'assistant2_id', 'assistant3_id');
+            $inputs = compact('issued_at', 'operator_id', 'supervisor_name', 'client_id', 'package_id', 'drum_id', 'wrap_test', 'pull_test', 'x_inch', 'y_inch', 'cut_off', 'well_id', 'assistant1_id', 'assistant2_id', 'assistant3_id', 'shift');
             $inputs['job_type_id'] = $job_type_id;
             $inputs['jar_number'] = $data['jar_number'][$key];
             $inputs['max_pull'] = $data['max_pull'][$key];
@@ -290,8 +291,8 @@ class Trial extends CI_Controller
             ];
         }
 
-        if ($trial['shift'] == 'day') {
-            $selected_shift = $shift_day;
+        if ($trial['shift'] == 'night' && $has_shift_night) {
+            $selected_shift = $shift_night;
         } else {
             $selected_shift = $shift_day;
         }
@@ -340,6 +341,7 @@ class Trial extends CI_Controller
         $data['wire_id'] = $wire_id;
         $data['operator_id'] = auth()->id;
         $data['issued_at'] = date('Y-m-d h:i:s', strtotime($data['issued_at']));
+
         delete_temporary_files('temp/wires/' . $wire_id . '/smart_monitors');
 
         $res = $this->Trial_model->update($trial_id, $data);
