@@ -14,7 +14,7 @@
                                     <div class="input-group">
                                         <input required value="<?= $well['names'][0] ?>" name="name1" class="form-control name-1" type="text" maxlength="6">
                                         <span class="input-group-text">-</span>
-                                        <input required value="<?= $well['names'][1] ?>" name="name2" class="form-control name-2" type="text">
+                                        <input required value="<?= $well['names'][1] ?? '' ?>" name="name2" class="form-control name-2" type="text">
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">

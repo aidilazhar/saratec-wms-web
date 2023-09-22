@@ -119,7 +119,7 @@ class Well extends CI_Controller
 
             $this->Utility_model->mkdir($path);
             $config['upload_path'] = 'temp/' . $path;
-            $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+            $config['allowed_types'] = '*';
             $config['file_name'] = $well_id;
             $config['max_size'] = 10000000;
             $config['overwrite'] = TRUE;
