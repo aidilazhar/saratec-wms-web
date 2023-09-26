@@ -14,6 +14,7 @@ class Smart_monitor_model extends CI_Model
         $this->db->select("*");
         $this->db->from('smart_monitors');
         $this->db->where('is_deleted', 0);
+        $this->db->where('wire_id', $wire_id);
         $this->db->order_by('id', 'DESC');
         $results = $this->db->get()->result_array();
 

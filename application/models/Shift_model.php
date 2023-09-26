@@ -23,7 +23,7 @@ class Shift_model extends CI_Model
 
     public function details($package_id, $shift = null)
     {
-        $this->db->select('*');
+        $this->db->select('id, shift, operator_id, assistant1_id, assistant2_id, assistant3_id');
         $this->db->from('shifts');
         $this->db->where('package_id', $package_id);
         $this->db->where('is_deleted', 0);

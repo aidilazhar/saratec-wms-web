@@ -28,7 +28,7 @@
                                         <div class="circle-container">
                                             <div class="progress-bar" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(<?= $color ?> <?= $wire['wire_balances_percent'] ?>%, pink 0);">
                                                 <label>
-                                                    <?= number_format($wire['initial_length'], 2) ?> ft
+                                                    <?= number_format($wire['wire_balances'], 2) ?> ft
                                                 </label>
                                                 <label>
                                                     <?= $wire['drums']['name'] ?>

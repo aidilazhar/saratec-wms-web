@@ -1,3 +1,9 @@
+<style>
+    .dt-buttons {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <!-- HTML (DOM) sourced data  Starts-->
@@ -19,7 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Create At</th>
+                                    <th>Date</th>
                                     <th>Operator</th>
                                     <th>Supervisor</th>
                                     <th>Client</th>

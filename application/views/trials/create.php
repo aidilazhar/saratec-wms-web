@@ -21,9 +21,13 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Shift</label>
                                     <select required name="shift" class="form-select shift-options">
-                                        <option selected value="day">Day</option>
+                                        <option <?php if (in_array(auth()->id, [$shift_day['operator_id'], $shift_day['assistant1_id'], $shift_day['assistant2_id'], $shift_day['assistant3_id']])) {
+                                                    echo 'selected';
+                                                } ?> value="day">Day</option>
                                         <option <?php if (!$has_shift_night) {
                                                     echo 'disabled';
+                                                } elseif (in_array(auth()->id, [$shift_night['operator_id'], $shift_night['assistant1_id'], $shift_night['assistant2_id'], $shift_night['assistant3_id']]) && $has_shift_night) {
+                                                    echo 'selected';
                                                 } ?> value="night">Night</option>
                                     </select>
                                 </div>
@@ -38,14 +42,14 @@
                                         ?>
                                             <option <?php if ($operator['id'] == auth()->id) {
                                                         echo 'selected';
-                                                    } elseif ($shift_day['operator_id'] == $operator['id']) {
+                                                    } elseif ($default_shift['operator_id'] == $operator['id']) {
                                                         echo 'selected';
                                                     } ?> value="<?= $operator['id'] ?>"><?= $operator['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
-                                    <input type="hidden" name="operator_id" value="<?= $shift_day['operator_id'] ?>" />
+                                    <input type="hidden" name="operator_id" value="<?= $default_shift['operator_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Assistant Operator 1</label>
@@ -53,14 +57,14 @@
                                         <?php
                                         foreach ($assistants as $assistant) {
                                         ?>
-                                            <option <?php if ($shift_day['assistant1_id'] == $assistant['id']) {
+                                            <option <?php if ($default_shift['assistant1_id'] == $assistant['id']) {
                                                         echo 'selected';
                                                     } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
-                                    <input type="hidden" name="assistant1_id" value="<?= $shift_day['assistant1_id'] ?>" />
+                                    <input type="hidden" name="assistant1_id" value="<?= $default_shift['assistant1_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Assistant Operator 2</label>
@@ -68,14 +72,14 @@
                                         <?php
                                         foreach ($assistants as $assistant) {
                                         ?>
-                                            <option <?php if ($shift_day['assistant2_id'] == $assistant['id']) {
+                                            <option <?php if ($default_shift['assistant2_id'] == $assistant['id']) {
                                                         echo 'selected';
                                                     } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
-                                    <input type="hidden" name="assistant2_id" value="<?= $shift_day['assistant2_id'] ?>" />
+                                    <input type="hidden" name="assistant2_id" value="<?= $default_shift['assistant2_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Assistant Operator 3</label>
@@ -83,14 +87,14 @@
                                         <?php
                                         foreach ($assistants as $assistant) {
                                         ?>
-                                            <option <?php if ($shift_day['assistant3_id'] == $assistant['id']) {
+                                            <option <?php if ($default_shift['assistant3_id'] == $assistant['id']) {
                                                         echo 'selected';
                                                     } ?> value="<?= $assistant['id'] ?>"><?= $assistant['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
-                                    <input type="hidden" name="assistant3_id" value="<?= $shift_day['assistant3_id'] ?>" />
+                                    <input type="hidden" name="assistant3_id" value="<?= $default_shift['assistant3_id'] ?>" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Supervisor</label>

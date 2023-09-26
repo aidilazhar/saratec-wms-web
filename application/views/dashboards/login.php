@@ -59,7 +59,7 @@
                     <div class="col-12">
                         <div class="login-card login-dark">
                             <div>
-                                <div><a class="logo" href="index.html"><img class="img-fluid for-light" src="<?= base_url("assets/images/logo/logo.png") ?>" alt="looginpage"><img class="img-fluid for-dark" src="<?= base_url("assets/images/logo/logo_dark.png") ?>" alt="looginpage"></a></div>
+                                <div><a class="logo" href="<?= base_url($wire_name . '/login') ?>"><img class="img-fluid for-light" src="<?= base_url("assets/images/logo/logo.png") ?>" alt="looginpage"><img class="img-fluid for-dark" src="<?= base_url("assets/images/logo/logo_dark.png") ?>" alt="looginpage"></a></div>
                                 <div class="login-main">
                                     <form class="theme-form" method="POST" action="<?= base_url($wire_name . '/unlock') ?>">
                                         <h4>Unlock Dashboard</h4>

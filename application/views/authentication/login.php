@@ -42,7 +42,7 @@
                 <div class="login-card login-dark" style="background-size: contain;">
                     <div>
                         <div>
-                            <a class="logo" href="index.html"><img class="img-fluid for-light" src="<?= asset_url('images/logo/logo.png') ?>" alt="looginpage">
+                            <a class="logo" href="<?= base_url() ?>"><img class="img-fluid for-light" src="<?= asset_url('images/logo/logo.png') ?>" alt="looginpage">
                                 <img class="img-fluid for-dark" src="<?= asset_url('images/logo/logo.png') ?>" alt="looginpage">
                             </a>
                         </div>

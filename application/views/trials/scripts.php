@@ -1,3 +1,9 @@
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 <script>
     var length = [10, 25, 50, 100];
     var data_table = $('.trials-datatable').DataTable({
@@ -5,7 +11,29 @@
             length,
             length
         ],
-        dom: '<"wrapper"fl>tip',
+        dom: 'B<"wrapper"fl>tip',
+        buttons: [{
+                extend: 'excel',
+                text: 'Excel',
+                title: 'Wire Usage Records - <?= $wire['name'] ?>',
+                className: 'btn btn-success',
+                exportOptions: {
+                    columns: [
+                        'th:not(:last-child)'
+                    ]
+                },
+            },
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                text: 'PDF',
+                title: 'Wire Usage Records - <?= $wire['name'] ?>',
+                className: 'btn btn-success',
+                exportOptions: {
+                    columns: [':visible :not(:last-child)']
+                }
+            },
+        ],
         responsive: true,
         processing: true,
         serverSide: true,
@@ -405,42 +433,49 @@
         });
     });
 </script>
-<script>
-    $(document).on('change', '.shift-options', function() {
-        let day = {
-            operator_id: '<?= $shift_day['operator_id'] ?>',
-            assistant1_id: '<?= $shift_day['assistant1_id'] ?>',
-            assistant2_id: '<?= $shift_day['assistant2_id'] ?>',
-            assistant3_id: '<?= $shift_day['assistant3_id'] ?>',
-        }
 
-        let night = {
-            operator_id: '<?= $shift_night['operator_id'] ?>',
-            assistant1_id: '<?= $shift_night['assistant1_id'] ?>',
-            assistant2_id: '<?= $shift_night['assistant2_id'] ?>',
-            assistant3_id: '<?= $shift_night['assistant3_id'] ?>',
-        }
+<?php
 
-        if ($(this).val() == 'night') {
-            $('.operator-id').val(night.operator_id)
-            $('.assistant1-id').val(night.assistant1_id)
-            $('.assistant2-id').val(night.assistant2_id)
-            $('.assistant3-id').val(night.assistant3_id)
+if (isset($default_shift)) {
+?>
+    <script>
+        $(document).on('change', '.shift-options', function() {
+            let day = {
+                operator_id: '<?= $shift_day['operator_id'] ?>',
+                assistant1_id: '<?= $shift_day['assistant1_id'] ?>',
+                assistant2_id: '<?= $shift_day['assistant2_id'] ?>',
+                assistant3_id: '<?= $shift_day['assistant3_id'] ?>',
+            }
 
-            $('input[name=operator_id]').val(night.operator_id)
-            $('input[name=assistant1_id]').val(night.assistant1_id)
-            $('input[name=assistant2_id]').val(night.assistant2_id)
-            $('input[name=assistant3_id]').val(night.assistant3_id)
-        } else {
-            $('.operator-id').val(day.operator_id)
-            $('.assistant1-id').val(day.assistant1_id)
-            $('.assistant2-id').val(day.assistant2_id)
-            $('.assistant3-id').val(day.assistant3_id)
+            let night = {
+                operator_id: '<?= $shift_night['operator_id'] ?>',
+                assistant1_id: '<?= $shift_night['assistant1_id'] ?>',
+                assistant2_id: '<?= $shift_night['assistant2_id'] ?>',
+                assistant3_id: '<?= $shift_night['assistant3_id'] ?>',
+            }
 
-            $('input[name=operator_id]').val(day.operator_id)
-            $('input[name=assistant1_id]').val(day.assistant1_id)
-            $('input[name=assistant2_id]').val(day.assistant2_id)
-            $('input[name=assistant3_id]').val(day.assistant3_id)
-        }
-    });
-</script>
+            if ($(this).val() == 'night') {
+                $('.operator-id').val(night.operator_id)
+                $('.assistant1-id').val(night.assistant1_id)
+                $('.assistant2-id').val(night.assistant2_id)
+                $('.assistant3-id').val(night.assistant3_id)
+
+                $('input[name=operator_id]').val(night.operator_id)
+                $('input[name=assistant1_id]').val(night.assistant1_id)
+                $('input[name=assistant2_id]').val(night.assistant2_id)
+                $('input[name=assistant3_id]').val(night.assistant3_id)
+            } else {
+                $('.operator-id').val(day.operator_id)
+                $('.assistant1-id').val(day.assistant1_id)
+                $('.assistant2-id').val(day.assistant2_id)
+                $('.assistant3-id').val(day.assistant3_id)
+
+                $('input[name=operator_id]').val(day.operator_id)
+                $('input[name=assistant1_id]').val(day.assistant1_id)
+                $('input[name=assistant2_id]').val(day.assistant2_id)
+                $('input[name=assistant3_id]').val(day.assistant3_id)
+            }
+        });
+    </script>
+<?php
+}

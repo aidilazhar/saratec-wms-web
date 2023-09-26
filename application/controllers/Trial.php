@@ -72,12 +72,10 @@ class Trial extends CI_Controller
         $drums = $this->Drum_model->list();
         $operators = $this->User_model->list([$company['id']], [ROLE_OPERATOR]);
         $assistants = $this->User_model->list([$company['id']], [ROLE_OPERATOR_ASSISTANT]);
-
         $package = $this->Package_model->details($wire['package_id']);
         $shift = $this->Package_model->details($wire['package_id']);
-
-        $shift_day = $this->Shift_model->details($package['id'], 'day');
-        $shift_night = $this->Shift_model->details($package['id'], 'night');
+        $temp_shift_day = $shift_day = $this->Shift_model->details($package['id'], 'day');
+        $temp_shift_night = $shift_night = $this->Shift_model->details($package['id'], 'night');
         $has_shift_night = true;
 
         if ($shift_night == null) {
@@ -90,7 +88,17 @@ class Trial extends CI_Controller
             ];
         }
 
-        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'wire', 'wells', 'package', 'assistants', 'shift_day', 'shift_night', 'has_shift_night'));
+        $default_shift = [];
+        unset($temp_shift_day['id'], $temp_shift_day['shift']);
+        unset($temp_shift_night['id'], $temp_shift_night['shift']);
+
+        if (in_array(auth()->id, $temp_shift_night)) {
+            $default_shift = $temp_shift_night;
+        } else {
+            $default_shift = $temp_shift_day;
+        }
+
+        $this->load->view('master/index', compact('page', 'last_supervisor', 'operators', 'clients', 'packages', 'job_types', 'drums', 'wire_id', 'wire', 'wells', 'package', 'assistants', 'shift_day', 'shift_night', 'has_shift_night', 'default_shift'));
     }
 
     public function store($wire_id)

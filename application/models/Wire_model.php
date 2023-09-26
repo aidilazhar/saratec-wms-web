@@ -33,7 +33,7 @@ class Wire_model extends CI_Model
         $this->db->select('*');
         $this->db->from('wires');
         if (!empty(auth())) {
-            if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR) {
+            if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR || auth()->role_id == ROLE_OPERATOR_ASSISTANT) {
                 $this->db->where('company_id', auth()->company_id);
             }
         }
