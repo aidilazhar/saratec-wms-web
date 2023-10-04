@@ -169,7 +169,6 @@
     .job-container {
         width: 100%;
         position: relative;
-        overflow: hidden;
         white-space: nowrap;
         animation: slideToLeft 30s linear infinite;
     }
