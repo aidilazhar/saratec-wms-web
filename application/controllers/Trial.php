@@ -92,7 +92,7 @@ class Trial extends CI_Controller
         unset($temp_shift_day['id'], $temp_shift_day['shift']);
         unset($temp_shift_night['id'], $temp_shift_night['shift']);
 
-        if (in_array(auth()->id, $temp_shift_night)) {
+        if ($has_shift_night && in_array(auth()->id, $temp_shift_night)) {
             $default_shift = $temp_shift_night;
         } else {
             $default_shift = $temp_shift_day;
