@@ -410,6 +410,13 @@ class Trial_model extends CI_Model
         $this->db->join('job_types as job_types', 'job_types.id = trials.job_type_id');
         $this->db->join('wells as wells', 'wells.id = trials.well_id');
         $this->db->join('packages as packages', 'packages.id = trials.package_id');
+        $this->db->join('clients as clients', 'clients.id = trials.client_id');
+        $this->db->join('companies as companies', 'companies.id = clients.company_id');
+        if (!empty(auth())) {
+            if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR || auth()->role_id == ROLE_OPERATOR_ASSISTANT) {
+                $this->db->where('companies.id', auth()->company_id);
+            }
+        }
         $this->db->order_by('trials.id', 'desc');
         $this->db->group_by('trials.package_id', 'desc');
         $results = $this->db->get()->result_array();
