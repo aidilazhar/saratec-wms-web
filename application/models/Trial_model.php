@@ -420,7 +420,8 @@ class Trial_model extends CI_Model
         $this->db->where('id IN (SELECT MAX(id) FROM trials GROUP BY package_id)', NULL, FALSE);
         $this->db->group_by('trials.package_id');
         $this->db->order_by('trials.id', 'desc');
-        $results = $this->db->get()->result_array();
+        $results = $this->db->get();
+        return $results->error();
 
         return $results;
     }
