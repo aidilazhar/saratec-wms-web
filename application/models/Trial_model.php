@@ -405,7 +405,7 @@ class Trial_model extends CI_Model
 
     public function jobs()
     {
-        $this->db->select('job_types.name as job_type_name, wells.name as well_name, packages.name as package_name, trials.job_status as status');
+        $this->db->select('MAX(trials.issued_at) as datetime, job_types.name as job_type_name, wells.name as well_name, packages.name as package_name, trials.job_status as status');
         $this->db->from('trials as trials');
         $this->db->join('job_types as job_types', 'job_types.id = trials.job_type_id');
         $this->db->join('wells as wells', 'wells.id = trials.well_id');
