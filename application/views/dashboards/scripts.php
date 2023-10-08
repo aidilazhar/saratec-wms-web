@@ -527,6 +527,11 @@
                 "data": "job_status",
                 "orderable": true,
             },
+            {
+                "targets": 24,
+                "data": "created_at",
+                "orderable": true,
+            },
         ]
     });
 
