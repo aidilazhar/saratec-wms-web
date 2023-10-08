@@ -417,11 +417,10 @@ class Trial_model extends CI_Model
                 $this->db->where('companies.id', auth()->company_id);
             }
         }
-        $this->db->where('id IN (SELECT MAX(id) FROM trials GROUP BY package_id)', NULL, FALSE);
-        $this->db->order_by('trials.issued_at', 'desc');
+        $this->db->group_by('trials.package_id');
+        $this->db->order_by('trials.id', 'desc');
         $results = $this->db->get()->result_array();
 
-        return $this->db->error();
         return $results;
     }
 }
