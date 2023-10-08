@@ -384,7 +384,8 @@ class General extends CI_Controller
 
         foreach ($results as $key => $result) {
             $results[$key]['hash_id'] = encode($result['id']);
-            //$results[$key]['issued_at'] = date('d M Y', strtotime($result['issued_at']));
+            $results[$key]['issued_at'] = date('d M Y', strtotime($result['issued_at']));
+            $results[$key]['created_at'] = date('d M Y h:i A', strtotime($result['created_at']));
             $results[$key]['actions'] = '<a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/' . encode($result['id'])) . '" class="view mx-2">View</a><a href="' . base_url('wires/' . encode($result['wire_id']) . '/trials/edit/' . encode($result['id'])) . '" class="edit mx-2">Edit</a>';
         }
 
