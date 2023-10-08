@@ -421,6 +421,7 @@ class Trial_model extends CI_Model
         $this->db->order_by('trials.issued_at', 'desc');
         $results = $this->db->get()->result_array();
 
+        return $this->db->error();
         return $results;
     }
 }
