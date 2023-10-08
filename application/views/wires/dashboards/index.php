@@ -250,7 +250,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Wire Laser OD and Lab Test Status</h5>
+                    <h5>Task Planning</h5>
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive">
