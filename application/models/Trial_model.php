@@ -421,7 +421,6 @@ class Trial_model extends CI_Model
         $this->db->group_by('trials.package_id');
         $this->db->order_by('trials.id', 'desc');
         $results = $this->db->get();
-        return $this->db->error();;
 
         return $results;
     }
