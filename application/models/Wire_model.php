@@ -28,13 +28,19 @@ class Wire_model extends CI_Model
         $this->appends = [];
     }
 
-    public function list()
+    public function list($user_id = null)
     {
+        if ($user_id == null) {
+            $user = $this->User_model->details($user_id);
+        } else {
+            $user = auth();
+        }
+
         $this->db->select('*');
         $this->db->from('wires');
-        if (!empty(auth())) {
-            if (auth()->role_id == ROLE_COMPANY || auth()->role_id == ROLE_OPERATOR || auth()->role_id == ROLE_OPERATOR_ASSISTANT) {
-                $this->db->where('company_id', auth()->company_id);
+        if (!empty($user)) {
+            if ($user['role_id'] == ROLE_COMPANY || $user['role_id'] == ROLE_OPERATOR || $user['role_id'] == ROLE_OPERATOR_ASSISTANT) {
+                $this->db->where('company_id', $user['company_id']);
             }
         }
 

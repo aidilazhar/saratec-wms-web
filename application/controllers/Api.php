@@ -244,7 +244,8 @@ class Api extends CI_Controller
 
     public function masterDashboard()
     {
-        $wires = $this->Wire_model->list();
+        $user_id = $this->input->post('user_id');
+        $wires = $this->Wire_model->list($user_id);
 
         $data = [];
         foreach ($wires as $key => $wire) {
