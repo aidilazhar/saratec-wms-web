@@ -407,9 +407,12 @@ class Trial_model extends CI_Model
     {
         $this->db->select('trials.issued_at as datetime, job_types.name as job_type_name, wells.name as well_name, packages.name as package_name, trials.job_status as status');
         $this->db->from('trials as trials');
+        $this->db->join('wires as wires', 'wires.id = trials.wire_id');
         $this->db->join('job_types as job_types', 'job_types.id = trials.job_type_id');
         $this->db->join('wells as wells', 'wells.id = trials.well_id');
         $this->db->join('packages as packages', 'packages.id = trials.package_id');
+        $this->db->where('wires.is_deleted', 0);
+        $this->db->where('packages.is_deleted', 0);
         $this->db->order_by('trials.id', 'desc');
         $this->db->group_by('trials.package_id', 'desc');
         $results = $this->db->get()->result_array();

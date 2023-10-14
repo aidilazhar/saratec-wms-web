@@ -30,7 +30,7 @@
                 ?>
                     <span class="f-w-600 mb-2 d-block">Assignment:</span>
                     <p>
-                        <b>Job #:</b> Pkg #2<br>
+                        <b>Job #:</b> <?= $shift['package']['name'] ?><br>
                         <b>Shift:</b> <?= ucwords($shift['shift']) ?><br>
                         <b>Operator:</b> <?= $shift['operator_id_data']['name'] ?><br>
                         <b>Assistance 1:</b> <?= $shift['assistant1_id_data']['name'] ?><br>

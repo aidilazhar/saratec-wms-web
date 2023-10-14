@@ -114,7 +114,7 @@
                         <span class="">Average Tension</span>
                         <small class="d-block f-light">Exclude Spooling</small>
                         <div class="d-flex align-items-end gap-1">
-                            <h4><?= number_format($dashboard['average_tension']) ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
+                            <h4><?= $dashboard['average_tension'] ?></h4><span class="font-primary f-12 f-w-500"><span>lbs</span></span>
                         </div>
                     </div>
                 </div>

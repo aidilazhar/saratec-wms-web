@@ -17,8 +17,8 @@
                                     <label class="col-form-label pt-0">Shift</label>
                                     <select required name="shift" class="form-select shift-options">
                                         <option <?php if ($trial['shift'] == 'day') {
-                                                    echo 'disabled';
-                                                } ?> selected value="day">Day</option>
+                                                    echo 'selected';
+                                                } ?> value="day">Day</option>
                                         <option <?php if (!$has_shift_night) {
                                                     echo 'disabled ';
                                                 }
@@ -155,20 +155,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">Pull Test Value</label>
-                                    <select required name="pull_test" class="form-control">
-                                        <option <?php if ($trial['pull_test'] == 'N/A') {
-                                                    echo 'selected';
-                                                } ?>>N/A</option>
-                                        <option <?php if ($trial['pull_test'] == '0 - 999 lbs') {
-                                                    echo 'selected';
-                                                } ?>>0 - 999 lbs</option>
-                                        <option <?php if ($trial['pull_test'] == '1,000 - 1,999 lbs') {
-                                                    echo 'selected';
-                                                } ?>>1,000 - 1,999 lbs</option>
-                                        <option <?php if ($trial['pull_test'] == '2,000 - 2,999 lbs') {
-                                                    echo 'selected';
-                                                } ?>>2,000 - 2,999 lbs</option>
-                                    </select>
+                                    <input required name="pull_test" value="<?= $trial['pull_test'] ?>" class="form-control" type="number" placeholder="Enter pull test value" min="0" max="9999">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label pt-0">X (inches)</label>
@@ -245,8 +232,8 @@
                                     <?php
                                     if (!is_null($trial['smart_monitor_id'])) {
                                     ?>
-                                        <a target="_blank" href="<?= temp_url($trial['smart_monitors']['url']) ?>">
-                                            <p class="mb-0"><?= $trial['smart_monitors']['name'] ?></p>
+                                        <a target="_blank" href="<?= temp_url($trial['smart_monitor_url']) ?>">
+                                            <p class="mb-0"><?= $trial['smart_monitor_name'] ?></p>
                                         </a>
                                     <?php
                                     }

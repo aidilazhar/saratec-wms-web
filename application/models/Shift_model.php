@@ -83,10 +83,13 @@ class Shift_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('shifts');
+        $this->db->where('is_deleted', 0);
+        $this->db->group_start();
         $this->db->where('operator_id', $user_id);
         $this->db->or_where('assistant1_id', $user_id);
         $this->db->or_where('assistant2_id', $user_id);
         $this->db->or_where('assistant3_id', $user_id);
+        $this->db->group_end();
         $results = $this->db->get()->result_array();
 
         $array = [

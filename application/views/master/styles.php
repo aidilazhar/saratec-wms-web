@@ -171,7 +171,7 @@
         position: relative;
         overflow: hidden;
         white-space: nowrap;
-        animation: slideToLeft 30s linear infinite;
+        animation: slideToLeft 25s linear infinite;
     }
 
     .job-span {

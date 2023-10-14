@@ -74,6 +74,7 @@ class Broadcast_model extends CI_Model
         $this->db->from('broadcasts');
         $this->db->where('is_deleted', 0);
         $this->db->where('created_at >', $twoMonthsAgo);
+        $this->db->order_by('created_at', 'DESC');
         $results = $this->db->get()->result_array();
 
         return $results;
