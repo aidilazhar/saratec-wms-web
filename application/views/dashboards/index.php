@@ -325,6 +325,7 @@
                                     <th>Smart Monitor</th>
                                     <th>Remarks</th>
                                     <th>Job Status</th>
+                                    <th>Created At</th>
                                 </tr>
                             </thead>
                         </table>
@@ -521,6 +522,14 @@
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="23" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Job Status</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="24" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Created At</label>
                     </div>
                 </div>
             </div>

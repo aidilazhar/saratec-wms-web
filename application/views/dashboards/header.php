@@ -29,10 +29,10 @@ if ($this->uri->segment(2) == 'third-party-data') {
                     <a class="nav-link <?= $dashboard ?> text-center" href="<?= base_url($wire_name . "/dashboard/") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Dashboard</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
-                    <a class="nav-link <?= $material_certifications ?> text-center" href="<?= base_url($wire_name . "/material-certifications") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Material Certifications</a>
+                    <a class="nav-link <?= $material_certifications ?> text-center" href="<?= base_url($wire_name . "/material-certifications") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Certificates</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
-                    <a class="nav-link <?= $reports ?> text-center" href="<?= base_url($wire_name . "/other-reports/") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Inspection and Other Reports</a>
+                    <a class="nav-link <?= $reports ?> text-center" href="<?= base_url($wire_name . "/other-reports/") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Reports</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
                     <a class="nav-link <?= $third_party_data ?> text-center" href="<?= base_url($wire_name . "/third-party-data/") ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Data Log</a>

@@ -24,7 +24,7 @@
                         foreach ($profile['jobs'] as $key => $job) {
                         ?>
                             <span class="job-span">
-                                <?= $job['package_name'] ?>: <?= date('d/m/Y, h:i A', strtotime($job['datetime'])) ?> <?= $job['well_name'] ?> - <?= $job['job_type_name'] ?>
+                                <?= $job['package_name'] ?>: <?= date('d/m/Y, h:i A', strtotime($job['issued_at'])) ?> <?= $job['well_name'] ?> - <?= $job['job_type_name'] ?>
                             </span>
                         <?php
                         }

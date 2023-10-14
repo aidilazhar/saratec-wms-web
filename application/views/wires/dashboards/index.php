@@ -250,7 +250,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Wire Laser OD and Lab Test Status</h5>
+                    <h5>Task Planning</h5>
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive">
@@ -295,7 +295,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Create At</th>
+                                    <th>Job Date</th>
                                     <th>Operator</th>
                                     <th>Assistant 1</th>
                                     <th>Assistant 2</th>
@@ -318,6 +318,7 @@
                                     <th>Smart Monitor</th>
                                     <th>Remarks</th>
                                     <th>Job Status</th>
+                                    <th>Created At</th>
                                 </tr>
                             </thead>
                         </table>
@@ -514,6 +515,14 @@
                             <input class="form-check-input mt-0 filter-column" type="checkbox" value="23" aria-label="Checkbox for following text input">
                         </div>
                         <label class="form-check-label mt-2" style="color: black !important;">Job Status</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group rounded-0 border-0 shadow-none">
+                        <div class="input-group-text">
+                            <input class="form-check-input mt-0 filter-column" type="checkbox" value="24" aria-label="Checkbox for following text input">
+                        </div>
+                        <label class="form-check-label mt-2" style="color: black !important;">Created At</label>
                     </div>
                 </div>
             </div>

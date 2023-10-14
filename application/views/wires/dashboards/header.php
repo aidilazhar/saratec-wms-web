@@ -35,10 +35,10 @@ if ($from == 'index') {
                     <a class="nav-link <?= $dashboard ?> text-center" href="<?= base_url("wires/dashboard/" . encode($wire['id'])) . '/' . $url ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Dashboard</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
-                    <a class="nav-link  <?= $material_certifications ?> text-center" href="<?= base_url("wires/dashboard/material-certifications/" . encode($wire['id']) . '/' . $url) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Material Certifications</a>
+                    <a class="nav-link  <?= $material_certifications ?> text-center" href="<?= base_url("wires/dashboard/material-certifications/" . encode($wire['id']) . '/' . $url) ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Certificates</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
-                    <a class="nav-link  <?= $reports ?> text-center" href="<?= base_url("wires/dashboard/other-reports/" . encode($wire['id'])) . '/' . $url ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Inspection and Other Reports</a>
+                    <a class="nav-link  <?= $reports ?> text-center" href="<?= base_url("wires/dashboard/other-reports/" . encode($wire['id'])) . '/' . $url ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Reports</a>
                 </li>
                 <li class="nav-item col-sm-3 text-center">
                     <a class="nav-link  <?= $third_party_data ?> text-center" href="<?= base_url("wires/dashboard/third-party-data/" . encode($wire['id'])) . '/mhsi_/' . $url ?>" role="tab" aria-controls="top-home" aria-selected="false" style="padding: 5px 0 5px 0; display: block">Data Log</a>
